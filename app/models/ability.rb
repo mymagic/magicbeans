@@ -5,6 +5,12 @@ class Ability
     
     user ||= User.new
     
+    if user.is_admin?
+      can :manage, :all
+    else
+      can [:edit, :show], :all
+    end
+    
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
