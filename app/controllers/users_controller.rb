@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     def destroy
         @user.destroy
             respond_to do |format|
-              redirect_to users_url 
+              redirect_to users_url
             end
     end
     
