@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @program.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @program.description %>
+</p>
+
+<p>
+  <strong>Speaker:</strong>
+  <%= @program.speaker %>
+</p>
+
+<p>
+  <strong>Speakerbio:</strong>
+  <%= @program.speakerbio %>
+</p>
+
+<p>
+  <strong>Biourl:</strong>
+  <%= @program.biourl %>
+</p>
+
+<p>
+  <strong>Keytakeways:</strong>
+  <%= @program.keytakeways %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @program.tags %>
+</p>
+
+<p>
+  <strong>Resources:</strong>
+  <%= @program.resources %>
+</p>
+
+<%= link_to 'Edit', edit_program_path(@program) %> |
+<%= link_to 'Back', programs_path %>
