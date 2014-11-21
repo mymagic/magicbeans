@@ -1,0 +1,108 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #EC6E60;
+  color: #26221A;
+}
+
+.push-footer {
+  padding: 20px 0;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+div.footer > div.container > p {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+
+/* Error validations
+-------------------------------------------------- */
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+
+/* Author Meta
+-------------------------------------------------- */
+
+.author-meta > h4, .author-meta > a
+{
+    margin: 0 !important;
+    text-align: center;
+}
+
+.author-meta
+{
+    width: 300px;
+}
+
+@media (min-width: 625px) 
+{
+    .author-meta
+    {
+        width: 466px;
+        
+    }
+    
+    .author-meta > h4, .author-meta > a
+    {
+        display:inline-block;
+        margin-right: 20px !important;
+        text-align: center;
+    }
+}
+
+.input-group-addon.beautify {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+.input-group-addon.beautify.active {
+  color: #fff;
+  background-color: #B02A26;
+  border-color: #ac2925;
+}
+
+.input-group-addon.beautify input[type="checkbox"],
+.input-group-addon.beautify input[type="radio"] {
+    display: none;
+}
