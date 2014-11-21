@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     def show
         @user = User.find(params[:id])
         rescue ActiveRecord::RecordNotFound
-        redirect_to(root_url, :notice => 'Record not found')
+        redirect_to(root_url, flash.now[:error] => 'Record not found')
     end
     
     def edit
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
         respond_to do |format|
           if @user.save
-            redirect_to @user, notice: 'User was successfully created.'
+            redirect_to @user, success: 'User was successfully created.'
           else
             render action: 'new' 
           end
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     def update
         respond_to do |format|
           if @user.update(user_params)
-            redirect_to @user, notice: 'User was successfully updated.' 
+            redirect_to @user, success: 'User was successfully updated.' 
           else
             render action: 'edit' 
           end
