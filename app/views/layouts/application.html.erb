@@ -1,55 +1,27 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Workspace</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title>Magicbeans</title>
+  <link href='https://fonts.googleapis.com/css?family=Bitter|Raleway|Inconsolata' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true, :debug => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true, :debug => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-    
-<nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href = <%= root_path %>>Magic Beans</a></a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav nav-pills navbar-right" role="tablist">
-      <li role="presentation" <%= current_page?(root_path) ? "class=active" : ""%> ><%= link_to 'Home', root_path %></li>
-        <li role="presentation" <%= current_page?(new_user_session_path) ? "class=active" : ""%> >
-            <% if user_signed_in? %>
-          <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
-          <% else %>
-          <%= link_to 'Sign In', new_user_session_path %>
-          <% end %>
-        </li>
-        <li role="presentation" <%= current_page?(new_user_registration_path) ? "class=active" : ""%> ><% if user_signed_in? %>
-          <% nil %>
-          <% else %>
-          <%= link_to 'Register', new_user_registration_path %>
-          <% end %>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
 
-<div class="container-fluid">
-<% flash.each do |type, message| %>
-  <div class="alert <%= bootstrap_class_for(type) %> fade in">
-    <button class="close" data-dismiss="alert">×</button>
-    <%= message %>
-  </div>
-<% end %>
+<%= render 'layouts/navbar' %>
+
+<!-- the container -->
+<div class="container">
+
+  <!-- render the flash type (success, error et cetera) messages -->
+    <%= render partial: "shared/flash_messages", flash: flash %> 
+    
+    <!-- yield the content -->
+    <%= yield %>
 </div>
 
-<%= yield %>
-
+<!-- render the footer partial -->
+<%= render 'layouts/footer' %>
 </body>
 </html>
