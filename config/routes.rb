@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  resources :users
+  resources :users, only: [:index, :show]
   
   get 'staticpages/welcome' => 'static_pages#welcome'
 
