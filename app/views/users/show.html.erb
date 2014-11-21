@@ -15,14 +15,7 @@
             </ul>
         </div>
         
-        <% 
-        if is_admin? 
-            link_to 'Edit', edit_user_registration_path(@user), class: "btn btn-sm btn-warning"
-            return_link = users_path
-        else
-            return_link = root_path
-        end
-        %>
-        <%= link_to 'Back', return_link, class: "btn btn-sm btn-default" %>
+        <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-sm btn-warning" %>
+        <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
     </div>
 </section>
