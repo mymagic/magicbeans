@@ -3,6 +3,12 @@ class UsersController < ApplicationController
     load_and_authorize_resource
     def new
         @user = User.new
+        @roles = Role.all
+
+        respond_to do |format|
+          format.html # new.html.erb
+          format.json { render json: @user }
+        end
     end
     
     def index
@@ -17,10 +23,16 @@ class UsersController < ApplicationController
     
     def edit
         @user = User.find(params[:id])
+        @roles = Role.all
     end
     
     def create
         @user = User.new(user_params)
+        roles = params[:roles]
+        @user.roles.delete_all
+        roles.each do |rn|
+            @user.add_role(rn)
+        end
 
         if @user.save
             redirect_to @user, success: 'User was successfully created.'
@@ -30,11 +42,20 @@ class UsersController < ApplicationController
     end
     
     def update
-      if @user.update(user_params)
-        redirect_to @user, success: 'User was successfully updated.'
-      else
-        render action: 'edit'
-      end
+        if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+            params[:user].delete(:password)
+            params[:user].delete(:password_confirmation)
+        end
+        if @user.update(user_params)
+            roles = params[:roles]
+            @user.roles.delete_all
+            roles.each do |rn|
+                @user.add_role(rn)
+            end
+            redirect_to @user, success: 'User was successfully updated.'
+        else
+            render action: 'edit'
+        end
     end
     
     def destroy
