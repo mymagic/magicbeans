@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
+
   default_url_options :host => "0.0.0.0", :port => 3000
   resources :users, only: [:index, :show, :edit, :update, :new, :create, :destroy]
   devise_for :users, :path => '', :path_names => {:sign_in => 'sign_in', :sign_out => 'sign_out', :sign_up => 'sign_up'}
-  
+  resources :programs
   resources :tweets
   root 'static_pages#welcome'
 
