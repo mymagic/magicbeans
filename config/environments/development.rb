@@ -34,16 +34,15 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  config.action_mailer.default_url_options = {:host => "https://magicbeans-jeva-3.c9.io"}
   
-    config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-  :user_name => ENV['MAILTRAPUSERNAME'],
-  :password => ENV['MAILTRAPPASSWORD'],
-  :address => 'mailtrap.io',
-  :domain => 'mailtrap.io',
-  :port => '2525',
-  :authentication => :cram_md5
-}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV['MAILTRAPUSERNAME'],
+    :password => ENV['MAILTRAPPASSWORD'],
+    :address => 'mailtrap.io',
+    :domain => 'mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
   
 end
