@@ -7,6 +7,8 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>IC Number</th>
+                <th>HP Number</th>
                 <th>Email</th>
                 <th>Actions</th>
             </tr>
@@ -16,10 +18,12 @@
         <% @users.each do |user| %>
             <tr>
                 <td><%= user.name %></td>
+                <td><%= user.ic %></td>
+                <td><%= user.phone %></td>
                 <td><%= user.email %></td>
                 <td>
                     <%= link_to 'Show', user, class:"btn btn-sm btn-info" %>
-                    <%= link_to 'Edit',  edit_user_registration_path(user), class:"btn btn-sm btn-warning" %>
+                    <%= link_to 'Edit',  edit_user_path(user), class:"btn btn-sm btn-warning" %>
                     <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %>
                 </td>
             </tr>
@@ -28,4 +32,4 @@
   </table>
 </div>
 
-<%= link_to 'New User', new_user_registration_path, class: "btn btn-sm btn-success" %>
+<%= link_to 'New User', new_user_path, class: "btn btn-sm btn-success" %>

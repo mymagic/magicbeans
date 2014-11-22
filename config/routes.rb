@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-  resources :users, only: [:index, :show]
-  
-  get 'staticpages/welcome' => 'static_pages#welcome'
+  default_url_options :host => "0.0.0.0", :port => 3000
+  resources :users, only: [:index, :show, :edit, :update, :new, :create, :destroy]
+  devise_for :users, :path => '', :path_names => {:sign_in => 'sign_in', :sign_out => 'sign_out', :sign_up => 'sign_up'}
+
+  root 'static_pages#welcome'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'static_pages#welcome'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
