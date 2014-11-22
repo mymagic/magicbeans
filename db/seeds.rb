@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Role.create(name: 'Admin')
+User.create(name: 'Admin', email: 'admin@magicbeans.com', password: 'password', password_confirmation: 'password', confirmed_at: Time.now)
+User.find_by_id(1).roles.push(Role.find_by_name('Admin'))

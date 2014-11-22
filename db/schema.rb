@@ -11,7 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121110038) do
+ActiveRecord::Schema.define(version: 20141121201154) do
+
+  create_table "programs", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "speaker"
+    t.string   "speakerbio"
+    t.string   "biourl"
+    t.string   "keytakeways"
+    t.string   "tags"
+    t.string   "resources"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", force: true do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+  end
+
+  add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id"
+  add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -29,6 +56,11 @@ ActiveRecord::Schema.define(version: 20141121110038) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_out"
+    t.string   "unconfirmed_email"
+    t.string   "confirmation_token"
+    t.datetime "confirmation_sent_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
