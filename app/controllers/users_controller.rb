@@ -29,9 +29,13 @@ class UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         roles = params[:roles]
+        if !@user.roles.empty?
         @user.roles.delete_all
-        roles.each do |rn|
-            @user.add_role(rn)
+        end
+        if !roles.blank?
+            roles.each do |rn|
+                @user.add_role(rn)
+        end
         end
 
         if @user.save
@@ -47,11 +51,15 @@ class UsersController < ApplicationController
             params[:user].delete(:password_confirmation)
         end
         if @user.update(user_params)
-            roles = params[:roles]
+            if !@user.roles.empty?
             @user.roles.delete_all
+            end
+            roles = params[:roles]
+            if !roles.blank?
             roles.each do |rn|
                 @user.add_role(rn)
             end
+        end
             redirect_to @user, success: 'User was successfully updated.'
         else
             render action: 'edit'
