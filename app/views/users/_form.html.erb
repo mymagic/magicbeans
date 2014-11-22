@@ -38,8 +38,16 @@
 
 
     <div class="col-md-6 col-lg-5">
-      <h3>Associations</h3>
+      <h3>Roles</h3>
       <div class="well" id="nested-well">
+        <%  Role.all.each do |t|  %>
+          <%= f.label t.name  %>
+          <% checkbox = false %>
+          <% if @user.has_role?(t.name) %>
+          <% checkbox = true %>
+          <% end %>
+          <%= check_box_tag "roles[]", t.name, checkbox %>
+        <% end %>
       </div>
     </div>
 </div>
@@ -53,7 +61,7 @@
       </div>
       <% if is_admin? %>
       <div class="form-group pull-right">
-        <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
+        <%= link_to 'Back', users_path, class: "btn btn-sm btn-default" %>
       </div>
       <% end %>
     <% else %> <!-- else show an update button -->
@@ -62,7 +70,14 @@
       </div>
       <div class="form-group pull-right"> <!-- include the show, and back button if user is to be updated -->
         <%= link_to 'Show', @user, class: "btn btn-sm btn-info" %>
-        <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
+
+      <% if is_admin? %>
+          <%= link_to 'Back', users_path, class: "btn btn-sm btn-default" %>
+        </div>
+      <% else %>
+          <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
+        </div>
+      <% end %>
       </div>
     <% end %>
   </div>

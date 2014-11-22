@@ -13,8 +13,4 @@ module ApplicationHelper
 	        flash_type.to_s
 	    end
 	end
-	
-	def is_admin?
-        user_signed_in?
-    end
 end
