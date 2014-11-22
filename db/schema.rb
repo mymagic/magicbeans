@@ -13,6 +13,19 @@
 
 ActiveRecord::Schema.define(version: 20141121201154) do
 
+  create_table "programs", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "speaker"
+    t.string   "speakerbio"
+    t.string   "biourl"
+    t.string   "keytakeways"
+    t.string   "tags"
+    t.string   "resources"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -26,19 +39,6 @@ ActiveRecord::Schema.define(version: 20141121201154) do
 
   add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id"
   add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id"
-
-  create_table "programs", force: true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "speaker"
-    t.string   "speakerbio"
-    t.string   "biourl"
-    t.string   "keytakeways"
-    t.string   "tags"
-    t.string   "resources"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", force: true do |t|
     t.string   "name"

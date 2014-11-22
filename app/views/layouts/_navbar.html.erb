@@ -13,7 +13,9 @@
 	  <ul class="nav navbar-nav">
 		<li <%= current_page?(root_path)? "class=active" : "" %> ><a href="<%= root_path %>">Home</a></li>
 		<% if is_admin? %>
-		<li <%= current_page?(users_path)? "class=active" : "" %>><a href="<%= users_path %>">Users Index</a></li>
+
+		<li <%= current_page?(programs_path)? "class=active" : "" %>><a href="<%= programs_path %>">Programs</a></li>
+		<li <%= current_page?(users_path)? "class=active" : "" %>><a href="<%= users_path %>">Users</a></li>
 		<% end %>
 	  </ul>
 	  
