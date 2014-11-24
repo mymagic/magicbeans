@@ -11,21 +11,6 @@
 </p>
 
 <p>
-  <strong>Speaker:</strong>
-  <%= @program.speaker %>
-</p>
-
-<p>
-  <strong>Speakerbio:</strong>
-  <%= @program.speakerbio %>
-</p>
-
-<p>
-  <strong>Biourl:</strong>
-  <%= @program.biourl %>
-</p>
-
-<p>
   <strong>Keytakeways:</strong>
   <%= @program.keytakeways %>
 </p>
@@ -40,5 +25,9 @@
   <%= @program.resources %>
 </p>
 
-<%= link_to 'Edit', edit_program_path(@program) %> |
+
+ <%= link_to 'Add',new_activity_path%>
+
+<%= link_to 'Show', program_path(@program) %>
+<%= link_to 'Edit', edit_program_path(@program) %> 
 <%= link_to 'Back', programs_path %>

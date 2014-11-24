@@ -1,0 +1,96 @@
+<%= form_for(@activity, :html => {:class => "form form-horizontal"}) do |f| %>
+    <fieldset>
+      <legend><%= "#{ @activity.name } " unless @activity.name.nil?  %>Program Information</legend>
+      
+      <div class="control-group">
+        <%= f.label(:name, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:name, :class => "input-xlarge") %>
+        </div>
+      </div>
+ 
+      <div class="control-group">
+        <%= f.label(:date, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:date, :class => "input-xlarge") %>
+        </div>
+      </div>
+ 
+      <div class="control-group">
+        <%= f.label(:venue, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:venue, :class => "input-xlarge") %>
+        </div>
+      </div>
+ 
+      <div class="control-group">
+        <%= f.label(:description, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:description, :class => "input-xlarge") %>
+        </div>
+      </div>
+ 
+      <div class="control-group">
+        <%= f.label(:speaker, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:speaker, :class => "input-xlarge") %>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <%= f.label(:speakerbio, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:speakerbio, :class => "input-xlarge") %>
+        </div>
+      </div>
+ 
+      <div class="control-group">
+        <%= f.label(:biolink, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:biolink, :class => "input-xlarge") %>
+        </div>
+      </div>
+ 
+      <div class="control-group">
+        <%= f.label(:keytakeaway, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:keytakeaway, :class => "input-xlarge") %>
+        </div>
+      </div>
+ 
+      <div class="control-group">
+        <%= f.label(:prerequisite, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:prerequisite, :class => "input-xlarge") %>
+        </div>
+      </div>
+ 
+      <div class="control-group">
+        <%= f.label(:maxattendee, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:maxattendee, :class => "input-xlarge") %>
+        </div>
+      </div>
+      
+      
+      <div class="control-group">
+        <%= f.label(:tags, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:tags, :class => "input-xlarge") %>
+        </div>
+      </div>
+ 
+      <div class="control-group">
+        <%= f.label(:resources, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:resources, :class => "input-xlarge") %>
+        </div>
+      </div>
+      
+    </fieldset>
+    
+    <div class="modal-footer">
+      <%= f.submit("Save", :class => "btn btn-primary", :title => "Save the changes to this Program.") %>
+      <%= link_to("Cancel", programs_path, :confirm => "Are you sure you want to cancel?  Any changes will be lost.", :class => "btn btn-inverse", :title => "Cancel the changes and return to the Home page.") %>
+    </div>
+<% end %>

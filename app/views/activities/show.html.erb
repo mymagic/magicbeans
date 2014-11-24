@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @activity.name %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @activity.description %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @activity.description %>
+</p>
+
+<p>
+  <strong>Speaker:</strong>
+  <%= @activity.speaker %>
+</p>
+
+<p>
+  <strong>Speaker Bio:</strong>
+  <%= @activity.speakerbio %>
+</p>
+
+<p>
+  <strong>Bio Link:</strong>
+  <%= @activity.biolink %>
+</p>
+
+<p>
+  <strong>Key Takeaway:</strong>
+  <%= @activity.keytakeaway %>
+</p>
+
+<p>
+  <strong>Prerequisite:</strong>
+  <%= @activity.prerequisite %>
+</p>
+
+<p>
+  <strong>Maximum Attendee:</strong>
+  <%= @activity.maxattendee %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @activity.tags %>
+</p>
+
+<p>
+  <strong>Resources:</strong>
+  <%= @activity.resources %>
+</p>
+
+
+
+ <%= link_to 'Add',new_activity_path%>
+
+<%= link_to 'Show', activity_path(@activity) %>
+<%= link_to 'Edit', edit_activity_path(@activity) %> 
+<%= link_to 'Back', programs_path %>

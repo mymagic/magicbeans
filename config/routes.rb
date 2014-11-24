@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :programs
+  resources :activities
 
   devise_for :users
   resources :users

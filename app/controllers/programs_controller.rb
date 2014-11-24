@@ -9,7 +9,7 @@ class ProgramsController < ApplicationController
   end
 
   def show
-    respond_with(@program)
+    @program = Program.find(params[:id])
   end
 
   def new
@@ -42,6 +42,6 @@ class ProgramsController < ApplicationController
     end
 
     def program_params
-      params.require(:program).permit(:name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources)
+      params.require(:program).permit(:name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources, activities_attributes: [:id, :name, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources])
     end
 end
