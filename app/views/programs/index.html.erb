@@ -29,10 +29,10 @@
                 <td><%= program.keytakeways %></td>
                 <td><%= program.tags %></td>
                 <td><%= program.resources %></td>
-                <td>
-                    <%= link_to 'Show', program, class:"btn btn-sm btn-info" %>
-                    <%= link_to 'Edit',  edit_program_path(program), class:"btn btn-sm btn-warning" %>
-                    <%= link_to 'Destroy', program, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %>
+                <td width="130px">
+                    <%= link_to '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>'.html_safe, program, class:"btn btn-sm btn-info" %>
+                    <%= link_to '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>'.html_safe,  edit_program_path(program), class:"btn btn-sm btn-warning" %>
+                    <%= link_to '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'.html_safe, program, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %>
                 </td>
             </tr>
         <% end %>
