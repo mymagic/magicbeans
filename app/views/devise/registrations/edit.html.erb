@@ -29,7 +29,7 @@
       <div class="form-group pull-left">
         <%= f.submit 'Create account', class: "btn btn-sm btn-primary" %>
       </div>
-      <% if current_user.has_role?('Admin') %>
+      <% if is_admin? %>
       <div class="form-group pull-right">
         <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
       </div>
