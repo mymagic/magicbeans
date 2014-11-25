@@ -17,12 +17,12 @@ function add_field(button, association, content) {
 }
 
 //Remove Field
-// $(document).on('ready page:load', function () {
-//   $("form").on('click', 'span[data-toggle="nestedfield"]', function() {
-//     var checkbox = $(this).children().eq(1);
-//     checkbox.prop('checked', true);
-//     $(this).parent().hide(250, function(){
-//         $(this).hide();
-//       })
-//   });
-// });
+$(document).on('ready page:load', function () {
+  $("form").on('click', 'span[data-toggle="nestedfield"]', function() {
+    var checkbox = $(this).children().eq(1);
+    checkbox.prop('checked', true);
+    $(this).parents().eq(1).hide(250, function(){
+        $(this).hide();
+      })
+  });
+});

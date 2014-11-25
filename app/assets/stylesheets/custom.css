@@ -102,7 +102,7 @@ div.footer > div.container > p {
   border-color: #ac2925;
 }
 
-.input-group-addon.beautify input[type="checkbox"],
-.input-group-addon.beautify input[type="radio"] {
+span.beautify input[type="checkbox"],
+span.beautify input[type="radio"] {
     display: none;
 }

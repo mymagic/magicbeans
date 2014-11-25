@@ -1,86 +1,46 @@
-<fieldset>
-      <div class="control-group">
-        <%= f.label(:name, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:name, :class => "input-xlarge field", :data => { :validation => "required validate_max_length length50", "validation-error-msg" => "Name is required and cannot be longer than 50 characters." }) %>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <%= f.label(:date, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:date, :class => "input-xlarge field", :data => { :validation => "required validate_max_length length50", "validation-error-msg" => "Date is required and cannot be longer than 50 characters." }) %>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <%= f.label(:venue, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:venue, :class => "input-xlarge field", :data => { :validation => "required validate_length length5-50", "validation-error-msg" => "Venue is required and must be between 5 and 50 characters." }) %>
-        </div>
-      </div>
-      
-        <div class="control-group">
-        <%= f.label(:description, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:description, :class => "input-xlarge field", :data => { :validation => "required validate_length length100", "validation-error-msg" => "Description is required and cannot be longer than 100 characters." }) %>
-        </div>
-      </div>
-      
-        <div class="control-group">
-        <%= f.label(:speaker, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:speaker, :class => "input-xlarge field", :data => { :validation => "required validate_length length5-50", "validation-error-msg" => "Speaker is required and must be between 5 and 50 characters." }) %>
-        </div>
-      </div>
-      
-        <div class="control-group">
-        <%= f.label(:speakerbio, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:speakerbio, :class => "input-xlarge field", :data => { :validation => "required validate_length length100", "validation-error-msg" => "Speaker Bio is required and cannot be longer than 100 characters." }) %>
-        </div>
-      </div>
-      
-        <div class="control-group">
-        <%= f.label(:biolink, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:biolink, :class => "input-xlarge field", :data => { :validation => "required validate_length length5-50", "validation-error-msg" => "Bio Link is required and must be between 5 and 50 characters." }) %>
-        </div>
-      </div>
-      
-        <div class="control-group">
-        <%= f.label(:keytakeaway, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:keytakeaway, :class => "input-xlarge field", :data => { :validation => "required validate_length length5-50", "validation-error-msg" => "Key Takeaway is required and must be between 5 and 50 characters." }) %>
-        </div>
-      </div>
-      
-        <div class="control-group">
-        <%= f.label(:prerequisite, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:prerequisite, :class => "input-xlarge field", :data => { :validation => "required validate_length length100", "validation-error-msg" => "Prerequisite is required and cannot be longer than 100 characters." }) %>
-        </div>
-      </div>
-      
-         <div class="control-group">
-        <%= f.label(:maxattendee, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:maxattendee, :class => "input-xlarge field", :data => { :validation => "required validate_length length10", "validation-error-msg" => "Maximum Attendee is required and cannot be longer than 10 characters." }) %>
-        </div>
-      </div>
-      
-        <div class="control-group">
-        <%= f.label(:tags, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:tags, :class => "input-xlarge field", :data => { :validation => "required validate_length length100", "validation-error-msg" => "Tags is required and cannot be longer than 100 characters." }) %>
-        </div>
-      </div>
-      
-        <div class="control-group">
-        <%= f.label(:resources, :class => "control-label") %>
-        <div class="controls">
-          <%= f.text_field(:resources, :class => "input-xlarge field", :data => { :validation => "required validate_length length100", "validation-error-msg" => "Resources is required and cannot be longer than 100 characters." }) %>
-        </div>
-      </div>
-      <%= f.hidden_field(:_destroy, :class => "field") %>
-    </fieldset>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="form-group">
+      <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Activity Name") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:description, class:"form-control", autofocus: true, placeholder: "Description") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:venue, class:"form-control", autofocus: true, placeholder: "Venue") %>
+    </div>
+    <div class="form-group">
+      <%= f.date_field(:date, class:"form-control", autofocus: true, placeholder: "Date") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:speaker, class:"form-control", autofocus: true, placeholder: "Speaker") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:speakerbio, class:"form-control", autofocus: true, placeholder: "Speaker Biography") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:biolink, class:"form-control", autofocus: true, placeholder: "Biography Link") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:keytakeaway, class:"form-control", autofocus: true, placeholder: "Key Benefits") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:prerequisite, class:"form-control", autofocus: true, placeholder: "Prerequisite") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:keytakeaway, class:"form-control", autofocus: true, placeholder: "Key Benefits") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:maxattendee, class:"form-control", autofocus: true, placeholder: "Maximum Attendees") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:tags, class:"form-control", autofocus: true, placeholder: "Relevant Tags") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:resources, class:"form-control", autofocus: true, placeholder: "Relevant Resources") %>
+    </div>
+    <span class="btn btn-danger btn-block beautify" data-toggle="nestedfield">
+      <%= f.check_box :_destroy %><i class="glyphicon glyphicon-remove"></i>
+    </span>
+  </div>
+</div>
