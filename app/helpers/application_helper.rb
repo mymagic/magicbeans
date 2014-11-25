@@ -1,21 +1,17 @@
 module ApplicationHelper
 	def bootstrap_class_for flash_type # New flash type to be used with bootstrap alerts
 		case flash_type
-		  when "notice"
+		  when "success"
 		    "alert-success"   # Green
 		  when "alert"
 		    "alert-danger"    # Red
 		  when "warning"
 		    "alert-warning"   # Yellow
-		  when "info"
+		  when "notice"
 		    "alert-info"      # Blue
 		  else
 		    flash_type.to_s
 		end
-	end
-
-	def is_admin?
-		user_signed_in?
 	end
 
 	def button_to_add_field(f, association)  

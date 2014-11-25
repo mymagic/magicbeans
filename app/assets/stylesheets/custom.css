@@ -90,18 +90,6 @@ div.footer > div.container > p {
     }
 }
 
-.input-group-addon.beautify {
-  color: #fff;
-  background-color: #d9534f;
-  border-color: #d43f3a;
-}
-
-.input-group-addon.beautify.active {
-  color: #fff;
-  background-color: #B02A26;
-  border-color: #ac2925;
-}
-
 span.beautify input[type="checkbox"],
 span.beautify input[type="radio"] {
     display: none;
