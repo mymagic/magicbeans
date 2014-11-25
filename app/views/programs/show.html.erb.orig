@@ -1,0 +1,58 @@
+<<<<<<< HEAD
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @program.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @program.description %>
+</p>
+
+<p>
+  <strong>Keytakeways:</strong>
+  <%= @program.keytakeways %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @program.tags %>
+</p>
+
+<p>
+  <strong>Resources:</strong>
+  <%= @program.resources %>
+</p>
+
+
+ <%= link_to 'Add',new_activity_path%>
+
+<%= link_to 'Show', program_path(@program) %>
+<%= link_to 'Edit', edit_program_path(@program) %> 
+<%= link_to 'Back', programs_path %>
+=======
+<section class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+            <h1>Program Overview of: <%= @program.id %> </h1>
+        </div>
+        <div class="well">
+            <h1 class="text-center"><strong><%= @program.name %></strong></h1>
+            <h2 class="text-center"><%= @program.description %></h2>
+            <h2 class="text-center"><%= @program.speaker %></h2>
+            <h2 class="text-center"><%= @program.speakerbio %><</h2>
+            <h2 class="text-center"><%= @program.biourl %></h2>
+            <h2 class="text-center"><%= @program.keytakeways %></h2>
+            <h2 class="text-center"><%= @program.tags %></h2>
+            <h2 class="text-center"><%= @program.resources %></h2>
+        </div>
+        
+
+        <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-sm btn-warning" %>
+        <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
+
+    </div>
+</section>
+>>>>>>> develop
