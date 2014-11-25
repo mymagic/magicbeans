@@ -45,6 +45,9 @@
   <div class="col-md-6 col-lg-5">
     <h3>Activities</h3>
     <div class="well" id="nested-well">
+      <%= f.fields_for :activities do |tf| %>
+        <%= render 'activity_field', f: tf %>
+      <% end %>
       <%= button_to_add_field f, :activities %>
     </div>
   </div>

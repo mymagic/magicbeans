@@ -7,10 +7,10 @@
             <h1 class="text-center"><strong><%= @program.name %></strong></h1>
             <h2 class="text-center"><%= @program.description %></h2>
             <h2 class="text-center"><%= @program.speaker %></h2>
-            <h2 class="text-center"><%= @program.speakerbio %><</h2>
-            <h2 class="text-center"><%= @program.biourl %></h2>
+            <h2 class="text-center"><%= @program.speakerbio %></h2>
+            <a href="<%= @program.biourl %>" target="_blank"><h2 class="text-center"><%= @program.biourl %></h2></a>
             <h2 class="text-center"><%= @program.keytakeways %></h2>
-            <h2 class="text-center"><%= @program.tags %></h2>
+            <h2 class="text-center"><strong><%= @program.tags %></strong></h2>
             <h2 class="text-center"><%= @program.resources %></h2>
         </div>
         
