@@ -65,7 +65,7 @@ class UsersController < ApplicationController
             render action: 'edit'
         end
     end
-    end
+
     
     def destroy
         if @user.destroy
