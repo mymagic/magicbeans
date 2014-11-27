@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'noreply@magicbeans.com'
+  config.mailer_sender = 'noreply@127.0.0.1:3000'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -256,6 +256,6 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-  config.omniauth :facebook, "1514847472086672", "65fb5a46a0a11d90fe0e3b0052a6c03"
-  config.omniauth :twitter, "k7SLUIDgYGHTgMzkleh0niX1", "6IMvaeUBVQ3Hnh00vylBZ4Cslr0DV5GTp9S6bONpYzefFaRvf9"
+  config.omniauth :facebook, "1514847472086672", "65fb5a46a0a11d90fe0e3b0052a6c031"
+  config.omniauth :twitter, "k7SLUIDgYGHTgMzkleh0niX1a", "6IMvaeUBVQ3Hnh00vylBZ4Cslr0DV5GTp9S6bONpYzefFaRvf9"
 end

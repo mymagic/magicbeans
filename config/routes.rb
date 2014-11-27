@@ -5,7 +5,6 @@ Rails.application.routes.draw do
                      :controllers => { :omniauth_callbacks => "callbacks" }
   
   resources :programs
-  resources :tweets
 
   root 'static_pages#welcome'
 
