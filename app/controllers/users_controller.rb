@@ -63,6 +63,18 @@ class UsersController < ApplicationController
             render action: 'edit'
         end
     end
+
+    def finish_signup
+        if request.patch? && params[:user]
+            if @user.update(user_params)
+                @user.skip_reconfirmation!
+                sign_in(@user, :bypass => true)
+                redirect_to @user, notice: 'Your profile was successfully updated.'
+            else
+                @show_errors = true
+            end
+        end
+    end
     
     def destroy
         if @user.destroy
