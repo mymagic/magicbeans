@@ -281,5 +281,4 @@ Devise.setup do |config|
         force_login: 'true',
         lang:'en'
       }
-
 end
