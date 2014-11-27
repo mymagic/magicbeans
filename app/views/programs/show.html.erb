@@ -7,16 +7,16 @@
             <h1 class="text-center"><strong><%= @program.name %></strong></h1>
             <h2 class="text-center"><%= @program.description %></h2>
             <h2 class="text-center"><%= @program.speaker %></h2>
-            <h2 class="text-center"><%= @program.speakerbio %><</h2>
-            <h2 class="text-center"><%= @program.biourl %></h2>
+            <h2 class="text-center"><%= @program.speakerbio %></h2>
+            <a href="<%= @program.biourl %>" target="_blank"><h2 class="text-center"><%= @program.biourl %></h2></a>
             <h2 class="text-center"><%= @program.keytakeways %></h2>
-            <h2 class="text-center"><%= @program.tags %></h2>
+            <h2 class="text-center"><strong><%= @program.tags %></strong></h2>
             <h2 class="text-center"><%= @program.resources %></h2>
         </div>
         
 
         <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-sm btn-warning" %>
-        <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
+        <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default pull-right" %>
 
     </div>
 </section>

@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
-
-  
-  resources :users, only: [:index, :show, :edit, :update, :new, :create, :destroy]
+  resources :users
   devise_for :users, :path => '', :path_names => {:sign_in => 'sign_in', :sign_out => 'sign_out', :sign_up => 'sign_up'}
+  
   resources :programs
   resources :tweets
+
   root 'static_pages#welcome'
 
   # The priority is based upon order of creation: first created -> highest priority.

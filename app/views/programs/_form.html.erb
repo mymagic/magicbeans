@@ -14,60 +14,59 @@
 <%= form_for @program, html: { role: "form" } do |f| %>
 <div class="row">
   <div class="col-md-6 col-lg-7">
-    <h3>User credentials</h3>
-      <div class="form-group">
-        <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Program Name") %>
-      </div>
-      <div class="form-group">
-        <%= f.text_field(:description, class:"form-control", autofocus: true, placeholder: "Program Description") %>
-      </div>
-      <div class="form-group">
-        <%= f.text_field(:speaker, class:"form-control", autofocus: true, placeholder: "Speaker") %>
-      </div>
-      <div class="form-group">
-        <%= f.text_field(:speakerbio, class:"form-control", autofocus: true, placeholder: "Speaker Bio") %>
-      </div>
-      <div class="form-group">
-        <%= f.text_field(:biourl, class:"form-control", autofocus: true, placeholder: "Bio URL") %>
-      </div>
-      <div class="form-group">
-        <%= f.text_field(:keytakeways, class:"form-control", autofocus: true, placeholder: "Key Takeaways") %>
-      </div>
-      <div class="form-group">
-        <%= f.text_field(:tags, class:"form-control", autofocus: true, placeholder: "Tags") %>
-      </div>
-      <div class="form-group">
-        <%= f.text_field(:resources, class:"form-control", autofocus: true, placeholder: "Resources") %>
-      </div>
+    <h3>Program Details</h3>
+    <div class="form-group">
+      <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Program Name") %>
     </div>
-</div>
+    <div class="form-group">
+      <%= f.text_field(:description, class:"form-control", autofocus: true, placeholder: "Program Description") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:speaker, class:"form-control", autofocus: true, placeholder: "Speaker") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:speakerbio, class:"form-control", autofocus: true, placeholder: "Speaker Bio") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:biourl, class:"form-control", autofocus: true, placeholder: "Bio URL") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:keytakeways, class:"form-control", autofocus: true, placeholder: "Key Takeaways") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:tags, class:"form-control", autofocus: true, placeholder: "Tags") %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field(:resources, class:"form-control", autofocus: true, placeholder: "Resources") %>
+    </div>
+  </div>
 
+
+  <div class="col-md-6 col-lg-5">
+    <h3>Activities</h3>
+    <div class="well" id="nested-well">
+      <%= f.fields_for :activities do |tf| %>
+        <%= render 'activity_field', f: tf %>
+      <% end %>
+      <%= button_to_add_field f, :activities %>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-12">
     <% if @program.new_record? %> <!-- if it's a new record show the create button -->
       <div class="form-group pull-left">
-        <%= f.submit 'Create program', class: "btn btn-sm btn-primary" %>
+        <%= f.submit 'Create', class: "btn btn-sm btn-primary" %>
       </div>
-      <% if is_admin? %>
-      <div class="form-group pull-right">
-        <%= link_to 'Back', programs_path, class: "btn btn-sm btn-default" %>
-      </div>
-      <% end %>
     <% else %> <!-- else show an update button -->
       <div class="form-group pull-left">
-        <%= f.submit 'Update program', class: "btn btn-sm btn-primary" %>
+        <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
       </div>
       <div class="form-group pull-right"> <!-- include the show, and back button if user is to be updated -->
         <%= link_to 'Show', @program, class: "btn btn-sm btn-info" %>
-
-      <% if is_admin? %>
-          <%= link_to 'Back', programs_path, class: "btn btn-sm btn-default" %>
-        </div>
-      <% else %>
-          <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
-        </div>
-      <% end %>
+        <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
+      </div>
       </div>
     <% end %>
   </div>

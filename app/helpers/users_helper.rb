@@ -5,8 +5,10 @@ module UsersHelper
     end
 
     def is_admin?
-    	if user_signed_in?
-    		current_user.roles.include?(Role.find_by_name('Admin'))
-    	end
+        if user_signed_in? && current_user.has_role?('Admin')
+        	true
+        else
+        	false
+        end
     end
 end
