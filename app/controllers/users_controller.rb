@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
+    # before_filter :ensure_signup_complete, only: [:new, :create, :update, :destroy]
     load_and_authorize_resource
+    
     def new
         @user = User.new
         @roles = Role.all
@@ -64,17 +66,17 @@ class UsersController < ApplicationController
         end
     end
 
-    def finish_signup
-        if request.patch? && params[:user]
-            if @user.update(user_params)
-                @user.skip_reconfirmation!
-                sign_in(@user, :bypass => true)
-                redirect_to @user, notice: 'Your profile was successfully updated.'
-            else
-                @show_errors = true
-            end
-        end
-    end
+    # def finish_signup
+    #     if request.patch? && params[:user]
+    #         if @user.update(user_params)
+    #             @user.skip_reconfirmation!
+    #             sign_in(@user, :bypass => true)
+    #             redirect_to @user, notice: 'Your profile was successfully updated.'
+    #         else
+    #             @show_errors = true
+    #         end
+    #     end
+    # end
     
     def destroy
         if @user.destroy
@@ -96,5 +98,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :phone, :email, :ic, :password, :password_confirmation)
     end
+
+    
     
 end
