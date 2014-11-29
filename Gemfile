@@ -32,14 +32,15 @@ gem 'spring',        group: :development
 
 
 group :development, :test do
-  # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  gem 'rspec-rails'
+  gem 'faker'
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.0.0'
   gem 'capybara'
-  gem 'factory_girl'
+  gem "guard-rspec"
+  gem 'factory_girl_rails'
 end
 
 group :production do
