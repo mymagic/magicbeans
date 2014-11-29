@@ -9,6 +9,10 @@ RSpec.describe User, :type => :model do
     expect(FactoryGirl.build(:user, name: nil)).not_to be_valid
   end
 
+  it "is invalid without a ic" do
+    expect(FactoryGirl.build(:user, ic: nil)).not_to be_valid
+  end
+
   it "is invalid without a email" do
     expect(FactoryGirl.build(:user, email: nil)).not_to be_valid
   end
