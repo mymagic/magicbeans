@@ -1,29 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-   
-   it{is_expected.to respond_to:name}
-   it{is_expected.to respond_to:ic}
-   it{is_expected.to respond_to:phone}
-   
-   describe 'when creating user' do
-       context 'with valid data' do
-           let(:user){User.new(name:'azri bin mohd khanil',ic:'921006-02-5425',phone:'019-5703962')}
-           subject{user}
-           it{is_expected.to be_valid}
-       end
-       
-       
-       context 'with invalid data' do
-           context 'where name is blank' do
-                let(:invalid_user){User.new(ic:'921006-02-5425',phone:'019-5703962')}
-                subject{invalid_user}
-                it{is_expected.to_not be_valid}    
-           end
-       end
-       
-       
-   end
-   
-   
+  it "has a valid factory" do
+    expect(FactoryGirl.create(:user)).to be_valid
+  end
+
+  it "is invalid without a name" do
+    expect(FactoryGirl.build(:user, name: nil)).not_to be_valid
+  end
+
+  it "is invalid without a email" do
+    expect(FactoryGirl.build(:user, email: nil)).not_to be_valid
+  end
+
+  it "is invalid without a phone" do
+    expect(FactoryGirl.build(:user, phone: nil)).not_to be_valid
+  end
+
+  it "is invalid without a password" do
+    expect(FactoryGirl.build(:user, password: nil)).not_to be_valid
+  end
 end
