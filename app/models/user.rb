@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
   validates :name, presence: true
   validates :phone, presence: true
-  validates :ic, presence: true, format: { with: /\A\d{6}-\d{2}-\d{4}\z/, message: "Invalid IC Format" }
-
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  validates :ic, presence: true, format: { with: /\A\d{6}-\d{2}-\d{4}\z/, message: "Invalid IC Format"   }, uniqueness: true
 
   has_and_belongs_to_many :roles
 
