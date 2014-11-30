@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
-    before_filter :ensure_signup_complete, only: [:new, :create, :destroy]
     load_and_authorize_resource
 
     def new
@@ -69,7 +68,7 @@ class UsersController < ApplicationController
     
     def destroy
         if @user.destroy
-          redirect_to users_path, success: 'User was successfully deleted!'
+          redirect_to users_Spath, success: 'User was successfully deleted!'
         else
           render action: 'index'
         end
