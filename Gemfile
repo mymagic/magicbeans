@@ -4,6 +4,11 @@ gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 
+#Use Omniauth for User Authentication
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+
 gem 'cancancan', '~> 1.9'
 
 # Use Bootstrap-Sass

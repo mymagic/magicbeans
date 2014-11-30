@@ -1,0 +1,26 @@
+<table id="activities-table" class="table table-hover table-striped">
+
+  <tbody>
+    <%= f.fields_for(:activities) do |activities_form| %>
+      <tr class="fields">
+        <td><%= activities_form.text_field(:name) %></td>
+        <td><%= activities_form.text_field(:date) %></td>
+        <td><%= activities_form.text_field(:venue) %></td>
+        <td><%= activities_form.text_area(:description) %></td>
+        <td><%= activities_form.text_field(:speaker) %></td>
+        <td><%= activities_form.text_area(:speakerbio) %></td>
+        <td><%= activities_form.text_field(:biolink) %></td>
+        <td><%= activities_form.text_field(:keytakeaway) %></td>
+        <td><%= activities_form.text_area(:prerequisite) %></td>
+        <td><%= activities_form.text_field(:maxattendee) %></td>
+        <td><%= activities_form.text_field(:tags) %></td>
+        <td><%= activities_form.text_field(:resources) %></td>
+        <% if current_page?(new_program_path) || current_page?(edit_program_path) %>
+            <td>
+              <%= link_to_remove_fields('<i class="icon-remove"></i>'.html_safe, activities_form, :title => "Delete this Activity.") %>
+            </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

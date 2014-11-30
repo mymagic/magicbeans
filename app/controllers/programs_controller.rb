@@ -9,11 +9,12 @@ class ProgramsController < ApplicationController
   end
 
   def show
-    respond_with(@program)
+    @program = Program.find(params[:id])
   end
 
   def new
     @program = Program.new
+    1.times {@program.activities.build}
     respond_with(@program)
   end
 
@@ -22,26 +23,37 @@ class ProgramsController < ApplicationController
 
   def create
     @program = Program.new(program_params)
-    @program.save
-    respond_with(@program)
+    if @program.save
+        redirect_to programs_path, success: 'Successfully created a program!'
+    else
+        render action: "new"
+    end
   end
 
   def update
-    @program.update(program_params)
-    respond_with(@program)
+    if @program.update(program_params)
+      redirect_to programs_path, success: 'Program was successfully updated!'
+    else
+      render action: 'edit'
+    end
   end
 
   def destroy
-    @program.destroy
-    respond_with(@program)
+    if @program.destroy
+      redirect_to programs_path, success: 'Program was successfully deleted!'
+    else
+      render action: 'index'
+    end
   end
 
   private
     def set_program
       @program = Program.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+      redirect_to(root_url, alert: 'Program not found')
     end
 
     def program_params
-      params.require(:program).permit(:name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources)
+      params.require(:program).permit(:name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources, activities_attributes: [:id, :name, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources, :_destroy])
     end
 end

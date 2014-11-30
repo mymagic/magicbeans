@@ -4,8 +4,7 @@
             <h1>User Profile of UID <%= @user.id %> </h1>
         </div>
         <div class="well">
-            <img src="<%= gravatar_for(@user.email, 125) %>" class="img-circle center-block">
-            
+            <img src="<%= profile_picture %>" class="img-circle center-block">
             <h1 class="text-center"><strong><%= @user.name %></strong></h1>
 
             <ul class="list-inline text-center">
@@ -17,7 +16,7 @@
         
 
         <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-sm btn-warning" %>
-        <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
+        <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default pull-right" %>
 
     </div>
 </section>

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  add_flash_types :warning, :info
+  add_flash_types :warning, :success
   
   private
 
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
   
   def after_sign_in_path_for(resource_or_scope)
-    user_path(current_user.id)
+    user_path(resource)
   end
   
   rescue_from CanCan::AccessDenied do |exception|
