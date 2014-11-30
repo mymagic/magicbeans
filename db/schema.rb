@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20141208103453) do
 
-
   create_table "activities", force: true do |t|
     t.string   "name"
     t.string   "date"

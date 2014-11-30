@@ -1,12 +1,8 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
-    # before_filter :ensure_signup_complete, only: [:new, :create, :update, :destroy]
+    before_filter :ensure_signup_complete, only: [:new, :create, :destroy]
     load_and_authorize_resource
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> Messed with skip_confirmation, Reverted back to original
     def new
         @user = User.new
         @roles = Role.all
@@ -70,21 +66,6 @@ class UsersController < ApplicationController
             render action: 'edit'
         end
     end
-
-<<<<<<< HEAD
-=======
-    # def finish_signup
-    #     if request.patch? && params[:user]
-    #         if @user.update(user_params)
-    #             @user.skip_reconfirmation!
-    #             sign_in(@user, :bypass => true)
-    #             redirect_to @user, notice: 'Your profile was successfully updated.'
-    #         else
-    #             @show_errors = true
-    #         end
-    #     end
-    # end
->>>>>>> Messed with skip_confirmation, Reverted back to original
     
     def destroy
         if @user.destroy
