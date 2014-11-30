@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
         user.provider = auth.provider
         user.uid = auth.uid
         user.email = auth.info.email
-        # user.photo = auth.info.image
+        user.photo = auth.info.image
         user.password = Devise.friendly_token[0,20]
         user.skip_confirmation!
         user.save
