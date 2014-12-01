@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20141208103453) do
     t.string   "provider"
     t.string   "uid"
     t.string   "photo"
+    t.string   "token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

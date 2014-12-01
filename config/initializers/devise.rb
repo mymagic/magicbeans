@@ -267,7 +267,6 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
   config.omniauth :facebook, ENV["FACEBOOK_ID"], ENV["FACEBOOK_SECRET"], 
-
   secure_image_url: 'true',
   image_size: {
         width: '200',

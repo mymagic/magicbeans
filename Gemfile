@@ -9,6 +9,11 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 
+#Google Calender API
+gem 'google-api-client', :require => 'google/api_client'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
 gem 'cancancan', '~> 1.9'
 
 # Use Bootstrap-Sass
@@ -58,4 +63,5 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
 
