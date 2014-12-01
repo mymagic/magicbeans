@@ -1,44 +1,71 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-  it{is_expected.to respond_to :name, :ic, :phone}
+  # Setup
+  let(:subject) { create :user }
+  let(:role) { create :role}
 
-  let(:user) { create :user }
-  let(:role) { create :role }
-
+  # Factory
   it "has a valid factory" do
-    expect(user).to be_valid
+    expect(subject).to be_valid
   end
 
-  context 'when updating' do
-    it "should have a name" do
-      expect(user.update(name: nil)).to be_falsey
-    end
+  # Responses
+  it { is_expected.to respond_to :name, :ic, :phone }
 
-    it "should have a phone" do
-      expect(user.update(phone: nil)).to be_falsey
-    end
+  # Validations
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:phone) }
+  it { should validate_presence_of(:ic) }
+  it { should allow_value(subject.ic)
+                  .for(:ic)
+                  .on(:update)
+                  .with_message('Invalid IC Format') }
+  it "validates uniqueness of ic" do
+      expect(build :user, ic: subject.ic).not_to be_valid
+  end
 
-    it "should have an ic" do
-      expect(user.update(ic: nil)).to be_falsey
-    end
+  # Relationships
+  it { should have_and_belong_to_many(:roles) }
 
-    it "should have a valid ic" do
-      expect(user.ic).to match /\A\d{6}-\d{2}-\d{4}\z/
-    end
+  describe "#has_role?" do
+    it { is_expected.to respond_to :has_role? }
+    it 'returns true if role exists' do
+      # setup
+      subject.roles.push(Role.find_by_name(role.name))
 
-    it "should have a unique ic" do
-      expect(build :user, ic: user.ic).not_to be_valid
+      # exercise and verify
+      expect(subject.roles.include?(Role.find_by_name(role.name))).to be_truthy
     end
   end
 
-  it "has many roles" do
-    user.roles << role
-    expect(user.roles.any?).to be_truthy
+  describe "#add_role" do
+    it { is_expected.to respond_to :add_role }
+    it 'returns true if role is added' do
+      # exercise and verify
+      expect(subject.roles.push(Role.find_by_name(role.name))).to be_truthy
+    end
   end
 
-  it "belongs to many roles" do
-    role.users << user
-    expect(role.users.any?).to be_truthy
+  describe "#delete_role" do
+    it { is_expected.to respond_to :delete_role }
+    it 'returns true if role is deleted' do
+      # setup
+      subject.roles.push(Role.find_by_name(role.name))
+
+      # exercise and verify
+      expect(subject.roles.delete(Role.find_by_name(role.name))).to be_truthy
+    end
+  end
+
+  describe "#list_roles" do
+    it { is_expected.to respond_to :list_roles }
+    it 'returns a list of roles' do
+      # setup
+      subject.roles.push(Role.find_by_name(role.name))
+
+      # exercise and verify
+      expect(subject.roles.map(&:name)).to eq ["Admin"]
+    end
   end
 end

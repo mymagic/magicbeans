@@ -1,18 +1,20 @@
 require 'rails_helper'
+validates :name, uniqueness: true
 
 RSpec.describe Role, :type => :model do
-  it{is_expected.to respond_to :name}
+  let(:subject) { create :role }
 
-  let(:role) { create :role }
-  let(:user) { create :user }
-
-  it "has many users" do
-    role.users << user
-    expect(role.users.any?).to be_truthy
+  describe 'factory' do
+    it "has a valid factory" do
+      expect(subject).to be_valid
+    end
   end
 
-  it "belongs to many users" do
-    user.roles << role
-    expect(user.roles.any?).to be_truthy
+  describe 'responses' do
+    it { is_expected.to respond_to :name}
+  end
+
+  describe 'relationship' do
+    it { should have_and_belong_to_many(:users) }
   end
 end
