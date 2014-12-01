@@ -1,5 +1,4 @@
 require 'rails_helper'
-validates :name, uniqueness: true
 
 RSpec.describe Role, :type => :model do
   let(:subject) { create :role }
