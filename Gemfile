@@ -33,14 +33,15 @@ gem 'spring',        group: :development
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'rspec-rails'
-  gem 'faker'
 end
 
 group :test do
   gem 'capybara'
   gem "guard-rspec"
   gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'shoulda-matchers', require: false
 end
 
 group :production do
