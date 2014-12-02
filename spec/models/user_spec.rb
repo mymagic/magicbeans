@@ -11,7 +11,9 @@ RSpec.describe User, :type => :model do
   end
 
   # Responses
-  it { is_expected.to respond_to :name, :ic, :phone }
+  describe 'responses' do
+    it { is_expected.to respond_to :name, :ic, :phone }
+  end
 
   # Validations
   context "on update" do
@@ -24,8 +26,15 @@ RSpec.describe User, :type => :model do
     it { should validate_uniqueness_of(:ic).on(:update) }
   end
 
-  # Relationships
-  it { should have_and_belong_to_many(:roles) }
+  context "on create" do
+    it { should_not validate_presence_of(:name).on(:create) }
+    it { should_not validate_presence_of(:phone).on(:create) }
+    it { should_not validate_presence_of(:ic).on(:create) }
+  end
+
+  describe 'relationship' do
+    it { should have_and_belong_to_many(:roles) }
+  end
 
   describe "#add_role" do
     it 'returns true if added' do
