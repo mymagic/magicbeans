@@ -14,58 +14,67 @@ RSpec.describe User, :type => :model do
   it { is_expected.to respond_to :name, :ic, :phone }
 
   # Validations
-  it { should validate_presence_of(:name) }
-  it { should validate_presence_of(:phone) }
-  it { should validate_presence_of(:ic) }
-  it { should allow_value(subject.ic)
-                  .for(:ic)
-                  .on(:update)
-                  .with_message('Invalid IC Format') }
-  it "validates uniqueness of ic" do
-      expect(build :user, ic: subject.ic).not_to be_valid
+  context "on update" do
+    it { should validate_presence_of(:name).on(:update) }
+    it { should validate_presence_of(:phone).on(:update) }
+    it { should validate_presence_of(:ic).on(:update) }
+    it { should allow_value(subject.ic)
+                    .for(:ic)
+                    .on(:update) }
+    it { should validate_uniqueness_of(:ic).on(:update) }
   end
 
   # Relationships
   it { should have_and_belong_to_many(:roles) }
 
+  describe "#add_role" do
+    it 'returns true if added' do
+      # exercise and verify
+      expect(subject.add_role(role.name)).to be_truthy
+    end
+
+    it 'returns false if !added' do
+      # exercise and verify
+      expect(subject.add_role(nil)).to be_falsey
+    end
+  end
+
   describe "#has_role?" do
-    it { is_expected.to respond_to :has_role? }
-    it 'returns true if role exists' do
+    it 'returns true if exists' do
       # setup
       subject.roles.push(Role.find_by_name(role.name))
 
       # exercise and verify
-      expect(subject.roles.include?(Role.find_by_name(role.name))).to be_truthy
+      expect(subject.has_role?(role.name)).to be_truthy
     end
-  end
 
-  describe "#add_role" do
-    it { is_expected.to respond_to :add_role }
-    it 'returns true if role is added' do
-      # exercise and verify
-      expect(subject.roles.push(Role.find_by_name(role.name))).to be_truthy
+    it 'returns false if !exists' do
+      expect(subject.has_role?(nil)).to be_falsey
     end
   end
 
   describe "#delete_role" do
-    it { is_expected.to respond_to :delete_role }
-    it 'returns true if role is deleted' do
+    it 'returns true deleted' do
       # setup
       subject.roles.push(Role.find_by_name(role.name))
 
       # exercise and verify
-      expect(subject.roles.delete(Role.find_by_name(role.name))).to be_truthy
+      expect(subject.delete_role(role.name)).to be_truthy
+    end
+
+    it 'returns false if !deleted' do
+      # exercise and verify
+      expect(subject.delete_role(nil)).to be_falsey
     end
   end
 
   describe "#list_roles" do
-    it { is_expected.to respond_to :list_roles }
     it 'returns a list of roles' do
       # setup
       subject.roles.push(Role.find_by_name(role.name))
 
       # exercise and verify
-      expect(subject.roles.map(&:name)).to eq ["Admin"]
+      expect(subject.list_roles).to include role.name
     end
   end
 end
