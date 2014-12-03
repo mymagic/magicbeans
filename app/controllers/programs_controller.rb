@@ -74,10 +74,6 @@ class ProgramsController < ApplicationController
     end
   end
 
-  def add_gcal_event 
-    
-  end
-
   private
     def set_program
       @program = Program.find(params[:id])
