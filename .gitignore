@@ -23,5 +23,7 @@
 /spring
 /spring/*
 mailtrapenv.sh
-.idea/*
 .DS_Store
+/.idea
+/.idea/*
+
