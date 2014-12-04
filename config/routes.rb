@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :programs
   resources :tweets
 
-  root 'static_pages#welcome'
+  devise_scope :user do
+    root "devise/sessions#new"
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
