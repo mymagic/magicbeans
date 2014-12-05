@@ -48,42 +48,39 @@ RSpec.describe User, :type => :model do
     end
   end
 
-  describe "#has_role?" do
-    it 'returns true if exists' do
-      # setup
+  context "has a role" do
+    before (:each) do
       subject.roles.push(Role.find_by_name(role.name))
-
-      # exercise and verify
-      expect(subject.has_role?(role.name)).to be_truthy
     end
 
-    it 'returns false if !exists' do
-      expect(subject.has_role?(nil)).to be_falsey
-    end
-  end
+    describe "#has_role?" do
+      it 'returns true if exists' do
+        # exercise and verify
+        expect(subject.has_role?(role.name)).to be_truthy
+      end
 
-  describe "#delete_role" do
-    it 'returns true deleted' do
-      # setup
-      subject.roles.push(Role.find_by_name(role.name))
-
-      # exercise and verify
-      expect(subject.delete_role(role.name)).to be_truthy
+      it 'returns false if !exists' do
+        expect(subject.has_role?(nil)).to be_falsey
+      end
     end
 
-    it 'returns false if !deleted' do
-      # exercise and verify
-      expect(subject.delete_role(nil)).to be_falsey
+    describe "#delete_role" do
+      it 'returns true deleted' do
+        # exercise and verify
+        expect(subject.delete_role(role.name)).to be_truthy
+      end
+
+      it 'returns false if !deleted' do
+        # exercise and verify
+        expect(subject.delete_role(nil)).to be_falsey
+      end
     end
-  end
 
-  describe "#list_roles" do
-    it 'returns a list of roles' do
-      # setup
-      subject.roles.push(Role.find_by_name(role.name))
-
-      # exercise and verify
-      expect(subject.list_roles).to include role.name
+    describe "#list_roles" do
+      it 'returns a list of roles' do
+        # exercise and verify
+        expect(subject.list_roles).to include role.name
+      end
     end
   end
 end
