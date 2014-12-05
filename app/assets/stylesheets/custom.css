@@ -1,68 +1,11 @@
-/* Sticky footer styles
+/* Alert Flash Popup Push Down
 -------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+.alert {
+    margin: 20px 0;
 }
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 70px;
-  background-color: #EC6E60;
-  color: #26221A;
-}
-
-.push-footer {
-  padding: 20px 0;
-}
-
-
-/* Custom page CSS
--------------------------------------------------- */
-
-body > .container {
-  padding: 60px 15px 0;
-}
-
-div.footer > div.container > p {
-  margin: 20px 0;
-}
-
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-
-/* Error validations
--------------------------------------------------- */
-
-#error_explanation {
-  color: red;
-  ul {
-    color: red;
-    margin: 0 0 30px 0;
-  }
-}
-
-.field_with_errors {
-  @extend .has-error;
-  .form-control {
-    color: $state-danger-text;
-  }
-}
-
 
 /* Author Meta
 -------------------------------------------------- */
-
 .author-meta > h4, .author-meta > a
 {
     margin: 0 !important;
@@ -74,14 +17,14 @@ div.footer > div.container > p {
     width: 300px;
 }
 
-@media (min-width: 625px) 
+@media (min-width: 625px)
 {
     .author-meta
     {
         width: 466px;
-        
+
     }
-    
+
     .author-meta > h4, .author-meta > a
     {
         display:inline-block;
