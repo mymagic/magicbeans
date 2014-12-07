@@ -23,6 +23,25 @@ class ProgramsController < ApplicationController
 
   def create
     @program = Program.new(program_params)
+
+    @program.activities.each do |a|
+      if a.description.empty?
+        a.description = @program.description
+      end
+
+      if a.keytakeaway.empty?
+        a.keytakeaway = @program.keytakeways
+      end
+
+      if a.speaker.empty?
+        a.speaker = @program.speaker
+      end
+      
+      if a.speakerbio.empty?
+        a.speakerbio = @program.speakerbio
+      end
+    end
+
     if @program.save
         redirect_to programs_path, success: 'Successfully created a program!'
     else
