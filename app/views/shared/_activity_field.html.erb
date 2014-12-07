@@ -36,7 +36,7 @@
     <div class="form-group">
       <%= f.text_field(:resources, class:"form-control", placeholder: "Relevant Resources") %>
     </div>
-    <% if defined? update && update %>
+    <% if defined? update %>
         <%= f.submit 'Update', class: "btn btn-primary btn-block" %>
     <% else %>
         <span class="btn btn-danger btn-block beautify" data-toggle="nestedfield">

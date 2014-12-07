@@ -36,7 +36,7 @@ class ProgramsController < ApplicationController
       if a.speaker.empty?
         a.speaker = @program.speaker
       end
-      
+
       if a.speakerbio.empty?
         a.speakerbio = @program.speakerbio
       end
