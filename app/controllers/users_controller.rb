@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     load_and_authorize_resource
+
     def new
         @user = User.new
         @roles = Role.all
@@ -50,18 +51,20 @@ class UsersController < ApplicationController
         end
         if @user.update(user_params)
             if !@user.roles.empty?
-            @user.roles.delete_all
+                @user.roles.delete_all
             end
+
             roles = params[:roles]
+
             if !roles.blank?
-            roles.each do |rn|
+                roles.each do |rn|
                 @user.add_role(rn)
             end
-        end
-            redirect_to users_path, success: 'User was successfully updated.'
+            redirect_to user_path, success: 'User was successfully updated.'
         else
             render action: 'edit'
         end
+    end
     end
     
     def destroy
@@ -84,5 +87,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :phone, :email, :ic, :password, :password_confirmation)
     end
+
+    
     
 end
