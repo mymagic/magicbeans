@@ -5,13 +5,15 @@
         </div>
         <div class="well">
             <h1 class="text-center"><strong><%= @program.name %></strong></h1>
-            <h2 class="text-center"><%= @program.description %></h2>
-            <h2 class="text-center"><%= @program.speaker %></h2>
-            <h2 class="text-center"><%= @program.speakerbio %></h2>
-            <a href="<%= @program.biourl %>" target="_blank"><h2 class="text-center"><%= @program.biourl %></h2></a>
-            <h2 class="text-center"><%= @program.keytakeways %></h2>
-            <h2 class="text-center"><strong><%= @program.tags %></strong></h2>
-            <h2 class="text-center"><%= @program.resources %></h2>
+            <h3 class="text-center"><%= @program.description %></h3>
+            <h3 class="text-center"><%= @program.speaker %></h3>
+            <h3 class="text-center"><%= @program.speakerbio %></h3>
+            <a href="//<%= @program.biourl %>" target="_blank"><h3 class="text-center"><%= @program.biourl %></h3></a>
+            <h3 class="text-center"><%= @program.keytakeways %></h3>
+            <% @program.resources.split("\r\n").each do |r| %>
+              <a href="//<%= r %>" target="_blank"><h3 class="text-center"><%= r %></h3></a>
+            <% end %>
+            <h3 class="text-center"><strong><%= @program.tags %></strong></h3>
         </div>
     </div>
 </section>
