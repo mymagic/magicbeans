@@ -27,8 +27,24 @@ $(function() {
 
 function show_logs() {
     $('ul[data-toggle="dropdown-list"]').empty();
-    $.get( "/logs", function( data ) {
-        $(data)
-            .prependTo($('ul[data-toggle="dropdown-list"]'))
+    $.get( "/logs.json", function( data ) {
+        $.each(data, function(index, log) {
+            $(  "<li>\
+                  <a href=\"/"+ log.log_type +"/"+ log.type_id +"\">\
+                    <div>\
+                      <i class=\"fa fa-tasks fa-fw\"></i> "+ log.title +"\
+                      <span class=\"text-muted small pull-right\" style=\"margin-top: 2.7px;\">"+ $.timeago(log.created_at) +"</span>\
+                    </div>\
+                  </a>\
+                </li>\
+                <li class=\"divider\"></li>")
+                .prependTo($('ul[data-toggle="dropdown-list"]'))
+        });
+        $( "<li>\
+              <a class=\"text-center\" href=\"/logs\">\
+                <strong>See All Audit Log</strong>\
+                <i class=\"fa fa-angle-right\"></i>\
+              </a>\
+            </li>").appendTo($('ul[data-toggle="dropdown-list"]'))
     })
 }

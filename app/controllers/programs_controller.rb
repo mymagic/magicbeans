@@ -24,7 +24,7 @@ class ProgramsController < ApplicationController
   def create
     @program = Program.new(program_params)
     if @program.save
-        @log = Log.new(title: 'Created a new program', log_type: 'program', type_id: @program.id)
+        @log = Log.new(title: 'Created a new program', log_type: 'programs', type_id: @program.id)
         @log.save
 
         redirect_to programs_path, success: 'Successfully created a program!'
@@ -35,6 +35,9 @@ class ProgramsController < ApplicationController
 
   def update
     if @program.update(program_params)
+      @log = Log.new(title: 'Updated a program', log_type: 'programs', type_id: @program.id)
+      @log.save
+
       redirect_to programs_path, success: 'Program was successfully updated!'
     else
       render action: 'edit'
@@ -43,6 +46,9 @@ class ProgramsController < ApplicationController
 
   def destroy
     if @program.destroy
+      @log = Log.new(title: 'Deleted a program', log_type: 'programs', type_id: @program.id)
+      @log.save
+
       redirect_to programs_path, success: 'Program was successfully deleted!'
     else
       render action: 'index'
