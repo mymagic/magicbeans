@@ -53,7 +53,7 @@ class ProgramsController < ApplicationController
     def set_program
       @program = Program.find(params[:id])
       rescue ActiveRecord::RecordNotFound
-      redirect_to(root_url, alert: 'Program not found')
+      redirect_to(:back, alert: 'Program not found')
     end
 
     def program_params
