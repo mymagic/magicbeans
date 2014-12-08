@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201131258) do
+ActiveRecord::Schema.define(version: 20141208141854) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -59,6 +59,14 @@ ActiveRecord::Schema.define(version: 20141201131258) do
 
   add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id"
   add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id"
+
+  create_table "tokens", force: true do |t|
+    t.string   "access_token"
+    t.string   "refresh_token"
+    t.datetime "expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
