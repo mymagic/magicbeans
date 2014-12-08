@@ -25,3 +25,5 @@
 mailtrapenv.sh
 /.idea
 /.idea/*
+.idea/*
+.DS_Store

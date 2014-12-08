@@ -5,9 +5,17 @@ Rails.application.routes.draw do
                      :controllers => { :omniauth_callbacks => "callbacks" }
   
   resources :programs
+<<<<<<< HEAD
   get '/add_to_google_calendar/' => 'programs#add_gcal_event'
   post '/add_to_google_calendar/' => 'programs#add_gcal_event'
   root 'static_pages#welcome'
+=======
+  resources :activities
+
+  devise_scope :user do
+    root "devise/sessions#new"
+  end
+>>>>>>> 7fe3f1bfaa63563f12d88dc0ef0256c3b923abb4
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
