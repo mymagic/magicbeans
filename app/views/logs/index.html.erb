@@ -1,0 +1,17 @@
+<% @logs.each do |l| %>
+<li>
+  <a href="#">
+    <div>
+      <i class="fa fa-tasks fa-fw"></i> <%= l.title %>
+      <span class="text-muted small pull-right" style="margin-top: 2.7px;"><%="#{time_ago_in_words(l.created_at)} ago"%></span>
+    </div>
+  </a>
+</li>
+<li class="divider"></li>
+<% end %>
+<li>
+  <a class="text-center" href="#">
+    <strong>See All Activity Log</strong>
+    <i class="fa fa-angle-right"></i>
+  </a>
+</li>
