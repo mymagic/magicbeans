@@ -1,6 +1,6 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: [:show, :edit, :update, :destroy]
-
+  after_action :set_default_for_assoc, only: [:update, :create]
   respond_to :html
 
   def index
@@ -54,6 +54,29 @@ class ProgramsController < ApplicationController
     end
 
     def program_params
-      params.require(:program).permit(:name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources, activities_attributes: [:id, :name, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources, :_destroy])
+      params.require(:program).permit(:name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources, activities_attributes: [:id, :name, :date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources, :_destroy])
+    end
+
+
+    def set_default_for_assoc
+      @program.activities.each do |a|
+        if a.description.empty?
+          a.description = @program.description
+        end
+
+        if a.keytakeaway.empty?
+          a.keytakeaway = @program.keytakeways
+        end
+
+        if a.speaker.empty?
+          a.speaker = @program.speaker
+        end
+
+        if a.speakerbio.empty?
+          a.speakerbio = @program.speakerbio
+        end
+      end
+
+      @program.save
     end
 end

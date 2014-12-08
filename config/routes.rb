@@ -6,8 +6,11 @@ Rails.application.routes.draw do
                      :controllers => { :omniauth_callbacks => "callbacks" }
   
   resources :programs
+  resources :activities
 
-  root 'static_pages#welcome'
+  devise_scope :user do
+    root "devise/sessions#new"
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
