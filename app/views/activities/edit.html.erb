@@ -2,5 +2,11 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @activity %> |
-<%= link_to 'Back', activities_path %>
+<section class="row">
+  <div class="col-lg-12">
+    <div class="form-group">
+      <%= link_to 'Show', @activity, class: "btn btn-sm btn-info" %>
+      <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
+    </div>
+  </div>
+</section>
