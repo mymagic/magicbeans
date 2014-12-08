@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141130111310) do
+ActiveRecord::Schema.define(version: 20141121232528) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 20141130111310) do
   end
 
   add_index "activities", ["program_id"], name: "index_activities_on_program_id"
+
+  create_table "logs", force: true do |t|
+    t.string   "title"
+    t.string   "log_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "programs", force: true do |t|
     t.string   "name"
@@ -66,7 +73,7 @@ ActiveRecord::Schema.define(version: 20141130111310) do
     t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: ""
+    t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

@@ -24,3 +24,11 @@ $(function() {
         }
     })
 });
+
+function show_logs() {
+    $('ul[data-toggle="dropdown-list"]').empty();
+    $.get( "/logs", function( data ) {
+        $(data)
+            .prependTo($('ul[data-toggle="dropdown-list"]'))
+    })
+}
