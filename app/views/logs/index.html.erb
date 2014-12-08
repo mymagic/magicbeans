@@ -1,6 +1,6 @@
 <% @logs.each do |l| %>
 <li>
-  <a href="#">
+  <a href="<%= send(l.log_type + '_path', l.type_id) %>">
     <div>
       <i class="fa fa-tasks fa-fw"></i> <%= l.title %>
       <span class="text-muted small pull-right" style="margin-top: 2.7px;"><%="#{time_ago_in_words(l.created_at)} ago"%></span>
@@ -10,7 +10,7 @@
 <li class="divider"></li>
 <% end %>
 <li>
-  <a class="text-center" href="#">
+  <a class="text-center" href="<%= logs_path %>">
     <strong>See All Activity Log</strong>
     <i class="fa fa-angle-right"></i>
   </a>

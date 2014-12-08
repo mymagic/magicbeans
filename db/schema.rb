@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20141121232528) do
   create_table "logs", force: true do |t|
     t.string   "title"
     t.string   "log_type"
+    t.integer  "type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
