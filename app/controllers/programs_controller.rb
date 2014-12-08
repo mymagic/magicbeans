@@ -75,22 +75,22 @@ class ProgramsController < ApplicationController
   end
 
   def update
-    @program.activities.each do |activity|
+    # @program.activities.each do |activity|
 
-    client = Google::APIClient.new
-    client.authorization.access_token = current_user.token
-    service = client.discovered_api('calendar', 'v3')
+    # client = Google::APIClient.new
+    # client.authorization.access_token = current_user.token
+    # service = client.discovered_api('calendar', 'v3')
       
-    result = client.execute(:api_method => service.events.get,
-                        :parameters => {'calendarId' => 'primary', 'eventId' => 'eventId'})
-    event = result.data
-    event.summary = activity.name
+    # result = client.execute(:api_method => service.events.get,
+    #                     :parameters => {'calendarId' => 'primary', 'eventId' => 'eventId'})
+    # event = result.data
+    # event.summary = activity.name
 
-    result = client.execute(:api_method => service.events.update,
-                             :parameters => {'calendarId' => current_user.email, 'eventId' => event.id},
-                             :body_object => event,
-                             :headers => {'Content-Type' => 'application/json'})
-    end
+    # result = client.execute(:api_method => service.events.update,
+    #                          :parameters => {'calendarId' => current_user.email, 'eventId' => event.id},
+    #                          :body_object => event,
+    #                          :headers => {'Content-Type' => 'application/json'})
+    # end
     if @program.update(program_params)
       @log = Log.new(title: 'Updated a program', log_type: 'programs', type_id: @program.id)
       @log.save
