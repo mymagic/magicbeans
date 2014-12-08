@@ -54,6 +54,7 @@
 
 <div class="row">
   <div class="col-md-12">
+<<<<<<< HEAD
     <% if @program.new_record? %> <!-- if it's a new record show the create button -->
       <div class="form-group pull-left">
         <%= f.submit 'Create', class: "btn btn-sm btn-primary" %>
@@ -65,10 +66,8 @@
       
       <div class="form-group pull-right"> <!-- include the show, and back button if user is to be updated -->
         <%= link_to 'Show', @program, class: "btn btn-sm btn-info" %>
+
         <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
-      </div>
-      </div>
-    <% end %>
-  </div>
+    </div>
 </div>
 <% end %>
