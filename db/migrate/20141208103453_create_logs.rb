@@ -3,6 +3,7 @@ class CreateLogs < ActiveRecord::Migration
     create_table :logs do |t|
       t.string :title
       t.string :log_type
+      t.integer :type_id
 
       t.timestamps
     end

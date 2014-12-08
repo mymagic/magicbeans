@@ -24,7 +24,7 @@ class ProgramsController < ApplicationController
   def create
     @program = Program.new(program_params)
     if @program.save
-        @log = Log.new(title: 'Created a new program', log_type: 'program')
+        @log = Log.new(title: 'Created a new program', log_type: 'program', type_id: @program.id)
         @log.save
 
         redirect_to programs_path, success: 'Successfully created a program!'
