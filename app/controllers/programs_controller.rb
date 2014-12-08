@@ -43,30 +43,29 @@ class ProgramsController < ApplicationController
       end
     end
 
-    @event = {
-        'summary' => 'Try Again',
-        'description' => 'The description',
-        'location' => 'Location',
-        'start' => {'dateTime' => '2014-12-25T10:00:00.000-07:00'
-                    # 'timeZone' => 'Asia/Kuala Lumpur'
-                    },
-        'end' => {'dateTime' => '2014-12-25T10:25:00.000-07:00'
-                # 'timeZone' => 'Asia/Kuala Lumpur'
-                  },
-        'attendees' => [ { "email" => 'achc92@gmail.com' },
-                         { "email" =>'sally@example.com' } ] }
+    @program.activities.each do |activity|
+      @event = {
+          'summary' => activity.name,
+          'description' => activity.description,
+          'location' =>  activity.venue,
+          'start' => {'dateTime' => activity.date,
+                      'timeZone' => "Asia/Kuala_Lumpur"
+                      },
+          'end' => {'dateTime' => activity.date,
+                  'timeZone' => "Asia/Kuala_Lumpur"
+                    } }
 
-    client = Google::APIClient.new
-    client.authorization.access_token = current_user.token
-    service = client.discovered_api('calendar', 'v3')
+      client = Google::APIClient.new
+      client.authorization.access_token = current_user.token
+      service = client.discovered_api('calendar', 'v3')
 
-    @set_event = client.execute(:api_method => service.events.insert,
-                                :parameters => {'calendarId' => current_user.email, 'sendNotifications' => true},
-                                :body => JSON.dump(@event),
-                                :headers => {'Content-Type' => 'application/json'})
+      @set_event = client.execute(:api_method => service.events.insert,
+                                  :parameters => {'calendarId' => current_user.email},
+                                  :body => JSON.dump(@event),
+                                  :headers => {'Content-Type' => 'application/json'})
+    end
 
     if @program.save
-        @set_event
         redirect_to programs_path, success: 'Successfully created a program!'
     else
         render action: "new"
@@ -74,6 +73,22 @@ class ProgramsController < ApplicationController
   end
 
   def update
+    @program.activities.each do |activity|
+
+    client = Google::APIClient.new
+    client.authorization.access_token = current_user.token
+    service = client.discovered_api('calendar', 'v3')
+      
+    result = client.execute(:api_method => service.events.get,
+                        :parameters => {'calendarId' => 'primary', 'eventId' => 'eventId'})
+    event = result.data
+    event.summary = activity.name
+
+    result = client.execute(:api_method => service.events.update,
+                             :parameters => {'calendarId' => current_user.email, 'eventId' => event.id},
+                             :body_object => event,
+                             :headers => {'Content-Type' => 'application/json'})
+    end
     if @program.update(program_params)
       redirect_to programs_path, success: 'Program was successfully updated!'
     else
