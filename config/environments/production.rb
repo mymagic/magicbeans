@@ -1,6 +1,4 @@
 Rails.application.configure do
-
-  config.action_mailer.default_url_options = { host: 'magicbeans.herokuapp.com' }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -78,8 +76,9 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Mailer config
+  config.action_mailer.default_url_options = { host: 'magicbeans.herokuapp.com' }
   config.action_mailer.perform_deliveries = true
-
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
   :address        => 'smtp.sendgrid.net',

@@ -1,23 +1,27 @@
 <section class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-12">
         <div class="page-header">
             <h1>User Profile of UID <%= @user.id %> </h1>
         </div>
         <div class="well">
             <img src="<%= gravatar_for(@user.email, 125) %>" class="img-circle center-block">
-            
+
             <h1 class="text-center"><strong><%= @user.name %></strong></h1>
 
             <ul class="list-inline text-center">
                 <li><h4 class="text-muted"><span class="glyphicon glyphicon-map-marker"></span> Malaysia</h4></li>
                 <li><a href="#"><h4 class="text-muted"><span class="glyphicon glyphicon-link"></span> http://www.example.com</h4></a></li>
-                <li><a href="mailto:<%= @user.email %>"><h4 class="text-muted"><span class="glyphicon glyphicon-envelope"></span> Email</h4></a></li>   
+                <li><a href="mailto:<%= @user.email %>"><h4 class="text-muted"><span class="glyphicon glyphicon-envelope"></span> Email</h4></a></li>
             </ul>
         </div>
-        
+    </div>
+</section>
 
-        <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-sm btn-warning" %>
-        <%= link_to 'Back', root_path, class: "btn btn-sm btn-default" %>
-
+<section class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-sm btn-warning" %>
+            <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
+        </div>
     </div>
 </section>
