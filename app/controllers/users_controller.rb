@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-    before_action :set_user, only: [:show, :edit, :update, :destroy]
-    load_and_authorize_resource
+before_action :set_user, only: [:show, :edit, :update, :destroy]
+load_and_authorize_resource
 
     def new
         @user = User.new
@@ -18,6 +18,8 @@ class UsersController < ApplicationController
     
     def show
         @user = User.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+        redirect_to(root_url, alert: 'User not found')
     end
     
     def edit
@@ -60,6 +62,7 @@ class UsersController < ApplicationController
                 roles.each do |rn|
                 @user.add_role(rn)
             end
+        end
             redirect_to user_path, success: 'User was successfully updated.'
         else
             render action: 'edit'
@@ -73,14 +76,14 @@ class UsersController < ApplicationController
           render action: 'index'
         end
     end
+
     
-    private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
         @user = User.find(params[:id])  
-        rescue ActiveRecord::RecordNotFound
-        redirect_to(root_url, alert: 'User not found')
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
@@ -88,5 +91,5 @@ class UsersController < ApplicationController
     end
 
     
-    
+
 end
