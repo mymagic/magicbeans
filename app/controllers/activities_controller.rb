@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /activities
   # GET /activities.json
   def index

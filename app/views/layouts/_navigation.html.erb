@@ -25,6 +25,7 @@
         <ul class="dropdown-menu dropdown-user">
             <li><a href="<%= user_path(current_user) %>"><i class="fa fa-user fa-fw"></i><%= current_user.name %></a></li>
             <li class="divider"></li>
+            <li><%= link_to '<i class="fa fa-pencil-square-o fa-fw"></i>'.html_safe + ' Edit My Profile', edit_user_path(current_user) %></li>
             <li><%= link_to '<i class="fa fa-sign-out fa-fw"></i>'.html_safe + ' Logout', destroy_user_session_path, {method: :delete} %></li>
         </ul>
     </li>

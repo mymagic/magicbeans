@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
 
+  def confirmed?
+    confirmed_at.present?
+  end
+
   def has_role?(name)
     roles.include?(Role.find_by_name(name))
   end

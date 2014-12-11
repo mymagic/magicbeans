@@ -3,6 +3,8 @@ class ProgramsController < ApplicationController
   after_action :set_default_for_assoc, only: [:update, :create]
   respond_to :html
 
+  load_and_authorize_resource
+
   def index
     @programs = Program.all
     respond_with(@programs)
