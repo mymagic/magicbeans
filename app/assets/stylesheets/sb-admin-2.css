@@ -64,7 +64,7 @@ body {
 .navbar-top-links .dropdown-messages,
 .navbar-top-links .dropdown-tasks,
 .navbar-top-links .dropdown-alerts {
-    width: 420px;
+    width: 350px;
     min-width: 0;
 }
 
