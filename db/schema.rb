@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141208153657) do
+ActiveRecord::Schema.define(version: 20141211045858) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
-    t.datetime "date",         limit: 255
+    t.date     "date",         limit: 255
     t.string   "venue"
     t.text     "description"
     t.string   "speaker"
