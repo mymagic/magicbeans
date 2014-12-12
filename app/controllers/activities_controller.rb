@@ -43,6 +43,8 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
+        @log = Log.new(title: 'An activity has been updated', log_type: 'activities', type_id: @activity.id)
+        @log.save
         format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
         format.json { render :show, status: :ok, location: @activity }
       else
@@ -56,6 +58,8 @@ class ActivitiesController < ApplicationController
   # DELETE /activities/1.json
   def destroy
     @activity.destroy
+    @log = Log.new(title: 'An activity has been destroyed', log_type: 'activities', type_id: @activity.id)
+    @log.save
     respond_to do |format|
       format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
       format.json { head :no_content }

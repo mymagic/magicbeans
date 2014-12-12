@@ -32,6 +32,8 @@ class UsersController < ApplicationController
             assign_roles(params[:roles])
         end
         if @user.save
+            @log = Log.new(title: 'Created a new user', log_type: 'users', type_id: user.id)
+            @log.save
             redirect_to users_path, success: 'User was successfully created.'
         else
             render action: 'new' 
@@ -47,6 +49,8 @@ class UsersController < ApplicationController
             if current_user.has_role?('admin')
                 assign_roles(params[:roles])
             end
+            @log = Log.new(title: 'A user has been updated', log_type: 'users', type_id: @user.id)
+            @log.save
             redirect_to user_path, success: 'User was successfully updated.'
         else
             render action: 'edit'
@@ -55,6 +59,8 @@ class UsersController < ApplicationController
     
     def destroy
         if @user.destroy
+        @log = Log.new(title: 'A user has been deleted', log_type: 'users', type_id: @user.id)
+        @log.save
           redirect_to users_path, success: 'User was successfully deleted!'
         else
           render action: 'index'
