@@ -50,10 +50,10 @@ class ProgramsController < ApplicationController
           'summary' => activity.name,
           'description' => activity.description,
           'location' =>  activity.venue,
-          'start' => {'dateTime' => DateTime.parse(activity.date.to_s).rfc3339,
+          'start' => {'dateTime' => DateTime.parse(activity.start_date.to_s).rfc3339,
                       'timeZone' => "Asia/Kuala_Lumpur"
                       },
-          'end' => {'dateTime' => DateTime.parse(activity.date.to_s).rfc3339,
+          'end' => {'dateTime' => DateTime.parse(activity.end_date.to_s).rfc3339,
                   'timeZone' => "Asia/Kuala_Lumpur"
                     } }
 

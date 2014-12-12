@@ -10,7 +10,10 @@
       <%= f.text_field(:venue, class:"form-control", placeholder: "Venue") %>
     </div>
     <div class="form-group">
-      <%= f.datetime_field(:date, class:"form-control", placeholder: "Date") %>
+      <%= f.datetime_local_field(:start_date, class:"form-control", placeholder: "Start Date And Time") %>
+    </div>
+    <div class="form-group">
+      <%= f.datetime_local_field(:end_date, class:"form-control", placeholder: "End Date And Time") %>
     </div>
     <div class="form-group">
       <%= f.text_field(:speaker, class:"form-control", placeholder: "Speaker") %>
