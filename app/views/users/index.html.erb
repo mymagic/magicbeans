@@ -22,9 +22,17 @@
                 <td><%= user.phone %></td>
                 <td><%= user.email %></td>
                 <td width="130px">
+                  <% if can? :show, user %>
                     <%= link_to '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>'.html_safe, user, class:"btn btn-sm btn-info" %>
+                  <% end %>
+
+                  <% if can? :update, user %>
                     <%= link_to '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>'.html_safe,  edit_user_path(user), class:"btn btn-sm btn-warning" %>
+                  <% end %>
+
+                  <% if can? :destroy, user %>
                     <%= link_to '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'.html_safe, user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %>
+                  <% end %>
                 </td>
             </tr>
         <% end %>

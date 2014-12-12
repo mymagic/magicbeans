@@ -7,7 +7,7 @@ class Ability
 
     if user.has_role?('admin')
       can :manage, :all
-    elsif user.confirmed?
+    else
       can [:index, :show], :all
       can :manage, User do |u|
         u.id == user.id

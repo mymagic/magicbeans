@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   
   rescue_from CanCan::AccessDenied do |exception|
     if current_user
-      redirect_to :back, :alert => exception.message
+      redirect_to :users, :alert => exception.message
     else
       redirect_to :root, :alert => exception.message
     end

@@ -4,10 +4,10 @@
       <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Activity Name") %>
     </div>
     <div class="form-group">
-      <%= f.text_field(:description, class:"form-control", placeholder: "Description") %>
+      <%= f.text_area(:description, class:"form-control", placeholder: "Description") %>
     </div>
     <div class="form-group">
-      <%= f.text_field(:venue, class:"form-control", placeholder: "Venue") %>
+      <%= f.text_area(:venue, class:"form-control", placeholder: "Venue") %>
     </div>
     <div class="form-group">
       <%= f.date_field(:date, class:"form-control", placeholder: "Date") %>
@@ -16,7 +16,7 @@
       <%= f.text_field(:speaker, class:"form-control", placeholder: "Speaker") %>
     </div>
     <div class="form-group">
-      <%= f.text_field(:speakerbio, class:"form-control", placeholder: "Speaker Biography") %>
+      <%= f.text_area(:speakerbio, class:"form-control", placeholder: "Speaker Biography") %>
     </div>
     <div class="form-group">
       <%= f.text_field(:biolink, class:"form-control", placeholder: "Biography Link") %>
@@ -25,7 +25,7 @@
       <%= f.text_field(:keytakeaway, class:"form-control", placeholder: "Key Benefits") %>
     </div>
     <div class="form-group">
-      <%= f.text_field(:prerequisite, class:"form-control", placeholder: "Prerequisite") %>
+      <%= f.text_area(:prerequisite, class:"form-control", placeholder: "Prerequisite") %>
     </div>
     <div class="form-group">
       <%= f.text_field(:maxattendee, class:"form-control", placeholder: "Maximum Attendees") %>
@@ -34,7 +34,7 @@
       <%= f.text_field(:tags, class:"form-control", placeholder: "Relevant Tags") %>
     </div>
     <div class="form-group">
-      <%= f.text_field(:resources, class:"form-control", placeholder: "Relevant Resources") %>
+      <%= f.text_area(:resources, class:"form-control", placeholder: "Relevant Resources") %>
     </div>
     <% if defined? update %>
         <%= f.submit 'Update', class: "btn btn-primary btn-block" %>

@@ -18,9 +18,17 @@
                 <td><%= program.name %></td>
                 <td><%= program.activities.count %></td>
                 <td width="130px">
+                  <% if can? :show, program %>
                     <%= link_to '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>'.html_safe, program, class:"btn btn-sm btn-info" %>
+                  <% end %>
+
+                  <% if can? :edit, program %>
                     <%= link_to '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>'.html_safe,  edit_program_path(program), class:"btn btn-sm btn-warning" %>
+                  <% end %>
+
+                  <% if can? :destroy, program %>
                     <%= link_to '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'.html_safe, program, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %>
+                  <% end %>
                 </td>
             </tr>
         <% end %>

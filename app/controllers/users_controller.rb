@@ -34,7 +34,7 @@ class UsersController < ApplicationController
         if !roles.blank?
             roles.each do |rn|
                 @user.add_role(rn)
-        end
+            end
         end
 
         if @user.save
