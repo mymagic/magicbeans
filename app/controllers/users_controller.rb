@@ -28,7 +28,9 @@ class UsersController < ApplicationController
     
     def create
         @user = User.new(user_params)
-        assign_roles(params[:roles])
+        if current_user.has_role?('admin')
+            assign_roles(params[:roles])
+        end
         if @user.save
             redirect_to users_path, success: 'User was successfully created.'
         else
@@ -42,7 +44,9 @@ class UsersController < ApplicationController
             params[:user].delete(:password_confirmation)
         end
         if @user.update(user_params)
-            assign_roles(params[:roles])
+            if current_user.has_role?('admin')
+                assign_roles(params[:roles])
+            end
             redirect_to user_path, success: 'User was successfully updated.'
         else
             render action: 'edit'

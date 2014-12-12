@@ -36,20 +36,21 @@
     </div>
   </div>
 
-
-  <div class="col-md-6 col-lg-5">
-    <h3>Roles</h3>
-    <div class="well" id="nested-well">
-      <%  Role.all.each do |t|  %>
-        <%= f.label t.name  %>
-        <% checkbox = false %>
-        <% if @user.has_role?(t.name) %>
-        <% checkbox = true %>
-        <% end %>
-        <%= check_box_tag "roles[]", t.name, checkbox %>
-      <% end %>
-    </div>
-  </div>
+  <% if current_user.has_role?('admin') %>
+      <div class="col-md-6 col-lg-5">
+        <h3>Roles</h3>
+        <div class="well" id="nested-well">
+          <%  Role.all.each do |t|  %>
+              <%= f.label t.name  %>
+              <% checkbox = false %>
+              <% if @user.has_role?(t.name) %>
+                  <% checkbox = true %>
+              <% end %>
+              <%= check_box_tag "roles[]", t.name, checkbox %>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
 </div>
 
 
