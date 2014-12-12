@@ -27,13 +27,16 @@ class UsersController < ApplicationController
     
     def create
         @user = User.new(user_params)
-        roles = params[:roles]
-        if !@user.roles.empty?
-        @user.roles.delete_all
-        end
-        if !roles.blank?
-            roles.each do |rn|
-                @user.add_role(rn)
+
+        if can? :manage, @user
+            roles = params[:roles]
+            if !@user.roles.empty?
+            @user.roles.delete_all
+            end
+            if !roles.blank?
+                roles.each do |rn|
+                    @user.add_role(rn)
+                end
             end
         end
 
@@ -58,13 +61,13 @@ class UsersController < ApplicationController
 
             if !roles.blank?
                 roles.each do |rn|
-                @user.add_role(rn)
+                    @user.add_role(rn)
+                end
             end
             redirect_to user_path, success: 'User was successfully updated.'
         else
             render action: 'edit'
         end
-    end
     end
     
     def destroy

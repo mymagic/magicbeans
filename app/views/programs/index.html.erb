@@ -36,6 +36,8 @@
   </table>
 </div>
 
-<div class="form-group">
-    <%= link_to 'New Program', new_program_path, class: "btn btn-sm btn-success" %>
-</div>
+<% if can? :create, Program %>
+    <div class="form-group">
+        <%= link_to 'New Program', new_program_path, class: "btn btn-sm btn-success" %>
+    </div>
+<% end %>

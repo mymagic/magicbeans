@@ -8,8 +8,8 @@ class Ability
     if user.has_role?('admin')
       can :manage, :all
     else
-      can [:index, :show], :all
-      can :manage, User do |u|
+      can [:read], :all
+      can [:update, :destroy], User do |u|
         u.id == user.id
       end
     end
