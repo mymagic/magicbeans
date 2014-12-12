@@ -15,7 +15,7 @@ Program.create(name: 'Programmer Finishing School', description: "Are you a fina
 You'll work as part of a team to design, build, test and deploy an MVP application for a startup. And your work counts as your final year project.
 
 Do well, and your startup might just ask you to stick around after graduation. Or gain the upper hand in the competitive job market for highly paid tech jobs.
-Apply NOW for the next intake in January 2015. Limited slots available.", speaker: 'Imran Ismail', speakerbio: 'Rails Developer', biourl: 'www.imranismail.me', keytakeways: 'Learn rails', tags: 'web-dev, rails, programming', resources: 'www.imranismail.me, www.rails.com')
+Apply NOW for the next intake in January 2015. Limited slots available.", speaker: 'Imran Ismail', speakerbio: 'Rails Developer', biourl: 'www.imranismail.me', keytakeways: 'Learn rails', tags: 'web-dev, rails, programming', resources: "www.imranismail.me\r\nwww.rails.com")
 Log.create(title: 'Created a program', log_type: 'programs', type_id: 1)
 Activity.create(name: 'Magicbeans',date: Time.now,venue: 'SSTwo Mall, Seksyen 17',description: 'Rails Bootcamp',speaker: 'Imran Ismail',speakerbio: 'Rails Developer',biolink: 'www.imranismail.me',keytakeaway: 'Learn rails',prerequisite: 'SPM', maxattendee: 5,tags: 'web-dev, rails, programming',resources: "www.imranismail.me\r\nwww.rails.com",program_id: 1)
 Log.create(title: 'Created an activity', log_type: 'activities', type_id: 1)

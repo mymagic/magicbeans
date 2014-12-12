@@ -8,9 +8,9 @@
             <h1 class="text-center"><strong><%= @user.name %></strong></h1>
 
             <ul class="list-inline text-center">
-                <li><h4 class="text-muted"><span class="glyphicon glyphicon-map-marker"></span> Malaysia</h4></li>
-                <li><a href="#"><h4 class="text-muted"><span class="glyphicon glyphicon-link"></span> http://www.example.com</h4></a></li>
-                <li><a href="mailto:<%= @user.email %>"><h4 class="text-muted"><span class="glyphicon glyphicon-envelope"></span> Email</h4></a></li>
+                <li><h4 class="text-muted"><span class="glyphicon glyphicon-phone"></span> <%= @user.phone %></h4></li>
+                <li><h4 class="text-muted"><span class="glyphicon glyphicon-user"></span> <%= @user.ic %></h4></li>
+                <li><a href="mailto:<%= @user.email %>"><h4 class="text-muted"><span class="glyphicon glyphicon-envelope"></span> <%= @user.email %></h4></a></li>
             </ul>
         </div>
     </div>

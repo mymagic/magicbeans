@@ -1,30 +1,58 @@
-<section class="row">
-    <div class="col-lg-12">
-        <div class="page-header">
-            <h1>Program Overview of: <%= @program.id %> </h1>
-        </div>
-        <div class="well">
-            <h1 class="text-center"><strong><%= @program.name %></strong></h1>
-            <h3 class="text-center"><%= @program.description %></h3>
-            <h3 class="text-center"><%= @program.speaker %></h3>
-            <h3 class="text-center"><%= @program.speakerbio %></h3>
-            <a href="//<%= @program.biourl %>" target="_blank"><h3 class="text-center"><%= @program.biourl %></h3></a>
-            <h3 class="text-center"><%= @program.keytakeways %></h3>
-            <% @program.resources.split("\r\n").each do |r| %>
-              <a href="//<%= r %>" target="_blank"><h3 class="text-center"><%= r %></h3></a>
-            <% end %>
-            <h3 class="text-center"><strong><%= @program.tags %></strong></h3>
-        </div>
-    </div>
-</section>
+<h1><%= @program.name %></h1>
 
 <section class="row">
-    <div class="col-lg-12">
-        <div class="form-group">
-          <% if can? :edit, @program %>
-            <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-sm btn-warning" %>
-          <% end %>
-            <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
-        </div>
+  <div class="col-lg-3">
+    <div class="well">
+      <dl>
+        <dt><h4>Speaker: </h4></dt>
+        <img class="center-block img-responsive" src="holder.js/300x300/industrial">
+        <dd class="text-center"><%= @program.speaker %></dd>
+      </dl>
     </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="well">
+      <h4>
+        <dl class="dl-horizontal">
+          <dt>Description:</dt>
+          <dd><%= @program.description %></dd>
+
+          <dt>Speaker Bio:</dt>
+          <dd><%= @program.speakerbio %></dd>
+
+          <dt>Key Takeaways:</dt>
+          <dd><%= @program.keytakeways %></dd>
+
+
+          <dt>Resource:</dt>
+          <dd>
+            <ul class="list-unstyled">
+              <% @program.resources.split("\r\n").each do |r| %>
+                  <li><a href="//<%= r %>" target="_blank"><%= r %></a></li>
+              <% end %>
+            </ul>
+          </dd>
+
+          <dt>Tags:</dt>
+          <dd><%= @program.tags %></dd>
+        </dl>
+      </h4>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="well">
+      <div class="form-group">
+        <button class="btn btn-block btn-social btn-facebook">Post on Facebook</button>
+        <button class="btn btn-block btn-social btn-twitter">Post on Twitter</button>
+        <button class="btn btn-block btn-social btn-instagram">Post on Instagram</button>
+      </div>
+    </div>
+  </div>
 </section>
+
+<div class="form-group">
+  <% if can? :edit, @program %>
+      <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-sm btn-warning" %>
+  <% end %>
+  <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
+</div>
