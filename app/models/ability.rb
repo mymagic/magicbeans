@@ -7,6 +7,7 @@ class Ability
 
     if user.has_role?('admin')
       can :manage, :all
+      can :assign_roles, User
     else
       can [:read], :all
       can [:update, :destroy], User do |u|
