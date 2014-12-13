@@ -1,41 +1,36 @@
 class Event
-  def initialize(name, description)
-    @name = CGI::escape(name)
-    @description = CGI::escape(description)
-    @start = CGI::escape('2015-01-01T16:00:32Z')
-    @end = CGI::escape('2015-01-22T16:03:37Z')
-    @timezone = CGI::escape('Asia/Kuala_Lumpur')
-    @organizer_id = 7823757604
-    @currency = CGI::escape('MYR')
-    @online = true
-    @listed = true
-    @eid = nil
+  attr_accessor :response, :oid, :name, :description, :start, :end, :tz, :currency, :online, :listed
+  def initialize(params={})
+    params.each do |attr, value|
+      self.public_send("#{attr}=", (value.is_a? String) ? CGI::escape(value) : value)
+    end if params
+
+    super()
   end
 
-  def new_event
+  def save
     connection = connect()
-    payload = "event.name.html=#{@name}&event.description.html=#{@description}&event.organizer_id=#{@organizer_id}&event.start.utc=#{@start}&event.start.timezone=#{@timezone}&event.end.utc=#{@end}&event.end.timezone=#{@timezone}&event.currency=#{@currency}&event.venue_id=&event.online_event=#{@online}&event.listed=#{@listed}"
-    response = connection.post "/v3/events/", payload
-    @eid = JSON.parse(response.body)['id']
+    payload = "event.name.html=#{@name}&event.description.html=#{@description}&event.organizer_id=#{@organizer_id}&event.start.utc=#{@start}&event.start.timezone=#{@tz}&event.end.utc=#{@end}&event.end.timezone=#{@tz}&event.currency=#{@currency}&event.venue_id=&event.online_event=#{@online}&event.listed=#{@listed}"
+    @response = connection.post "/v3/events/", payload
   end
 
-  def new_ticket_class(name, description, qty, price)
-    raise "event id is missing!, please create an event and try again" if @eid.nil?
+  def create_ticket(name, description, qty, price)
+    raise "event is missing!, please create an event and try again" if @response.nil?
     connection = connect()
     payload = "ticket_class.name=#{CGI::escape(name)}&ticket_class.description=#{CGI::escape(description)}&ticket_class.quantity_total=#{qty}&ticket_class.cost.currency=#{@currency}&ticket_class.cost.value=#{price}"
-    connection.post "/v3/events/#{@eid}/ticket_classes/", payload
+    connection.post "/v3/events/#{JSON.parse(@response.body)['id']}/ticket_classes/", payload
   end
 
-  def publish()
-    raise "event id is missing!, please create an event and try again" if @eid.nil?
+  def publish
+    raise "event is missing!, please create an event and try again" if @response.nil?
     connection = connect()
-    connection.post "/v3/events/#{@eid}/publish/"
+    connection.post "/v3/events/#{JSON.parse(@response.body)['id']}/publish/"
   end
 
-  def unpublish()
-    raise "event id is missing!, please create an event and try again" if @eid.nil?
+  def unpublish
+    raise "event is missing!, please create an event and try again" if @response.nil?
     connection = connect()
-    connection.post "/v3/events/#{@eid}/unpublish/"
+    connection.post "/v3/events/#{JSON.parse(@response.body)['id']}/unpublish/"
   end
 
   private
