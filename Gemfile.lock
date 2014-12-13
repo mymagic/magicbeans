@@ -240,6 +240,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
+  faraday
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
