@@ -17,12 +17,10 @@ class User < ActiveRecord::Base
       end
   end
 
-  validates :ic, format: { with: /\A\d{6}-\d{2}-\d{4}\z/, message: "Invalid IC Format" }, uniqueness: true
-
   with_options on: :update, presence: true do |u|
     u.validates :name
     u.validates :phone
-    u.validates :ic
+    u.validates :ic, format: { with: /\A\d{6}-\d{2}-\d{4}\z/, message: "Invalid IC Format" }, uniqueness: true
   end
 
   has_and_belongs_to_many :roles
