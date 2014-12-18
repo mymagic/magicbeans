@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
   devise_for :users, :path => '', :path_names => {:sign_in => 'sign_in', :sign_out => 'sign_out', :sign_up => 'sign_up'},
-                     :controllers => { :omniauth_callbacks => "callbacks" }
+                     :controllers => { :omniauth_callbacks => "callbacks"}
 
   devise_scope :user do
     root "devise/sessions#new"

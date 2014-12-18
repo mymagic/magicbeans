@@ -38,6 +38,11 @@ class UsersController < ApplicationController
         else
             render action: 'new' 
         end
+        begin
+        Gibbon::API.new(ENV['b8dde85c99971a03fa2887fb3847ade4-us9']).lists.subscribe({:id => ENV['e00ef5b132'], :email => {:email => params[:email]}, :double_optin => false})
+        rescue Gibbon::MailChimpError => e
+        return redirect_to root_path, :flash => { error: e.message }
+        end
     end
     
     def update
