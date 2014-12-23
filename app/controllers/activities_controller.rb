@@ -83,7 +83,7 @@ class ActivitiesController < ApplicationController
         @activity.save
         redirect_to activity_path(@activity), success: 'Successfully created a event!'
       else
-        redirect_to activity_path(@activity), alert: '[@event_response.status] There was an error creating the event'
+        redirect_to activity_path(@activity), alert: "[#{@event_response.status}] There was an error creating the event"
       end
     else
         redirect_to activity_path(@activity), alert: 'Event has already been created'
