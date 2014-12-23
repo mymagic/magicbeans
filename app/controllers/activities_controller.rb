@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event]
   load_and_authorize_resource
   # GET /activities
   # GET /activities.json
@@ -63,6 +63,30 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def create_event
+    @event = Organizer::Event.new(
+      name: @activity.name,
+      description: @activity.description,
+      start: @activity.start.to_time,
+      end: @activity.end.to_time,
+      online_event: @activity.online,
+      currency: "MYR",
+      listed: @activity.listed)
+
+    if (!@activity.event_id)
+      @event_response = Organizer.events(event: @event).post
+      if (@event_response.status == 200)
+        @activity.event_id = @event_response.body['id']
+        @activity.save
+        redirect_to activity_path(@activity), success: 'Successfully created a event!'
+      else
+        redirect_to activity_path(@activity), alert: '[@event_response.status] There was an error creating the event'
+      end
+    else
+        redirect_to activity_path(@activity), alert: 'Event has already been created'
     end
   end
 
