@@ -36,7 +36,8 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   
   # Mailer config
-  config.action_mailer.default_url_options = { host: 'https://magicbeans-prasanthkrajan.c9.io/' }
+
+  config.action_mailer.default_url_options = { host: 'https://magicbeans-prasanthkrajan.c9.io' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :user_name => ENV['MAILTRAPUSERNAME'],

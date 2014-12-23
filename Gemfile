@@ -57,6 +57,10 @@ end
 #mailchimp stuff
 gem 'gibbon'
 
+#mailchimp stuff
+#gem "devise"
+#gem "devise_mailchimp" 
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
