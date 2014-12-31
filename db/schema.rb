@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20141231044217) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
-    t.string   "date"
     t.string   "venue"
     t.text     "description"
     t.string   "speaker"
@@ -29,9 +28,22 @@ ActiveRecord::Schema.define(version: 20141231044217) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "program_id"
+    t.date     "start"
+    t.date     "end"
+    t.boolean  "listed",       default: true
+    t.boolean  "online",       default: true
+    t.integer  "event_id"
   end
 
   add_index "activities", ["program_id"], name: "index_activities_on_program_id"
+
+  create_table "logs", force: true do |t|
+    t.string   "title"
+    t.string   "log_type"
+    t.integer  "type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "programs", force: true do |t|
     t.string   "name"
@@ -66,7 +78,7 @@ ActiveRecord::Schema.define(version: 20141231044217) do
     t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
+    t.string   "email",                  default: ""
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -82,6 +94,9 @@ ActiveRecord::Schema.define(version: 20141231044217) do
     t.string   "unconfirmed_email"
     t.string   "confirmation_token"
     t.datetime "confirmation_sent_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "photo"
     t.string   "image"
   end
 

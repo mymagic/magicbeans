@@ -2,26 +2,25 @@
 <html>
 <head>
   <title>Magicbeans</title>
-  <link href='https://fonts.googleapis.com/css?family=Bitter|Raleway|Inconsolata' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true, :debug => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true, :debug => true %>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.4.1/holder.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <%= csrf_meta_tags %>
 </head>
 <body>
+    <div id="wrapper">
+        <%= render 'layouts/navigation' %>
 
-<%= render 'layouts/navbar' %>
-
-<!-- the container -->
-<div class="container">
-
-  <!-- render the flash type (success, error et cetera) messages -->
-    <%= render partial: "shared/flash_messages", flash: flash %> 
-    
-    <!-- yield the content -->
-    <%= yield %>
-</div>
-
-<!-- render the footer partial -->
-<%= render 'layouts/footer' %>
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+              <%= render partial: "shared/flash_messages", flash: flash %>
+              <!-- yield the content -->
+              <%= yield %>
+            </div>
+        <!-- /.container-fluid -->
+        </div>
+    </div>
 </body>
 </html>

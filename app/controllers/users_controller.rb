@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+    before_filter :authenticate_user!
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     load_and_authorize_resource
+
     def new
         @user = User.new
         @roles = Role.all
@@ -26,17 +28,12 @@ class UsersController < ApplicationController
     
     def create
         @user = User.new(user_params)
-        roles = params[:roles]
-        if !@user.roles.empty?
-        @user.roles.delete_all
+        if current_user.has_role?('admin')
+            assign_roles(params[:roles])
         end
-        if !roles.blank?
-            roles.each do |rn|
-                @user.add_role(rn)
-        end
-        end
-
         if @user.save
+            @log = Log.new(title: 'Created a new user', log_type: 'users', type_id: user.id)
+            @log.save
             redirect_to users_path, success: 'User was successfully created.'
         else
             render action: 'new' 
@@ -49,16 +46,12 @@ class UsersController < ApplicationController
             params[:user].delete(:password_confirmation)
         end
         if @user.update(user_params)
-            if !@user.roles.empty?
-            @user.roles.delete_all
+            if current_user.has_role?('admin')
+                assign_roles(params[:roles])
             end
-            roles = params[:roles]
-            if !roles.blank?
-            roles.each do |rn|
-                @user.add_role(rn)
-            end
-        end
-            redirect_to users_path, success: 'User was successfully updated.'
+            @log = Log.new(title: 'A user has been updated', log_type: 'users', type_id: @user.id)
+            @log.save
+            redirect_to user_path, success: 'User was successfully updated.'
         else
             render action: 'edit'
         end
@@ -66,6 +59,8 @@ class UsersController < ApplicationController
     
     def destroy
         if @user.destroy
+        @log = Log.new(title: 'A user has been deleted', log_type: 'users', type_id: @user.id)
+        @log.save
           redirect_to users_path, success: 'User was successfully deleted!'
         else
           render action: 'index'
@@ -78,6 +73,18 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])  
         rescue ActiveRecord::RecordNotFound
         redirect_to(root_url, alert: 'User not found')
+    end
+
+    def assign_roles(roles)
+        if !@user.roles.empty?
+            @user.roles.delete_all
+        end
+
+        if !roles.blank?
+            roles.each do |rn|
+                @user.add_role(rn)
+            end
+        end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

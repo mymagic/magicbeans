@@ -6,14 +6,8 @@
   <table class="table table-condensed">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Speaker</th>
-                <th>Speakerbio</th>
-                <th>Biourl</th>
-                <th>Key Takeways</th>
-                <th>Tags</th>
-                <th>Resources</th>
+                <th>Program</th>
+                <th>Activities</th>
                 <th width="130px">Actions</th>
             </tr>
         </thead>
@@ -22,17 +16,19 @@
         <% @programs.each do |program| %>
             <tr>
                 <td><%= program.name %></td>
-                <td><%= program.description %></td>
-                <td><%= program.speaker %></td>
-                <td><%= program.speakerbio %></td>
-                <td><%= program.biourl %></td>
-                <td><%= program.keytakeways %></td>
-                <td><%= program.tags %></td>
-                <td><%= program.resources %></td>
+                <td><%= program.activities.count %></td>
                 <td width="130px">
+                  <% if can? :show, program %>
                     <%= link_to '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>'.html_safe, program, class:"btn btn-sm btn-info" %>
+                  <% end %>
+
+                  <% if can? :edit, program %>
                     <%= link_to '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>'.html_safe,  edit_program_path(program), class:"btn btn-sm btn-warning" %>
+                  <% end %>
+
+                  <% if can? :destroy, program %>
                     <%= link_to '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'.html_safe, program, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %>
+                  <% end %>
                 </td>
             </tr>
         <% end %>
@@ -40,5 +36,8 @@
   </table>
 </div>
 
-
-<%= link_to 'New Program', new_program_path, class: "btn btn-sm btn-success" %>
+<% if can? :create, Program %>
+    <div class="form-group">
+        <%= link_to 'New Program', new_program_path, class: "btn btn-sm btn-success" %>
+    </div>
+<% end %>

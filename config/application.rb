@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Workspace
   class Application < Rails::Application
+    Organizer::Config.access_token=ENV['EVENTBRITEAPIKEY']
+    config.time_zone = 'Kuala Lumpur'
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
