@@ -5,6 +5,7 @@ gem 'devise'
 gem 'rails', '4.1.6'
 
 #Use Omniauth for User Authentication
+gem 'organizer'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'

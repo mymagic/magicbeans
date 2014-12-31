@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   resources :activities
   resources :logs
 
+  get 'activities/:id/create_event', to: 'activities#create_event', as: 'create_event'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

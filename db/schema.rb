@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211045858) do
+ActiveRecord::Schema.define(version: 20141223055904) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
-    t.date     "date",         limit: 255
     t.string   "venue"
     t.text     "description"
     t.string   "speaker"
@@ -29,6 +28,11 @@ ActiveRecord::Schema.define(version: 20141211045858) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "program_id"
+    t.date     "start"
+    t.date     "end"
+    t.boolean  "listed",       default: true
+    t.boolean  "online",       default: true
+    t.integer  "event_id"
   end
 
   add_index "activities", ["program_id"], name: "index_activities_on_program_id"
