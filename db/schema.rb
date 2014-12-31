@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141231044217) do
+ActiveRecord::Schema.define(version: 20141231063406) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20141231044217) do
 
   create_table "programs", force: true do |t|
     t.string   "name"
-    t.string   "description"
+    t.text     "description", limit: 255
     t.string   "speaker"
     t.string   "speakerbio"
     t.string   "biourl"
