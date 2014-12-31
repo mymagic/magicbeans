@@ -11,9 +11,10 @@
   </div>
 <% end %>
 
-<%= form_for @user, html: { role: "form" } do |f| %>
+<%= form_for @user, html: { role: "form" ,:multipart => true } do |f| %>
 <div class="row">
   <div class="col-md-6 col-lg-7">
+    
     <h3>User credentials</h3>
     <div class="form-group">
       <label for="name">Name</label>
@@ -40,6 +41,17 @@
       <label for="password_confirmation">Password Confirmation</label>
       <%= f.password_field:password_confirmation, class:"form-control", placeholder: "Password confirmation" %>
     </div>
+    
+    <div class="form-group">
+      <label for="image">Profile Picture</label>
+      <%= f.file_field:image %>
+    </div>
+    
+      <div class="form-group">
+      <%= f.hidden_field :image_cache %>
+    </div>
+
+    
   </div>
 
   <% if current_user.has_role?('admin') %>

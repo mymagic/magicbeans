@@ -25,3 +25,4 @@
 mailtrapenv.sh
 .idea/*
 .DS_Store
+public/uploads/
