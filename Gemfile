@@ -27,6 +27,7 @@ gem 'coffee-rails', '~> 4.0.0'
 #Carrierwave
 gem 'carrierwave'
 
+gem "rails-settings-cached", "0.4.1"
 
 #ImageMagick
 gem 'mini_magick'

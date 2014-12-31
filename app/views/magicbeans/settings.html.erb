@@ -1,0 +1,38 @@
+<h1>Application Settings</h1>
+
+<%= form_tag("/settings", method: "post", role: "form") do%>
+    <div class="row">
+        <div class="col-md-6 col-lg-7">
+            <h3>API Keys</h3>
+            <div class="form-group">
+                <label for="eventbrite_api">Eventbrite</label>
+                <%= text_field_tag(:eventbrite_api, Magicbeans.eventbrite_api, class:"form-control", autofocus: true) %>
+            </div>
+            <div class="form-group">
+                <label for="twitter_api">Twitter</label>
+                <%= text_field_tag(:twitter_api, Magicbeans.twitter_api, class:"form-control", autofocus: true) %>
+            </div>
+            <div class="form-group">
+                <label for="fb_api">Facebook</label>
+                <%= text_field_tag(:fb_api, Magicbeans.fb_api, class:"form-control") %>
+            </div>
+
+            <h3>Custom Messages</h3>
+            <div class="form-group">
+                <label for="fb_message">Twitter</label>
+                <%= text_field_tag(:fb_message, Magicbeans.fb_message, class:"form-control") %>
+            </div>
+            <div class="form-group">
+                <label for="twitter_message">Facebook</label>
+                <%= text_field_tag(:twitter_message, Magicbeans.twitter_message, class:"form-control") %>
+            </div>
+
+            <h3>Extra Fields</h3>
+            <div class="form-group">
+                <label for="organizer_id">Eventbrite Organizer ID</label>
+                <%= text_field_tag(:organizer_id, Magicbeans.organizer_id, class:"form-control") %>
+            </div>
+        </div>
+    </div>
+    <%= submit_tag("Save", class: "btn btn-sm btn-primary") %>
+<% end %>

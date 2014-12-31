@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get 'activities/:id/create_event', to: 'activities#create_event', as: 'create_event'
 
+  match 'settings' => 'magicbeans#settings', via: [:get, :post], :as => :settings
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
