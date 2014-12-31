@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Magicbeans</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true, :debug => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true, :debug => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="wrapper">
+
+  <!-- Page Content -->
+  <div class="container">
+    <!-- render the flash type (success, error et cetera) messages -->
+    <%= render partial: "shared/flash_messages", flash: flash %>
+    <%= devise_error_messages! %>
+
+    <!-- yield the content -->
+    <%= yield %>
+  </div>
+</div>
+</body>
+</html>

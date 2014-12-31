@@ -4,6 +4,12 @@ gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 
+#Use Omniauth for User Authentication
+gem 'organizer'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+
 gem 'cancancan', '~> 1.9'
 
 # Use Bootstrap-Sass
@@ -17,6 +23,13 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
+
+#Carrierwave
+gem 'carrierwave'
+
+
+#ImageMagick
+gem 'mini_magick'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -32,16 +45,23 @@ gem 'spring',        group: :development
 
 
 group :development, :test do
-   # Use sqlite3 as the database for Active Record
-    gem 'sqlite3'
-    gem 'rspec-rails', '~> 3.0.0'
-    gem 'capybara'
+  gem 'sqlite3'
+end
+
+group :test do
+  gem 'capybara'
+  gem "guard-rspec"
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'shoulda-matchers', require: false
 end
 
 group :production do
-   gem 'pg'
-   gem 'rails_12factor'
+  gem 'pg'
+  gem 'rails_12factor'
 end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
