@@ -52,6 +52,11 @@
       <label for="resources">Resources</label>
       <%= f.text_area(:resources, class:"form-control", placeholder: "Relevant Resources") %>
     </div>
+     <div class="form-group">
+      <label for="image">Activity Picture</label>
+      <%= f.file_field:image %>
+      <h6><i>*Size of image uploaded should not be larger than 160 x 160 px*</i></h6>
+    </div>
     <% if defined? update %>
         <%= f.submit 'Update', class: "btn btn-primary btn-block" %>
     <% else %>
