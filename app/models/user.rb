@@ -1,12 +1,16 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  after_create :do_mailchimp
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable,
          :omniauthable, :omniauth_providers => [:facebook, :twitter]
 
+
   mount_uploader :image, ImageUploader
 
+
+         
 
   def self.from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -51,5 +55,14 @@ class User < ActiveRecord::Base
   def list_roles
     roles.map(&:name)
   end
+  
+    def do_mailchimp
+        gb = Gibbon::API.new("b8dde85c99971a03fa2887fb3847ade4-us9")
+        gb.lists.subscribe({:id => 'e00ef5b132', 
+         :email => {:email => self.email }, :merge_vars => {:WHAT_ARE_Y => "user"},
+         :double_optin => false})
+    end
+  
+ 
 
 end

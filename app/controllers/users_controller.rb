@@ -32,13 +32,17 @@ class UsersController < ApplicationController
             assign_roles(params[:roles])
         end
         if @user.save
-            @log = Log.new(title: 'Created a new user', log_type: 'users', type_id: user.id)
+            @log = Log.new(title: 'Created a new user', log_type: 'users', type_id: @user.id)
             @log.save
             redirect_to users_path, success: 'User was successfully created.'
         else
             render action: 'new' 
         end
     end
+        
+    
+
+         
     
     def update
         if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
@@ -72,7 +76,7 @@ class UsersController < ApplicationController
     def set_user
         @user = User.find(params[:id])  
         rescue ActiveRecord::RecordNotFound
-        redirect_to(root_url, alert: 'User not found')
+        redirect_to(root_url, alert: 'User not found') 
     end
 
     def assign_roles(roles)
