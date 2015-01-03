@@ -32,7 +32,20 @@
                 <label for="organizer_id">Eventbrite Organizer ID</label>
                 <%= text_field_tag(:organizer_id, Magicbeans.organizer_id, class:"form-control") %>
             </div>
+
+            <h3>Timezone</h3>
+            <div class="form-group">
+                  <%= collection_select(:time_zone, :name, ActiveSupport::TimeZone.all, :name, :to_s, {:include_blank => 'Please select a timezone', selected: Magicbeans.time_zone}, {class: "form-control"}) 
+                  %>
+            </div>
         </div>
     </div>
-    <%= submit_tag("Save", class: "btn btn-sm btn-primary") %>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+            <%= submit_tag("Save", class: "btn btn-sm btn-primary") %>
+            </div>
+        </div>
+    </div>
 <% end %>
