@@ -1,7 +1,7 @@
 <section class="row">
     <div class="col-md-12">
         <div class="page-header">
-            <h1>User Profile of UID <%= @user.id %> </h1>
+            <h1>User Profile of <%= @user.name %> </h1>
         </div>
         <div class="well">
             <%= image_tag @user.image_url(:thumb).to_s, class: "img-circle center-block" %> 
