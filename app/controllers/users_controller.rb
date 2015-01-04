@@ -39,10 +39,6 @@ class UsersController < ApplicationController
             render action: 'new' 
         end
     end
-        
-    
-
-         
     
     def update
         if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
