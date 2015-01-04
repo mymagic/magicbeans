@@ -27,6 +27,9 @@ gem 'coffee-rails', '~> 4.0.0'
 #Carrierwave
 gem 'carrierwave'
 
+# Use fog for storage
+gem 'fog'
+
 gem "rails-settings-cached", "0.4.1"
 
 #ImageMagick
