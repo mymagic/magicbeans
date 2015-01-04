@@ -27,8 +27,6 @@ gem 'coffee-rails', '~> 4.0.0'
 #Carrierwave
 gem 'carrierwave'
 
-# Use fog for storage
-gem 'fog'
 
 gem "rails-settings-cached", "0.4.1"
 
@@ -64,14 +62,11 @@ end
 group :production do
   gem 'pg'
   gem 'rails_12factor'
+  gem 'fog'
 end
 
 #mailchimp stuff
 gem 'gibbon'
-
-#mailchimp stuff
-#gem "devise"
-#gem "devise_mailchimp" 
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
