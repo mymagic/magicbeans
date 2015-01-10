@@ -64,7 +64,9 @@ group :production do
   gem 'rails_12factor'
 end
 
-gem 'fog'
+gem 'aws-sdk'
+
+gem 'fog', require: "fog/aws/storage"
 
 #mailchimp stuff
 gem 'gibbon'
