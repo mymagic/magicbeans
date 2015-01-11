@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable,
          :omniauthable, :omniauth_providers => [:facebook, :twitter, :google_oauth2]
 
-
   mount_uploader :image, ImageUploader
 
   def self.from_omniauth(auth)
