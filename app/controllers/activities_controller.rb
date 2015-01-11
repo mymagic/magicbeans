@@ -112,6 +112,13 @@ class ActivitiesController < ApplicationController
                                   :parameters => {'calendarId' => current_user.email},
                                   :body => JSON.dump(@event),
                                   :headers => {'Content-Type' => 'application/json'})
+
+      if @set_event
+        redirect_to activity_path(@activity), success: 'Successfully posted activity to Google Calendar!'
+      else
+        redirect_to activity_path(@activity), alert: "[#{@event_response.status}] There was an error posting the event to Google Calendar"
+      end
+
     end
   end
 
@@ -123,6 +130,6 @@ class ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:id, :name, :date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources)
+      params.require(:activity).permit(:id, :name, :start_date, :end_date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources)
     end
 end
