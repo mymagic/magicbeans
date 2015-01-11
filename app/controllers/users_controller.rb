@@ -63,10 +63,9 @@ load_and_authorize_resource
     
     def destroy
         if @user.destroy
-          redirect_to users_Spath, success: 'User was successfully deleted!'
+          redirect_to users_path, success: 'User was successfully deleted!'
         @log = Log.new(title: 'A user has been deleted', log_type: 'users', type_id: @user.id)
         @log.save
-          redirect_to users_path, success: 'User was successfully deleted!'
         else
           render action: 'index'
         end

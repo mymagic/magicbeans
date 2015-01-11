@@ -10,31 +10,17 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-        user.provider = auth.provider
-        user.uid = auth.uid
-        user.email = auth.info.email
-        user.photo = auth.info.image
-        user.token = auth.credentials.token
-        user.password = Devise.friendly_token[0,20]
-        user.skip_confirmation!
-        user.save
+          user.provider = auth.provider
+          user.uid = auth.uid
+          user.email = auth.info.email
+          user.photo = auth.info.image
+          user.token = auth.credentials.token
+          user.password = Devise.friendly_token[0,20]
+          user.skip_confirmation!
+          user.save
       end
   end
 
-#   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-#   data = access_token.info
-#     user = User.find_by(email: data.email)
-#     if user
-#       # .has_role?('Admin')
-#       user.provider = access_token.provider
-#       user.uid = access_token.uid
-#       user.token = access_token.credentials.token
-#       user.save
-#       user
-#     else
-#       redirect_to new_user_registration_path, notice: "Error."
-#     end
-# end
   with_options on: :update, presence: true do |u|
     u.validates :name
     u.validates :phone

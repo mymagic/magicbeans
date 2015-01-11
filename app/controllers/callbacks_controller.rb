@@ -18,4 +18,5 @@ class CallbacksController < Devise::OmniauthCallbacksController
             expires_at: Time.at(@auth['expires_at']).to_datetime)
         sign_in_and_redirect @user
     end
+
 end
