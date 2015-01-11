@@ -53,7 +53,6 @@ load_and_authorize_resource
             if current_user.has_role?('admin')
                 assign_roles(params[:roles])
             end
-        end
             @log = Log.new(title: 'A user has been updated', log_type: 'users', type_id: @user.id)
             @log.save
             redirect_to user_path, success: 'User was successfully updated.'
