@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :logs
 
   get 'activities/:id/create_event', to: 'activities#create_event', as: 'create_event'
-
+  get 'activities/:id/create_gcal', to: 'activities#create_gcal', as: 'create_gcal'
   match 'settings' => 'magicbeans#settings', via: [:get, :post], :as => :settings
 
   # The priority is based upon order of creation: first created -> highest priority.

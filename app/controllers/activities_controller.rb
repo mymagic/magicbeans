@@ -90,6 +90,31 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def create_gcal
+    @activities = Activity.all
+    @activities.each do |activity|
+      @event = {
+          'summary' => activity.name,
+          'description' => activity.description,
+          'location' =>  activity.venue,
+          'start' => {'dateTime' => DateTime.parse(activity.start_date.to_s).rfc3339,
+                      'timeZone' => "Asia/Kuala_Lumpur"
+                      },
+          'end' => {'dateTime' => DateTime.parse(activity.end_date.to_s).rfc3339,
+                  'timeZone' => "Asia/Kuala_Lumpur"
+                    } }
+
+      client = Google::APIClient.new
+      client.authorization.access_token = current_user.token
+      service = client.discovered_api('calendar', 'v3')
+
+      @set_event = client.execute(:api_method => service.events.insert,
+                                  :parameters => {'calendarId' => current_user.email},
+                                  :body => JSON.dump(@event),
+                                  :headers => {'Content-Type' => 'application/json'})
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
