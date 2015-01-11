@@ -1,16 +1,17 @@
 <section class="row">
     <div class="col-md-12">
         <div class="page-header">
-            <h1>User Profile of UID <%= @user.id %> </h1>
+            <h1>User Profile of <%= @user.name %> </h1>
         </div>
         <div class="well">
-            <img src="<%= profile_picture %>" class="img-circle center-block">
+            <%= image_tag @user.image_url(:thumb).to_s, class: "img-circle center-block" %> 
+            
             <h1 class="text-center"><strong><%= @user.name %></strong></h1>
 
             <ul class="list-inline text-center">
-                <li><h4 class="text-muted"><span class="glyphicon glyphicon-map-marker"></span> Malaysia</h4></li>
-                <li><a href="#"><h4 class="text-muted"><span class="glyphicon glyphicon-link"></span> http://www.example.com</h4></a></li>
-                <li><a href="mailto:<%= @user.email %>"><h4 class="text-muted"><span class="glyphicon glyphicon-envelope"></span> Email</h4></a></li>
+                <li><h4 class="text-muted"><span class="glyphicon glyphicon-phone"></span> <%= @user.phone %></h4></li>
+                <li><h4 class="text-muted"><span class="glyphicon glyphicon-user"></span> <%= @user.ic %></h4></li>
+                <li><a href="mailto:<%= @user.email %>"><h4 class="text-muted"><span class="glyphicon glyphicon-envelope"></span> <%= @user.email %></h4></a></li>
             </ul>
         </div>
     </div>
@@ -19,7 +20,9 @@
 <section class="row">
     <div class="col-md-12">
         <div class="form-group">
+          <% if can? :edit, @user %>
             <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-sm btn-warning" %>
+          <% end %>
             <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
         </div>
     </div>

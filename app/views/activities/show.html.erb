@@ -1,88 +1,95 @@
 
 <h1><%= @activity.name %></h1>
-<p class="text-muted"><%= @activity.date %> @ <%= @activity.venue %></p>
+<p class="text-muted"><%= @activity.start %> &mdash; <%= @activity.end %> @ <%= @activity.venue %></p>
 
 <section class="row">
     <div class="col-lg-3">
         <div class="well">
-          <img class="center-block img-responsive" src="holder.js/300x80/industrial">
+          <img class="center-block img-responsive" src="holder.js/300x80/#c0c0c0:#535353">
           <dl>
             <dt><h4>Program: </h4></dt>
             <dd class="text-center"><%= @activity.program.name %></dd>
             <dt><h4>Speaker: </h4></dt>
-            <img class="center-block img-responsive" src="holder.js/300x300/industrial">
+            <img class="center-block img-responsive" src="holder.js/300x300/#c0c0c0:#535353">
             <dd class="text-center"><%= @activity.speaker %></dd>
           </dl>
         </div>
     </div>
     <div class="col-lg-6">
         <div class="well">
-          <dl class="dl-horizontal">
-            <dt><h4>Event Name: </h4></dt>
-            <dd>...</dd>
+            <h4>
+              <dl class="dl-horizontal">
+                <dt>Event Name:</dt>
+                <dd><%= @activity.name %></dd>
 
-            <dt><h4>Date: </h4></dt>
-            <dd>...</dd>
+                <dt>Description:</dt>
+                <dd><%= @activity.description %></dd>
 
-            <dt><h4>Venue: </h4></dt>
-            <dd>...</dd>
+                <dt>Speaker:</dt>
+                <dd><%= @activity.speaker %></dd>
 
-            <dt><h4>Description: </h4></dt>
-            <dd>...</dd>
+                <dt>Speaker Bio:</dt>
+                <dd><%= @activity.speakerbio %></dd>
 
-            <dt><h4>Headline: </h4></dt>
-            <dd>...</dd>
+                <dt>Key Takeaways:</dt>
+                <dd><%= @activity.keytakeaway %></dd>
 
-            <dt><h4>Speaker: </h4></dt>
-            <dd>...</dd>
+                <dt>Pre Requisite:</dt>
+                <dd><%= @activity.prerequisite %></dd>
 
-            <dt><h4>Speaker Bio: </h4></dt>
-            <dd>...</dd>
+                <dt>Max-Attendees:</dt>
+                <dd><%= @activity.maxattendee %></dd>
 
-            <dt><h4>Key Takeaways: </h4></dt>
-            <dd>...</dd>
+                <dt>Resource:</dt>
+                <dd>
+                  <ul class="list-unstyled">
+                    <% @activity.resources.split("\r\n").each do |r| %>
+                        <li><a href="//<%= r %>" target="_blank"><%= r %></a></li>
+                    <% end %>
+                  </ul>
+                </dd>
 
-            <dt><h4>Pre Requisite: </h4></dt>
-            <dd>...</dd>
-
-            <dt><h4>Max-Attendees: </h4></dt>
-            <dd>...</dd>
-
-            <dt><h4>Tags: </h4></dt>
-            <dd>...</dd>
-
-            <dt><h4>Resource: </h4></dt>
-            <dd>...</dd>
-          </dl>
+                <dt>Tags:</dt>
+                <dd><%= @activity.tags %></dd>
+              </dl>
+            </h4>
         </div>
     </div>
     <div class="col-lg-3">
         <div class="well">
           <div class="form-group">
-            <button class="btn btn-block btn-social btn-soundcloud">Create Eventbrite Event</button>
-            <button class="btn btn-block btn-social btn-google-plus">Publish Event in Calendar</button>
-            <button class="btn btn-block btn-social btn-facebook">Post on Facebook</button>
-            <button class="btn btn-block btn-social btn-twitter">Post on Twitter</button>
-            <button class="btn btn-block btn-social btn-instagram">Post on Instagram</button>
+            <% if current_user.has_role?('admin') %>
+            <%= link_to 'Create Event', create_event_path, class:"btn btn-block btn-success" %>
+            <button class="btn btn-block btn-success">Publish Event in Calendar</button>
+            <% end %>
+            <button class="btn btn-block btn-success">Post on Facebook</button>
+            <button class="btn btn-block btn-success">Post on Twitter</button>
+            <button class="btn btn-block btn-success">Post on Instagram</button>
           </div>
+          <% if current_user.has_role?('admin') %>
           <div class="form-group">
             <select class="form-control">
               <option>Select mailing list</option>
             </select>
-            <button class="btn btn-block btn-social btn-adn">Blast Mailchimp</button>
+            <button class="btn btn-block btn-success">Blast Mailchimp</button>
           </div>
           <div class="form-group">
             <select class="form-control">
               <option>Select survey</option>
             </select>
-            <button class="btn btn-block btn-social btn-github">Blast Surveymonkey</button>
+            <button class="btn btn-block btn-success">Blast Surveymonkey</button>
           </div>
+          <% end %>
         </div>
     </div>
 </section>
 
 <div class="form-group">
-  <%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-sm btn-warning" %>
+  <% if can? :edit, @activity %>
+    <%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-sm btn-warning" %>
+  <% end %>
   <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
+  <% if current_user.has_role?('admin') %>
   <button class="btn btn-sm btn-primary">View Registered Attendees</button>
+  <% end %>
 </div>

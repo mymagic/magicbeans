@@ -14,13 +14,20 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     user_path(resource)
   end
+
+  def reload_settings  
+    Organizer::Config.access_token = Magicbeans.eventbrite_api
+    Workspace::Application.config.time_zone = Magicbeans.time_zone
+  end
   
   rescue_from CanCan::AccessDenied do |exception|
     if current_user
-      redirect_to :back, :alert => exception.message
+      redirect_to :users, :alert => exception.message
     else
       redirect_to :root, :alert => exception.message
     end
   end
+  
+
   
 end

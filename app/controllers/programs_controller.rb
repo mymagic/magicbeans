@@ -1,4 +1,5 @@
 class ProgramsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_program, only: [:show, :edit, :update, :destroy]
   after_action :set_default_for_assoc, only: [:update, :create]
   respond_to :html

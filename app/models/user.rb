@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook, :twitter, :google_oauth2]
 
 
+  mount_uploader :image, ImageUploader
+
   def self.from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.provider = auth.provider
@@ -33,7 +35,11 @@ class User < ActiveRecord::Base
 #       redirect_to new_user_registration_path, notice: "Error."
 #     end
 # end
-
+  with_options on: :update, presence: true do |u|
+    u.validates :name
+    u.validates :phone
+    u.validates :ic, format: { with: /\A\d{6}-\d{2}-\d{4}\z/, message: "Invalid IC Format" }, uniqueness: true
+  end
 
   has_and_belongs_to_many :roles
 
@@ -44,7 +50,7 @@ class User < ActiveRecord::Base
   def has_role?(name)
     roles.include?(Role.find_by_name(name))
   end
-  
+
   def add_role(role)
     if  the_role = Role.find_by_name(role)
         roles.push(the_role)
@@ -56,9 +62,9 @@ class User < ActiveRecord::Base
         roles.delete(the_role)
     end
   end
-  
+
   def list_roles
     roles.map(&:name)
   end
-
+  
 end

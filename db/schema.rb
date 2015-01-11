@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212123708) do
+ActiveRecord::Schema.define(version: 20141231103238) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -30,6 +30,11 @@ ActiveRecord::Schema.define(version: 20141212123708) do
     t.datetime "updated_at"
     t.integer  "program_id"
     t.datetime "end_date"
+    t.date     "start"
+    t.date     "end"
+    t.boolean  "listed",       default: true
+    t.boolean  "online",       default: true
+    t.integer  "event_id"
   end
 
   add_index "activities", ["program_id"], name: "index_activities_on_program_id"
@@ -44,7 +49,7 @@ ActiveRecord::Schema.define(version: 20141212123708) do
 
   create_table "programs", force: true do |t|
     t.string   "name"
-    t.string   "description"
+    t.text     "description", limit: 255
     t.string   "speaker"
     t.string   "speakerbio"
     t.string   "biourl"
@@ -73,9 +78,16 @@ ActiveRecord::Schema.define(version: 20141212123708) do
     t.string   "access_token"
     t.string   "refresh_token"
     t.datetime "expires_at"
+  create_table "settings", force: true do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -103,6 +115,7 @@ ActiveRecord::Schema.define(version: 20141212123708) do
     t.string   "uid"
     t.string   "photo"
     t.string   "token"
+    t.string   "image"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

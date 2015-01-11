@@ -9,7 +9,8 @@
       <th>Activity</th>
       <th>Program</th>
       <th>Venue</th>
-      <th>Date</th>
+      <th>Starting Date</th>
+      <th>Ending Date</th>
       <th width="130px">Actions</th>
     </tr>
     </thead>
@@ -20,11 +21,20 @@
           <td><%= activity.name %></td>
           <td><%= activity.program.name %></td>
           <td><%= activity.venue %></td>
-          <td><%= activity.date %></td>
+          <td><%= activity.start %></td>
+          <td><%= activity.end %></td>
           <td width="130px">
+            <% if can? :show, activity %>
             <%= link_to '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>'.html_safe, activity, class:"btn btn-sm btn-info" %>
+            <% end %>
+
+            <% if can? :update, activity %>
             <%= link_to '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>'.html_safe,  edit_activity_path(activity), class:"btn btn-sm btn-warning" %>
-            <%= link_to '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'.html_safe, activity, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %>
+            <% end %>
+
+            <% if can? :destroy, activity %>
+                <%= link_to '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'.html_safe, activity, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %>
+            <% end %>
           </td>
         </tr>
     <% end %>
