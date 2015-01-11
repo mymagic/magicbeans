@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :create_gcal]
   load_and_authorize_resource
   # GET /activities
   # GET /activities.json
@@ -91,34 +91,28 @@ class ActivitiesController < ApplicationController
   end
 
   def create_gcal
-    @activities = Activity.all
-    @activities.each do |activity|
-      @event = {
-          'summary' => activity.name,
-          'description' => activity.description,
-          'location' =>  activity.venue,
-          'start' => {'dateTime' => DateTime.parse(activity.start_date.to_s).rfc3339,
-                      'timeZone' => "Asia/Kuala_Lumpur"
-                      },
-          'end' => {'dateTime' => DateTime.parse(activity.end_date.to_s).rfc3339,
-                  'timeZone' => "Asia/Kuala_Lumpur"
-                    } }
+    @event = {
+        'summary' => @activity.name,
+        'description' => @activity.description,
+        'location' =>  @activity.venue,
+        'start' => {'dateTime' => DateTime.parse(@activity.start_date.to_s).rfc3339
+                    },
+        'end' => {'dateTime' => DateTime.parse(@activity.end_date.to_s).rfc3339
+                  } }
 
-      client = Google::APIClient.new
-      client.authorization.access_token = current_user.token
-      service = client.discovered_api('calendar', 'v3')
+    client = Google::APIClient.new
+    client.authorization.access_token = current_user.token
+    service = client.discovered_api('calendar', 'v3')
 
-      @set_event = client.execute(:api_method => service.events.insert,
-                                  :parameters => {'calendarId' => current_user.email},
-                                  :body => JSON.dump(@event),
-                                  :headers => {'Content-Type' => 'application/json'})
+    @set_event = client.execute(:api_method => service.events.insert,
+                                :parameters => {'calendarId' => current_user.email},
+                                :body => JSON.dump(@event),
+                                :headers => {'Content-Type' => 'application/json'})
 
-      if @set_event
-        redirect_to activity_path(@activity), success: 'Successfully posted activity to Google Calendar!'
-      else
-        redirect_to activity_path(@activity), alert: "[#{@event_response.status}] There was an error posting the event to Google Calendar"
-      end
-
+    if @set_event
+      redirect_to activity_path(@activity), success: 'Successfully posted activity to Google Calendar!'
+    else
+      redirect_to activity_path(@activity), alert: "There was an error posting the event to Google Calendar"
     end
   end
 
