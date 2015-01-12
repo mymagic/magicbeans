@@ -98,14 +98,29 @@ class ActivitiesController < ApplicationController
         'start' => {'dateTime' => DateTime.parse(@activity.start_date.to_s).rfc3339
                     },
         'end' => {'dateTime' => DateTime.parse(@activity.end_date.to_s).rfc3339
-                  } }
+                  }}
 
-    client = Google::APIClient.new
-    client.authorization.access_token = current_user.token
+    # Initialize the client
+    client = Google::APIClient.new(application_name: 'MagicBeans', application_version: '0.0.1')
+    # load and decrypt private key
+    key = Google::APIClient::KeyUtils.load_from_pkcs12( File.join(Rails.root, '..', '..', 'MagicBeans-931630ca9e3e.p12').to_s , 'notasecret')
+    # generate request body for authorization
+    client.authorization = Signet::OAuth2::Client.new(
+                             :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                             :audience             => 'https://accounts.google.com/o/oauth2/token',
+                             :scope                => 'https://www.googleapis.com/auth/calendar',
+                             # :person               => 'admin@gmail.com',
+                             :issuer               =>  ENV['GOOGLE_SERVICE_ACCOUNT_EMAIL'],
+                             :signing_key          =>  key
+                             )
+
+    # fetch access token
+    client.authorization.fetch_access_token!
+    # load API definition
     service = client.discovered_api('calendar', 'v3')
-
+    # access API by using client
     @set_event = client.execute(:api_method => service.events.insert,
-                                :parameters => {'calendarId' => current_user.email},
+                                :parameters => {'calendarId' => ENV['GOOGLE_CALENDAR_ID'] },
                                 :body => JSON.dump(@event),
                                 :headers => {'Content-Type' => 'application/json'})
 
