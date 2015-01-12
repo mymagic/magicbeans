@@ -63,7 +63,7 @@
             <button class="btn btn-block btn-success">Publish Event in Calendar</button>
             <% end %>
             <button class="btn btn-block btn-success">Post on Facebook</button>
-            <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Post on Twitter</button>
+            <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#twitterButton">Post on Twitter</button>
             <button class="btn btn-block btn-success">Post on Instagram</button>
           </div>
           <% if current_user.has_role?('admin') %>
@@ -84,7 +84,7 @@
     </div>
 </section>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="twitterButton" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
