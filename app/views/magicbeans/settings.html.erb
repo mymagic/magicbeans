@@ -26,14 +26,18 @@
                 <label for="twitter_access_token_secret">Access Token Secret</label>
                 <%= text_field_tag(:twitter_access_token_secret, Magicbeans.twitter_access_token_secret, class:"form-control", autofocus: true) %>
             </div>
+            <div class="form-group">
+                <label for="twitter_message">Custom Message</label>
+                <%= text_field_tag(:twitter_message, Magicbeans.twitter_message, class:"form-control") %>
+            </div>
 
             <h3>Facebook</h3>
             <div class="form-group">
-                <label for="fb_api">API Key</label>
+                <label for="fb_api">Application Key</label>
                 <%= text_field_tag(:fb_api, Magicbeans.fb_api, class:"form-control") %>
             </div>
             <div class="form-group">
-                <label for="fb_message">Facebook</label>
+                <label for="fb_message">Custom Message</label>
                 <%= text_field_tag(:fb_message, Magicbeans.fb_message, class:"form-control") %>
             </div>
 
@@ -47,18 +51,13 @@
                 <%= text_field_tag(:google_calendar_id, Magicbeans.google_calendar_id, class:"form-control") %>
             </div>
 
-            <h3>Other Settings</h3>
-            
-            <div class="form-group">
-                <label for="twitter_message">Twitter</label>
-                <%= text_field_tag(:twitter_message, Magicbeans.twitter_message, class:"form-control") %>
-            </div>
+<!--             <h3>Other Settings</h3>
 
             <div class="form-group">
                 <label for="time_zone">Time Zone</label>
                   <%= collection_select(:time_zone, :name, ActiveSupport::TimeZone.all, :name, :to_s, {:include_blank => 'Please select a timezone', selected: Magicbeans.time_zone}, {class: "form-control"}) 
                   %>
-            </div>
+            </div> -->
         </div>
     </div>
 
