@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   devise_for :users, :path => '', :path_names => {:sign_in => 'sign_in', :sign_out => 'sign_out', :sign_up => 'sign_up'},
-                     :controllers => { :omniauth_callbacks => "callbacks"}
+                     :controllers => { :omniauth_callbacks => "callbacks", :registrations => "registrations"}
   resources :users
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   post 'activities/:id/tweet', to:'activities#tweet', as: 'tweet'
 
   get 'activities/:id/create_event', to: 'activities#create_event', as: 'create_event'
-
+  get 'activities/:id/create_gcal', to: 'activities#create_gcal', as: 'create_gcal'
   match 'settings' => 'magicbeans#settings', via: [:get, :post], :as => :settings
 
   # The priority is based upon order of creation: first created -> highest priority.

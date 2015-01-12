@@ -1,6 +1,6 @@
 
 <h1><%= @activity.name %></h1>
-<p class="text-muted"><%= @activity.start %> &mdash; <%= @activity.end %> @ <%= @activity.venue %></p>
+<p class="text-muted"><%= @activity.start_date %> &mdash; <%= @activity.end_date %> @ <%= @activity.venue %></p>
 
 <section class="row">
     <div class="col-lg-3">
@@ -60,7 +60,7 @@
           <div class="form-group">
             <% if current_user.has_role?('admin') %>
             <%= link_to 'Create Event', create_event_path, class:"btn btn-block btn-success" %>
-            <button class="btn btn-block btn-success">Publish Event in Calendar</button>
+            <%= link_to 'Publish Event in Calendar', {:controller => :activities, :action => :create_gcal, :method => :post}, class:"btn btn-block btn-success" %>
             <% end %>
             <button class="btn btn-block btn-success">Post on Facebook</button>
             <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#twitterButton">Post on Twitter</button>

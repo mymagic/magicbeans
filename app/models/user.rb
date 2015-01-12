@@ -9,13 +9,14 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-        user.provider = auth.provider
-        user.uid = auth.uid
-        user.email = auth.info.email
-        user.photo = auth.info.image
-        user.password = Devise.friendly_token[0,20]
-        user.skip_confirmation!
-        user.save
+          user.provider = auth.provider
+          user.uid = auth.uid
+          user.email = auth.info.email
+          user.photo = auth.info.image
+          user.token = auth.credentials.token
+          user.password = Devise.friendly_token[0,20]
+          user.skip_confirmation!
+          user.save
       end
   end
 

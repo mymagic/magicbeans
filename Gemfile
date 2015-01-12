@@ -10,7 +10,11 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 
 #Tweet to Twitter
- gem 'twitter'
+gem 'twitter'
+
+#Google Calender API
+gem 'google-api-client', :require => 'google/api_client'
+gem 'omniauth-google-oauth2'
 
 gem 'cancancan', '~> 1.9'
 
@@ -62,8 +66,8 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
-  gem 'rails_12factor'
+   gem 'pg'
+   gem 'rails_12factor'
 end
 
 gem 'aws-sdk'
@@ -84,4 +88,6 @@ gem 'gibbon'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'json'
 

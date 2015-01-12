@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141231103238) do
+ActiveRecord::Schema.define(version: 20150112183029) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
+    t.datetime "start_date"
     t.string   "venue"
     t.text     "description"
     t.string   "speaker"
@@ -28,8 +29,7 @@ ActiveRecord::Schema.define(version: 20141231103238) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "program_id"
-    t.date     "start"
-    t.date     "end"
+    t.datetime "end_date"
     t.boolean  "listed",       default: true
     t.boolean  "online",       default: true
     t.integer  "event_id"
@@ -83,6 +83,14 @@ ActiveRecord::Schema.define(version: 20141231103238) do
 
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
 
+  create_table "tokens", force: true do |t|
+    t.string   "access_token"
+    t.string   "refresh_token"
+    t.datetime "expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "ic"
@@ -108,6 +116,7 @@ ActiveRecord::Schema.define(version: 20141231103238) do
     t.string   "provider"
     t.string   "uid"
     t.string   "photo"
+    t.string   "token"
     t.string   "image"
   end
 

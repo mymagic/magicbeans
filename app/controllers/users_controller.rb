@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+before_action :set_user, only: [:show, :edit, :update, :destroy]
+load_and_authorize_resource
     before_filter :authenticate_user!
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     load_and_authorize_resource
@@ -19,6 +21,8 @@ class UsersController < ApplicationController
     
     def show
         @user = User.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+        redirect_to(root_url, alert: 'User not found')
     end
     
     def edit
@@ -59,15 +63,16 @@ class UsersController < ApplicationController
     
     def destroy
         if @user.destroy
+          redirect_to users_path, success: 'User was successfully deleted!'
         @log = Log.new(title: 'A user has been deleted', log_type: 'users', type_id: @user.id)
         @log.save
-          redirect_to users_path, success: 'User was successfully deleted!'
         else
           render action: 'index'
         end
     end
+
     
-    private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
         @user = User.find(params[:id])  
@@ -86,6 +91,7 @@ class UsersController < ApplicationController
             end
         end
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
