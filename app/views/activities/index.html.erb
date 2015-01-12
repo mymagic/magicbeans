@@ -21,8 +21,8 @@
           <td><%= activity.name %></td>
           <td><%= activity.program.name %></td>
           <td><%= activity.venue %></td>
-          <td><%= activity.start %></td>
-          <td><%= activity.end %></td>
+          <td><%= activity.start_date %></td>
+          <td><%= activity.end_date %></td>
           <td width="130px">
             <% if can? :show, activity %>
             <%= link_to '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>'.html_safe, activity, class:"btn btn-sm btn-info" %>
