@@ -92,16 +92,13 @@
         <h4 class="modal-title" id="exampleModalLabel">Posting to MaGIC Twitter</h4>
       </div>
       <div class="modal-body">
-        <form>
           <div class="form-group">
-            <label for="message-text" class="control-label">Message:</label>
-            <textarea class="form-control" id="message-text"><%= Magicbeans.twitter_message %></textarea>
+            <%= form_for :tweet, url: tweet_path, method: :post do |f| %>
+            <%= f.label(:message, class:"control-label") %>
+            <%= f.text_area(:message, value: Magicbeans.twitter_message, :class => "form-control") %>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Tweet</button>
+        <%= f.submit 'Tweet', class: "btn btn-primary btn-block" %>
+      <% end %>
       </div>
     </div>
   </div>
