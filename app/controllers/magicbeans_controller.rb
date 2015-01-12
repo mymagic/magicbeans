@@ -1,3 +1,5 @@
+require "settings"
+
 class MagicbeansController < ApplicationController
   before_filter :authenticate_user!
   def settings

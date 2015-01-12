@@ -1,7 +1,7 @@
 module Settings
   def self.load
     begin  
-	Time.zone = "Kuala Lumpur"
+	Time.zone = Magicbeans.time_zone
 	Organizer::Config.access_token = Magicbeans.eventbrite_api
 	Magicbeans.all
 	rescue ActiveRecord::StatementInvalid
