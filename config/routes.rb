@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :activities
   resources :logs
 
+  post 'activities/:id/tweet', to:'activities#tweet', as: 'tweet'
+
   get 'activities/:id/create_event', to: 'activities#create_event', as: 'create_event'
   get 'activities/:id/create_gcal', to: 'activities#create_gcal', as: 'create_gcal'
   match 'settings' => 'magicbeans#settings', via: [:get, :post], :as => :settings

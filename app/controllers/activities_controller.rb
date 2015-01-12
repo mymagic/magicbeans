@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :create_gcal]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal]
   load_and_authorize_resource
   # GET /activities
   # GET /activities.json
@@ -87,6 +87,27 @@ class ActivitiesController < ApplicationController
       end
     else
         redirect_to activity_path(@activity), alert: 'Event has already been created'
+    end
+  end
+
+  def tweet
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = Magicbeans.twitter_consumer_key
+      config.consumer_secret     = Magicbeans.twitter_consumer_secret
+      config.access_token        = Magicbeans.twitter_access_token
+      config.access_token_secret = Magicbeans.twitter_access_token_secret
+    end
+
+    begin
+      message = params[:tweet][:message]
+      if !message.blank?
+        @send_tweet = client.update(message)
+        redirect_to activity_path(@activity), success: 'Successfully tweeted!'
+      else      
+        redirect_to activity_path(@activity), alert: 'Message cannot be blank. Try again!'
+      end
+    rescue Twitter::Error => e
+      redirect_to activity_path(@activity), alert: "#{e}"
     end
   end
 
