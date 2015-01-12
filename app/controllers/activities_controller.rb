@@ -103,7 +103,7 @@ class ActivitiesController < ApplicationController
     # Initialize the client
     client = Google::APIClient.new(application_name: 'MagicBeans', application_version: '0.0.1')
     # load and decrypt private key
-    key = Google::APIClient::KeyUtils.load_from_pkcs12( File.join(Rails.root, '..', '..', 'MagicBeans-931630ca9e3e.p12').to_s , 'notasecret')
+    key = Google::APIClient::KeyUtils.load_from_pkcs12( File.join(Rails.root, '..', '..', 'keyfile.p12').to_s , 'notasecret')
     # generate request body for authorization
     client.authorization = Signet::OAuth2::Client.new(
                              :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
