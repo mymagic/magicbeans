@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141231103238) do
+ActiveRecord::Schema.define(version: 20150112183029) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -30,8 +30,6 @@ ActiveRecord::Schema.define(version: 20141231103238) do
     t.datetime "updated_at"
     t.integer  "program_id"
     t.datetime "end_date"
-    t.date     "start"
-    t.date     "end"
     t.boolean  "listed",       default: true
     t.boolean  "online",       default: true
     t.integer  "event_id"

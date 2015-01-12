@@ -70,8 +70,8 @@ class ActivitiesController < ApplicationController
     @event = Organizer::Event.new(
       name: @activity.name,
       description: @activity.description,
-      start: @activity.start.to_time,
-      end: @activity.end.to_time,
+      start: @activity.start_date.to_time,
+      end: @activity.end_date.to_time,
       online_event: @activity.online,
       currency: "MYR",
       listed: @activity.listed)
