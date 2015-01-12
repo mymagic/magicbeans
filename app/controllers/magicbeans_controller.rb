@@ -1,4 +1,5 @@
 class MagicbeansController < ApplicationController
+  before_filter :authenticate_user!
   def settings
     @params = magicbeans_params
     @params.each do |k, v|
@@ -8,7 +9,7 @@ class MagicbeansController < ApplicationController
         Magicbeans.send("#{k}=", v)
       end
     end
-    reload_settings
+    Settings.load
   end
 
   def magicbeans_params
