@@ -10,7 +10,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 
 #Tweet to Twitter
-gem 'twitter'
+# gem 'twitter'
 
 gem 'cancancan', '~> 1.9'
 
