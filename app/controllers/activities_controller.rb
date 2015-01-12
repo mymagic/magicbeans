@@ -109,8 +109,7 @@ class ActivitiesController < ApplicationController
                              :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
                              :audience             => 'https://accounts.google.com/o/oauth2/token',
                              :scope                => 'https://www.googleapis.com/auth/calendar',
-                             # :person               => 'admin@gmail.com',
-                             :issuer               =>  ENV['GOOGLE_SERVICE_ACCOUNT_EMAIL'],
+                             :issuer               =>  Magicbeans.google_service_account_email,
                              :signing_key          =>  key
                              )
 
@@ -120,7 +119,7 @@ class ActivitiesController < ApplicationController
     service = client.discovered_api('calendar', 'v3')
     # access API by using client
     @set_event = client.execute(:api_method => service.events.insert,
-                                :parameters => {'calendarId' => ENV['GOOGLE_CALENDAR_ID'] },
+                                :parameters => {'calendarId' => Magicbeans.google_calendar_id },
                                 :body => JSON.dump(@event),
                                 :headers => {'Content-Type' => 'application/json'})
 
