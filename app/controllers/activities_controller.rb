@@ -92,10 +92,10 @@ class ActivitiesController < ApplicationController
 
   def tweet
     client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = ENV['TWITTER_KEY']
-      config.consumer_secret     = ENV['TWITTER_SECRET']
-      config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
-      config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
+      config.consumer_key        = Magicbeans.twitter_consumer_key
+      config.consumer_secret     = Magicbeans.twitter_consumer_secret
+      config.access_token        = Magicbeans.twitter_access_token
+      config.access_token_secret = Magicbeans.twitter_access_token_secret
     end
 
     begin
