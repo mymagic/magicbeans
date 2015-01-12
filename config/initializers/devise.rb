@@ -272,13 +272,5 @@ Devise.setup do |config|
         height: '200'
       },
   auth_type: 'reauthenticate'
-  
-  config.omniauth :twitter, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"],
-      secure_image_url: 'true',
-      image_size: 'original',
-      authorize_params: {
-        force_login: 'true',
-        lang:'en'
-      }
     
 end
