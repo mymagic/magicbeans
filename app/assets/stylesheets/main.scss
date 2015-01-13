@@ -110,6 +110,11 @@ a#menu-dropdown:hover, a#menu-dropdown:focus {
   padding-bottom: 20px;
 }
 
+.devise-form {
+  @include make-sm-column(4);
+  @include make-sm-column-offset(4);
+}
+
 .devise-content {
   padding: 20px;
 
