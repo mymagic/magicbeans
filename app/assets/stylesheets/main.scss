@@ -87,12 +87,12 @@ body {
   top: 0;
   margin: 15px;
 
-  a {
+  a#menu-dropdown {
     color: #E5C6C6;
   }
 }
 
-.menu-dd:hover, .menu-dd:focus {
+a#menu-dropdown:hover, a#menu-dropdown:focus {
   color: #fff !important;
 }
 
