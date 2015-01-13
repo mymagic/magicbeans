@@ -112,7 +112,7 @@ class ActivitiesController < ApplicationController
   end
 
   def create_gcal
-    @event = {
+    @gcal_event = {
         'summary' => @activity.name,
         'description' => @activity.description,
         'location' =>  @activity.venue,
@@ -141,7 +141,7 @@ class ActivitiesController < ApplicationController
     # access API by using client
     @set_event = client.execute(:api_method => service.events.insert,
                                 :parameters => {'calendarId' => Magicbeans.google_calendar_id },
-                                :body => JSON.dump(@event),
+                                :body => JSON.dump(@gcal_event),
                                 :headers => {'Content-Type' => 'application/json'})
 
     if @set_event
@@ -154,13 +154,19 @@ class ActivitiesController < ApplicationController
   def share
       page = Koala::Facebook::API.new(Magicbeans.fb_page_access_token)
       message = params[:share][:message]
+      share_event = Organizer.events(event: @event).get
       page.put_wall_post(message, {
+                          # "name" => "name temp",
+                          #  "link" => "http://www.site-temp.com/",
+                          #  "description" => "I Know temp Description",
+                          #  "picture" => "http://site-temp.com/image.jpg"
                           "name" => @activity.name,
-                          "link" => "http://mymagic.my/",
+                          "link" => share_event.body["url"],
                           "caption" => @activity.name,
                           "description" => @activity.description,
-                          "picture" => "http://www.mymagic.my/wp-content/uploads/2014/08/logo.png"
-                        })
+                          "picture" => share_event.body["logo"]
+                          })
+
       redirect_to activity_path(@activity), success: "Shared to Facebook successfully!"
   end
 
