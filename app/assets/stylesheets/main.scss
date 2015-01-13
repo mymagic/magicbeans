@@ -57,6 +57,7 @@ body {
 #notification-container {
   position: absolute;
   right: 0;
+  z-index: 1000;
 }
 
 #notification-icon {
@@ -107,6 +108,10 @@ a#menu-dropdown:hover, a#menu-dropdown:focus {
   @include make-lg-column(10);
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.devise-content {
+  margin: 0 150px;
 }
 
 .sidebar {  
