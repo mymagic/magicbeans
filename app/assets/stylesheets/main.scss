@@ -1,0 +1,308 @@
+/* Alert Flash Popup Push Down
+-------------------------------------------------- */
+.alert {
+    margin: 20px 0;
+}
+
+/* Author Meta
+-------------------------------------------------- */
+.author-meta > h4, .author-meta > a
+{
+    margin: 0 !important;
+    text-align: center;
+}
+
+.author-meta
+{
+    width: 300px;
+}
+
+@media (min-width: 625px)
+{
+    .author-meta
+    {
+        width: 466px;
+
+    }
+
+    .author-meta > h4, .author-meta > a
+    {
+        display:inline-block;
+        margin-right: 20px !important;
+        text-align: center;
+    }
+}
+
+span.beautify input[type="checkbox"],
+span.beautify input[type="radio"] {
+    display: none;
+}
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+/* Space out content a bit */
+body {
+}
+
+.main {
+  @extend .container-fluid;
+  padding: 0;
+}
+
+.notification {
+  $size: 60px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: $size;
+  width: $size;
+  margin: 40px 15px;
+  background: #fff;
+  text-align: center;
+  z-index: 1000;
+  border: 1px solid #ccc;
+  font-size: 1.25em;
+  border-radius: 100%;
+
+  span {
+    line-height: $size;
+  }
+}
+
+.settings {
+  span {    
+    position: absolute;
+    right: 0;
+    font-size: 2em;
+    display: block;
+    top: 0;
+    margin: 18px;
+    color: #E5C6C6;
+  }
+}
+
+.settings:hover, .settings:focus {
+  color: #fff !important;
+}
+
+.content {
+  @include make-md-column-offset(2);
+  @include make-md-column(10);
+
+  @include make-sm-column-offset(3);
+  @include make-sm-column(9);
+
+  @include make-lg-column-offset(2);
+  @include make-lg-column(10);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.sidebar {  
+  @include make-md-column(2);
+  @include make-sm-column(3);
+  @include make-lg-column(2);
+}
+
+.brand {
+  margin: 0 0 20px 0;
+}
+
+.footer {
+  @include make-md-column(2);
+  @include make-sm-column(3);
+  @include make-lg-column(2);
+  display: none;
+}
+
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  @include make-row();
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+  .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+  }
+}
+
+/* Supporting marketing content */
+.body {
+  @include make-row();
+  p + h4 {
+    margin-top: 28px;
+  }
+}
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+
+/* Sidebar navigation */
+.brand {
+  margin: -20px -20px 0 -20px;
+  font-size: 1.5em;
+  padding: 20px;
+  background-color: $color-primary-3;
+}
+
+.nav {
+  margin: 0 -20px -20px -20px;
+
+  li > a {
+    padding-right: 20px;
+    padding-left: 20px;
+    color: #fff;
+  }
+
+  li a:hover {
+    background-color: $color-primary-1;
+  }
+
+  .active > a,
+  .active > a:hover,
+  .active > a:focus {
+    color: #fff;
+    background-color: $color-primary-0;
+  }
+}
+
+.index {
+  @extend .list-inline;
+  margin-left: 0px;
+
+  li {
+    padding: 30px;
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+    background-color: #fff;
+    position: relative;
+    width: 100%;
+  }
+
+  img {
+    @extend .img-circle;
+    max-height: 100px;
+    min-width: 100px;
+  }
+
+  dl {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  dd {
+    @include clearfix(); // Clear the floated `dt` if an empty `dd` is present
+  }
+
+  $dl-horizontal-offset: 100px;
+
+  @media (min-width: $grid-float-breakpoint) {
+    dt {
+      float: left;
+      width: ($dl-horizontal-offset - 20);
+      clear: left;
+      text-align: right;
+      @include text-overflow;
+    }
+    dd {
+      margin-left: $dl-horizontal-offset;
+    }
+  }
+
+  .actions {
+    margin: 0 20px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    bottom: 50%;
+  }
+}
+
+.add-new {
+    @include button-variant(#cece19, #000000, #2dbe27);
+}
+
+.search {
+  position: relative;
+  input {
+    padding-right: 30px;
+  }
+
+  span {
+    position: absolute;
+    right: 0px;
+    padding: 9px 12px;
+    pointer-events: none;
+  }
+}
+
+.header {
+  margin-top: 0;
+}
+
+.index-actions {
+  @extend .form-group;
+
+  .search {
+    display: inline-block;
+  }
+
+  a {
+    display:inline-block;
+  }
+
+  @include clearfix;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: $color-primary-4;
+    color: #fff;
+    border-right: 1px solid $color-primary-1;
+  }
+
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    font-size: 0.8em;
+    background-color: $color-primary-3;
+    color: #fff;
+    border-right: 1px solid $color-primary-1;
+
+    span {
+      color: #ff5548;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

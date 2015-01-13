@@ -4,12 +4,8 @@ Rails.application.routes.draw do
                      :controllers => { :omniauth_callbacks => "callbacks", :registrations => "registrations"}
   resources :users
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
-
   
-
-  devise_scope :user do
-    root "devise/sessions#new"
-  end
+  root "static#index"
 
   resources :programs
   resources :activities
@@ -19,6 +15,7 @@ Rails.application.routes.draw do
   post 'activities/:id/share', to:'activities#share', as: 'share'
   get 'activities/:id/create_event', to: 'activities#create_event', as: 'create_event'
   get 'activities/:id/create_gcal', to: 'activities#create_gcal', as: 'create_gcal'
+
   match 'settings' => 'magicbeans#settings', via: [:get, :post], :as => :settings
   get 'settings/generate' => 'magicbeans#generate_page_token', :as => 'generate'
 
