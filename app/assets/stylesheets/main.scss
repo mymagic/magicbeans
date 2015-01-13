@@ -111,7 +111,11 @@ a#menu-dropdown:hover, a#menu-dropdown:focus {
 }
 
 .devise-content {
-  margin: 0 150px;
+  margin: 0 400px;
+
+  .login-panel {
+    margin: 150px 0;
+  }
 }
 
 .sidebar {  
