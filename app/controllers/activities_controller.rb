@@ -154,20 +154,19 @@ class ActivitiesController < ApplicationController
   def share
       page = Koala::Facebook::API.new(Magicbeans.fb_page_access_token)
       message = params[:share][:message]
-      share_event = Organizer.events(event: @event).get
-      page.put_wall_post(message, {
-                          # "name" => "name temp",
-                          #  "link" => "http://www.site-temp.com/",
-                          #  "description" => "I Know temp Description",
-                          #  "picture" => "http://site-temp.com/image.jpg"
+      share_event = Organizer.events(id: @activity.event_id).get
+      post_status = page.put_wall_post(message, {
                           "name" => @activity.name,
                           "link" => share_event.body["url"],
                           "caption" => @activity.name,
                           "description" => @activity.description,
                           "picture" => share_event.body["logo"]
                           })
-
+    if post_status
       redirect_to activity_path(@activity), success: "Shared to Facebook successfully!"
+    else
+      redirect_to activity_path(@activity), notice: "There is a problem posting to Facebook!"
+    end
   end
 
   private
