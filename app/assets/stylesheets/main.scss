@@ -54,27 +54,30 @@ body {
   padding: 0;
 }
 
-.notification {
-  $size: 60px;
-  position: fixed;
-  top: 0;
+#notification-container {
+  position: absolute;
   right: 0;
-  height: $size;
-  width: $size;
-  margin: 40px 15px;
-  background: #fff;
-  text-align: center;
-  z-index: 1000;
-  border: 1px solid #ccc;
-  font-size: 1.25em;
-  border-radius: 100%;
-
-  span {
-    line-height: $size;
-  }
 }
 
-.menu-dd {
+#notification-icon {
+  $size: 60px;
+  width: $size;
+  height: $size;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 100%;
+  font-size: 1.25em;
+  line-height: $size;
+  margin: 15px;
+}
+
+#notification {
+  width: 400px;
+  margin: 0 15px;
+}
+
+#menu-dd {
   position: absolute;
   right: 0;
   font-size: 2em;
