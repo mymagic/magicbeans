@@ -1,10 +1,17 @@
 <div class="sidebar">
-  <h3 class="brand">Magicbeans</h3>
-  <a href="<%= settings_path %>" class="settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-  <ul class="nav">
-  	<li <%= current_page?(root_path)? "class=active" : "" %> ><a href="<%= root_path %>">Home</a></li>
-    <li <%= current_page?(users_path)? "class=active" : "" %> ><a href="<%= users_path %>">Users</a></li>
-    <li <%= current_page?(programs_path)? "class=active" : "" %> ><a href="<%= programs_path %>">Programs</a></li>
-    <li <%= current_page?(activities_path)? "class=active" : "" %> ><a href="<%= activities_path %>">Activities</a></li>
-  </ul>
+ 	<h3 class="brand">Magicbeans</h3>
+	<div class="dropdown menu-dd">
+		<a id="menu-dropdown" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></a>
+
+		<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="menu-dropdown">	
+			<li><%= link_to '<i class="fa fa-sign-out fa-fw"></i>'.html_safe + ' Logout', destroy_user_session_path, {method: :delete} %></li>
+			<li <%= current_page?(settings_path)? "class=active" : "" %> ><%= link_to '<i class="fa fa-cog fa-fw"></i>'.html_safe + ' Settings', settings_path %></li>
+		</ul>
+	</div>
+	<ul class="nav">
+		<li <%= current_page?(root_path)? "class=active" : "" %> ><a href="<%= root_path %>">Home</a></li>
+		<li <%= current_page?(users_path)? "class=active" : "" %> ><a href="<%= users_path %>">Users</a></li>
+		<li <%= current_page?(programs_path)? "class=active" : "" %> ><a href="<%= programs_path %>">Programs</a></li>
+		<li <%= current_page?(activities_path)? "class=active" : "" %> ><a href="<%= activities_path %>">Activities</a></li>
+	</ul>
 </div>
