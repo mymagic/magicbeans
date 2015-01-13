@@ -18,12 +18,14 @@
 
     <div class="main">
       <!-- render the flash type (success, error et cetera) messages -->
-      <%= render partial: "shared/flash_messages", flash: flash %>
-      <%= devise_error_messages! %>
-      
-      <!-- yield the content -->
-      <div style="margin-top: 20%">
-        <%= yield %>
+      <div class="devise-content">        
+        <%= render partial: "shared/flash_messages", flash: flash %>
+        <%= devise_error_messages! %>
+
+        <!-- yield the content -->
+        <div class="login-form">
+          <%= yield %>
+        </div>
       </div>
     </div>
 </body>
