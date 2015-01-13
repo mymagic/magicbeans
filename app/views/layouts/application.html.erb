@@ -21,9 +21,7 @@
       <%= render 'layouts/navigation' %>
 
       <div class="content">
-        <a href="#" class="notification">
-          <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
-        </a>
+        <%= render 'layouts/notification' %>
         <%= render partial: "shared/flash_messages", flash: flash %>
         <%= yield %>
       </div>
