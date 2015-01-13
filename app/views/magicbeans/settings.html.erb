@@ -33,8 +33,12 @@
 
             <h3>Facebook</h3>
             <div class="form-group">
-                <label for="fb_api">Application Key</label>
-                <%= text_field_tag(:fb_api, Magicbeans.fb_api, class:"form-control") %>
+                <label for="fb_app_id">App ID</label>
+                <%= text_field_tag(:fb_app_id, Magicbeans.fb_app_id, class:"form-control") %>
+            </div>
+            <div class="form-group">
+                <label for="fb_app_id">App Secret</label>
+                <%= text_field_tag(:fb_app_secret, Magicbeans.fb_app_secret, class:"form-control") %>
             </div>
             <div class="form-group">
                 <label for="fb_message">Custom Message</label>
@@ -55,7 +59,7 @@
 
             <div class="form-group">
                 <label for="time_zone">Time Zone</label>
-                  <%= collection_select(:time_zone, :name, ActiveSupport::TimeZone.all, :name, :to_s, {:include_blank => 'Please select a timezone', selected: Magicbeans.time_zone}, {class: "form-control"}) 
+                  <%#= collection_select(:time_zone, :name, ActiveSupport::TimeZone.all, :name, :to_s, {:include_blank => 'Please select a timezone', selected: Magicbeans.time_zone}, {class: "form-control"}) 
                   %>
             </div> -->
         </div>

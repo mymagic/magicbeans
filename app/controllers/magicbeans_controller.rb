@@ -15,6 +15,6 @@ class MagicbeansController < ApplicationController
   end
 
   def magicbeans_params
-    params.permit(:eventbrite_api, :twitter_consumer_key, :twitter_consumer_secret, :twitter_access_token, :twitter_access_token_secret, :google_service_account_email, :google_calendar_id, :fb_api, :organizer_id, :twitter_message, :fb_message, :time_zone => [:name])
+    params.permit(:eventbrite_api, :twitter_consumer_key, :twitter_consumer_secret, :twitter_access_token, :twitter_access_token_secret, :google_service_account_email, :google_calendar_id, :fb_app_id, :fb_app_secret, :organizer_id, :twitter_message, :fb_message, :time_zone => [:name])
   end
 end

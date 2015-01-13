@@ -62,7 +62,7 @@
             <%= link_to 'Create Event', create_event_path, class:"btn btn-block btn-success" %>
             <%= link_to 'Publish Event in Calendar', {:controller => :activities, :action => :create_gcal, :method => :post}, class:"btn btn-block btn-success" %>
             <% end %>
-            <button class="btn btn-block btn-success">Post on Facebook</button>
+            <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#facebookButton">Post on Facebook</button>
             <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#twitterButton">Post on Twitter</button>
             <button class="btn btn-block btn-success">Post on Instagram</button>
           </div>
@@ -98,6 +98,26 @@
             <%= f.text_area(:message, value: Magicbeans.twitter_message, :class => "form-control") %>
           </div>
         <%= f.submit 'Tweet', class: "btn btn-primary btn-block" %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="facebookButton" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Posting to MaGIC Facebook Page</h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <%= form_for :share, url: share_path, method: :post do |f| %>
+            <%= f.label(:message, class:"control-label") %>
+            <%= f.text_area(:message, value: Magicbeans.facebook_message, :class => "form-control") %>
+          </div>
+        <%= f.submit 'Share', class: "btn btn-primary btn-block" %>
       <% end %>
       </div>
     </div>
