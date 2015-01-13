@@ -7,8 +7,17 @@ gem 'rails', '4.1.6'
 #Use Omniauth for User Authentication
 gem 'organizer'
 gem 'omniauth'
-gem 'omniauth-twitter'
 gem 'omniauth-facebook'
+
+#Tweet to Twitter
+gem 'twitter'
+
+#Share to Facebook
+gem 'koala', "~> 1.11.0rc"
+
+#Google Calender API
+gem 'google-api-client', :require => 'google/api_client'
+gem 'omniauth-google-oauth2'
 
 gem 'cancancan', '~> 1.9'
 
@@ -27,6 +36,8 @@ gem 'coffee-rails', '~> 4.0.0'
 #Carrierwave
 gem 'carrierwave'
 
+
+gem "rails-settings-cached", "0.4.1"
 
 #ImageMagick
 gem 'mini_magick'
@@ -58,9 +69,16 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
-  gem 'rails_12factor'
+   gem 'pg'
+   gem 'rails_12factor'
 end
+
+gem 'aws-sdk'
+
+gem 'fog', require: "fog/aws/storage"
+
+#mailchimp stuff
+gem 'gibbon'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -73,4 +91,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'json'
 

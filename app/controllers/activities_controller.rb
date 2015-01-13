@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share]
   load_and_authorize_resource
   # GET /activities
   # GET /activities.json
@@ -70,8 +70,8 @@ class ActivitiesController < ApplicationController
     @event = Organizer::Event.new(
       name: @activity.name,
       description: @activity.description,
-      start: @activity.start.to_time,
-      end: @activity.end.to_time,
+      start: @activity.start_date.to_time,
+      end: @activity.end_date.to_time,
       online_event: @activity.online,
       currency: "MYR",
       listed: @activity.listed)
@@ -90,6 +90,85 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def tweet
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = Magicbeans.twitter_consumer_key
+      config.consumer_secret     = Magicbeans.twitter_consumer_secret
+      config.access_token        = Magicbeans.twitter_access_token
+      config.access_token_secret = Magicbeans.twitter_access_token_secret
+    end
+
+    begin
+      message = params[:tweet][:message]
+      if !message.blank?
+        @send_tweet = client.update(message)
+        redirect_to activity_path(@activity), success: 'Successfully tweeted!'
+      else      
+        redirect_to activity_path(@activity), alert: 'Message cannot be blank. Try again!'
+      end
+    rescue Twitter::Error => e
+      redirect_to activity_path(@activity), alert: "#{e}"
+    end
+  end
+
+  def create_gcal
+    @gcal_event = {
+        'summary' => @activity.name,
+        'description' => @activity.description,
+        'location' =>  @activity.venue,
+        'start' => {'dateTime' => DateTime.parse(@activity.start_date.to_s).rfc3339
+                    },
+        'end' => {'dateTime' => DateTime.parse(@activity.end_date.to_s).rfc3339
+                  }}
+
+    # Initialize the client
+    client = Google::APIClient.new(application_name: 'MagicBeans', application_version: '0.0.1')
+    # load and decrypt private key
+    key = Google::APIClient::KeyUtils.load_from_pkcs12( File.join(Rails.root, '..', '..', 'keyfile.p12').to_s , 'notasecret')
+    # generate request body for authorization
+    client.authorization = Signet::OAuth2::Client.new(
+                             :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                             :audience             => 'https://accounts.google.com/o/oauth2/token',
+                             :scope                => 'https://www.googleapis.com/auth/calendar',
+                             :issuer               =>  Magicbeans.google_service_account_email,
+                             :signing_key          =>  key
+                             )
+
+    # fetch access token
+    client.authorization.fetch_access_token!
+    # load API definition
+    service = client.discovered_api('calendar', 'v3')
+    # access API by using client
+    @set_event = client.execute(:api_method => service.events.insert,
+                                :parameters => {'calendarId' => Magicbeans.google_calendar_id },
+                                :body => JSON.dump(@gcal_event),
+                                :headers => {'Content-Type' => 'application/json'})
+
+    if @set_event
+      redirect_to activity_path(@activity), success: 'Successfully posted activity to Google Calendar!'
+    else
+      redirect_to activity_path(@activity), alert: "There was an error posting the event to Google Calendar"
+    end
+  end
+
+  def share
+      page = Koala::Facebook::API.new(Magicbeans.fb_page_access_token)
+      message = params[:share][:message]
+      share_event = Organizer.events(id: @activity.event_id).get
+      post_status = page.put_wall_post(message, {
+                          "name" => @activity.name,
+                          "link" => share_event.body["url"],
+                          "caption" => @activity.name,
+                          "description" => @activity.description,
+                          "picture" => share_event.body["logo"]
+                          })
+    if post_status
+      redirect_to activity_path(@activity), success: "Shared to Facebook successfully!"
+    else
+      redirect_to activity_path(@activity), notice: "There is a problem posting to Facebook!"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
@@ -98,6 +177,6 @@ class ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:id, :name, :date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources)
+      params.require(:activity).permit(:id, :name, :start_date, :end_date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources)
     end
 end

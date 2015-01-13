@@ -1,0 +1,2 @@
+require 'settings'
+Settings.load

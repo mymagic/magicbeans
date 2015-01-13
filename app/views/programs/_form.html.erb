@@ -21,35 +21,40 @@
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <%= f.text_area(:description, class:"form-control", autofocus: true, placeholder: "Brief Program Description") %>
+      <%= f.text_area(:description, class:"form-control", placeholder: "Brief Program Description") %>
     </div>
     <div class="form-group">
       <label for="speaker">Speaker</label>
-      <%= f.text_field(:speaker, class:"form-control", autofocus: true, placeholder: "Speaker\'s Full Name") %>
+      <%= f.text_field(:speaker, class:"form-control", placeholder: "Speaker\'s Full Name") %>
     </div>
     <div class="form-group">
       <label for="speakerbio">Biography</label>
-      <%= f.text_area(:speakerbio, class:"form-control", autofocus: true, placeholder: "Speaker\'s Biography") %>
+      <%= f.text_area(:speakerbio, class:"form-control", placeholder: "Speaker\'s Biography") %>
     </div>
     <div class="form-group">
       <label for="biourl">Link to Biography</label>
-      <%= f.text_field(:biourl, class:"form-control", autofocus: true, placeholder: "Biography URL") %>
+      <%= f.text_field(:biourl, class:"form-control", placeholder: "Biography URL") %>
     </div>
     <div class="form-group">
       <label for="keytakeways">Key Takeaways</label>
-      <%= f.text_area(:keytakeways, class:"form-control", autofocus: true, placeholder: "Key Benefits") %>
+      <%= f.text_area(:keytakeways, class:"form-control", placeholder: "Key Benefits") %>
     </div>
     <div class="form-group">
       <label for="resources">Resources</label>
-      <%= f.text_area(:resources, class:"form-control", autofocus: true, placeholder: "Relevant Resources") %>
+      <%= f.text_area(:resources, class:"form-control", placeholder: "Relevant Resources") %>
     </div>
     <div class="form-group">
       <label for="tags">Tags</label>
       <%= f.text_field(:tags, class:"form-control", autofocus: true, placeholder: "Relevant Tags") %>
     </div>
+     <div class="form-group">
+      <label for="image">Profile Picture (Speaker)</label>
+      <%= f.file_field:image %>
+      <h6><i>*Size of image uploaded should not be larger than 160 x 160 px*</i></h6>
+    </div>
   </div>
 
-  <div class="col-md-6 col-lg-5">
+  <div class="col-xs-12 col-sm-6 col-md-8">
     <h3>Activities</h3>
     <div class="well" id="nested-well">
       <%= f.fields_for :activities do |af| %>
@@ -62,14 +67,19 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="form-group">
-        <% if @program.new_record? %>
-            <%= f.submit 'Create', class: "btn btn-sm btn-primary" %>
-        <% else %>
-            <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
-            <%= link_to 'Show', @program, class: "btn btn-sm btn-info" %>
-        <% end %>
+    <% if @program.new_record? %> <!-- if it's a new record show the create button -->
+      <div class="form-group pull-left">
+        <%= f.submit 'Create', class: "btn btn-sm btn-primary" %>
+      </div>
+    <% else %> <!-- else show an update button -->
+      <div class="form-group pull-left">
+        <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
+      </div>
+      
+      <div class="form-group pull-right"> <!-- include the show, and back button if user is to be updated -->
+        <%= link_to 'Show', @program, class: "btn btn-sm btn-info" %>
         <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
     </div>
 </div>
+<% end %>
 <% end %>

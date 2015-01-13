@@ -1,0 +1,88 @@
+<h1>Application Settings</h1>
+
+<%= form_tag("/settings", method: "post", role: "form") do%>
+    <div class="row">
+        <div class="col-md-6 col-lg-7">
+            <h3>Eventbrite</h3>
+            <div class="form-group">
+                <label for="eventbrite_api">Personal Oauth Token</label>
+                <%= text_field_tag(:eventbrite_api, Magicbeans.eventbrite_api, class:"form-control", autofocus: true) %>
+            </div>
+
+            <h3>Twitter</h3>
+            <div class="form-group">
+                <label for="twitter_consumer_key">Consumer Key</label>
+                <%= text_field_tag(:twitter_consumer_key, Magicbeans.twitter_consumer_key, class:"form-control", autofocus: true) %>
+            </div>
+            <div class="form-group">
+                <label for="twitter_consumer_secret">Consumer Secret</label>
+                <%= text_field_tag(:twitter_consumer_secret, Magicbeans.twitter_consumer_secret, class:"form-control", autofocus: true) %>
+            </div>
+            <div class="form-group">
+                <label for="twitter_access_token">Access Token</label>
+                <%= text_field_tag(:twitter_access_token, Magicbeans.twitter_access_token, class:"form-control", autofocus: true) %>
+            </div>
+            <div class="form-group">
+                <label for="twitter_access_token_secret">Access Token Secret</label>
+                <%= text_field_tag(:twitter_access_token_secret, Magicbeans.twitter_access_token_secret, class:"form-control", autofocus: true) %>
+            </div>
+            <div class="form-group">
+                <label for="twitter_message">Custom Message</label>
+                <%= text_field_tag(:twitter_message, Magicbeans.twitter_message, class:"form-control") %>
+            </div>
+
+            <h3>Facebook</h3>
+            <div class="form-group">
+                <label for="fb_app_id">App ID</label>
+                <%= text_field_tag(:fb_app_id, Magicbeans.fb_app_id, class:"form-control") %>
+            </div>
+            <div class="form-group">
+                <label for="fb_app_id">App Secret</label>
+                <%= text_field_tag(:fb_app_secret, Magicbeans.fb_app_secret, class:"form-control") %>
+            </div>
+            <div class="form-group">
+                <label for="fb_page_id">Page ID</label>
+                <%= text_field_tag(:fb_page_id, Magicbeans.fb_page_id, class:"form-control") %>
+            </div>
+            <div class="form-group">
+                <label for="fb_user_access_token">User Access Token</label>
+                <%= text_field_tag(:fb_user_access_token, Magicbeans.fb_user_access_token, class:"form-control") %>
+            </div>
+            <div class="form-group">
+                <label for="fb_page_access_token">Page Access Token</label>
+                <%= text_field_tag(:fb_page_access_token, Magicbeans.fb_page_access_token, class:"form-control") %>
+                <%= link_to 'Generate', {:controller => :magicbeans, :action => :generate_page_token, :method => :post}, class:"btn btn-block btn-danger" %>
+            </div>
+            <div class="form-group">
+                <label for="fb_message">Custom Message</label>
+                <%= text_field_tag(:fb_message, Magicbeans.fb_message, class:"form-control") %>
+            </div>
+
+            <h3>Google</h3>
+            <div class="form-group">
+                <label for="google_service_account_email">Google Service Account Email</label>
+                <%= text_field_tag(:google_service_account_email, Magicbeans.google_service_account_email, class:"form-control") %>
+            </div>
+            <div class="form-group">
+                <label for="google_calendar_id">Calendar ID</label>
+                <%= text_field_tag(:google_calendar_id, Magicbeans.google_calendar_id, class:"form-control") %>
+            </div>
+
+<!--             <h3>Other Settings</h3>
+
+            <div class="form-group">
+                <label for="time_zone">Time Zone</label>
+                  <%#= collection_select(:time_zone, :name, ActiveSupport::TimeZone.all, :name, :to_s, {:include_blank => 'Please select a timezone', selected: Magicbeans.time_zone}, {class: "form-control"}) 
+                  %>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+            <%= submit_tag("Save", class: "btn btn-sm btn-primary") %>
+            </div>
+        </div>
+    </div>
+<% end %>

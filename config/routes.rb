@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-
+  
+  devise_for :users, :path => '', :path_names => {:sign_in => 'sign_in', :sign_out => 'sign_out', :sign_up => 'sign_up'},
+                     :controllers => { :omniauth_callbacks => "callbacks", :registrations => "registrations"}
   resources :users
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
-  devise_for :users, :path => '', :path_names => {:sign_in => 'sign_in', :sign_out => 'sign_out', :sign_up => 'sign_up'},
-                     :controllers => { :omniauth_callbacks => "callbacks" }
+  
 
   devise_scope :user do
     root "devise/sessions#new"
@@ -14,7 +15,14 @@ Rails.application.routes.draw do
   resources :activities
   resources :logs
 
+  post 'activities/:id/tweet', to:'activities#tweet', as: 'tweet'
+  post 'activities/:id/share', to:'activities#share', as: 'share'
   get 'activities/:id/create_event', to: 'activities#create_event', as: 'create_event'
+  get 'activities/:id/create_gcal', to: 'activities#create_gcal', as: 'create_gcal'
+  match 'settings' => 'magicbeans#settings', via: [:get, :post], :as => :settings
+  get 'settings/generate' => 'magicbeans#generate_page_token', :as => 'generate'
+
+  get 'fbsignin', to:'activities#signinfacebook'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
