@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get 'activities/:id/create_event', to: 'activities#create_event', as: 'create_event'
   get 'activities/:id/create_gcal', to: 'activities#create_gcal', as: 'create_gcal'
   match 'settings' => 'magicbeans#settings', via: [:get, :post], :as => :settings
+  get 'settings/generate' => 'magicbeans#generate_page_token', :as => 'generate'
+
+  get 'fbsignin', to:'activities#signinfacebook'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

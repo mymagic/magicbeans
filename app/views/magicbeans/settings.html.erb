@@ -41,6 +41,19 @@
                 <%= text_field_tag(:fb_app_secret, Magicbeans.fb_app_secret, class:"form-control") %>
             </div>
             <div class="form-group">
+                <label for="fb_page_id">Page ID</label>
+                <%= text_field_tag(:fb_page_id, Magicbeans.fb_page_id, class:"form-control") %>
+            </div>
+            <div class="form-group">
+                <label for="fb_user_access_token">User Access Token</label>
+                <%= text_field_tag(:fb_user_access_token, Magicbeans.fb_user_access_token, class:"form-control") %>
+            </div>
+            <div class="form-group">
+                <label for="fb_page_access_token">Page Access Token</label>
+                <%= text_field_tag(:fb_page_access_token, Magicbeans.fb_page_access_token, class:"form-control") %>
+                <%= link_to 'Generate', {:controller => :magicbeans, :action => :generate_page_token, :method => :post}, class:"btn btn-block btn-danger" %>
+            </div>
+            <div class="form-group">
                 <label for="fb_message">Custom Message</label>
                 <%= text_field_tag(:fb_message, Magicbeans.fb_message, class:"form-control") %>
             </div>

@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share]
   load_and_authorize_resource
   # GET /activities
   # GET /activities.json
@@ -152,7 +152,16 @@ class ActivitiesController < ApplicationController
   end
 
   def share
-    
+      page = Koala::Facebook::API.new(Magicbeans.fb_page_access_token)
+      message = params[:share][:message]
+      page.put_wall_post(message, {
+                          "name" => @activity.name,
+                          "link" => "http://mymagic.my/",
+                          "caption" => @activity.name,
+                          "description" => @activity.description,
+                          "picture" => "http://www.mymagic.my/wp-content/uploads/2014/08/logo.png"
+                        })
+      redirect_to activity_path(@activity), success: "Shared to Facebook successfully!"
   end
 
   private

@@ -115,7 +115,7 @@
           <div class="form-group">
             <%= form_for :share, url: share_path, method: :post do |f| %>
             <%= f.label(:message, class:"control-label") %>
-            <%= f.text_area(:message, value: Magicbeans.facebook_message, :class => "form-control") %>
+            <%= f.text_area(:message, value: Magicbeans.fb_message, :class => "form-control") %>
           </div>
         <%= f.submit 'Share', class: "btn btn-primary btn-block" %>
       <% end %>
