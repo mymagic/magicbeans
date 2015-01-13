@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150112183029) do
+ActiveRecord::Schema.define(version: 20150113065043) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -113,10 +113,6 @@ ActiveRecord::Schema.define(version: 20150112183029) do
     t.string   "unconfirmed_email"
     t.string   "confirmation_token"
     t.datetime "confirmation_sent_at"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "photo"
-    t.string   "token"
     t.string   "image"
   end
 

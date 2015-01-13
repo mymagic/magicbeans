@@ -74,19 +74,20 @@ body {
   }
 }
 
-.settings {
-  span {    
-    position: absolute;
-    right: 0;
-    font-size: 2em;
-    display: block;
-    top: 0;
-    margin: 18px;
+.menu-dd {
+  position: absolute;
+  right: 0;
+  font-size: 2em;
+  display: block;
+  top: 0;
+  margin: 15px;
+
+  a {
     color: #E5C6C6;
   }
 }
 
-.settings:hover, .settings:focus {
+.menu-dd:hover, .menu-dd:focus {
   color: #fff !important;
 }
 
