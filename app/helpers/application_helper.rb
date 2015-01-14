@@ -21,5 +21,23 @@ module ApplicationHelper
 		end 
 		button = "<button type='button' class='btn btn-primary' onclick='add_field(this, \"#{association}\", \"#{escape_javascript(fields)}\")' formnovalidate data-loading-text='Loading...'><span class='glyphicon glyphicon-plus'></span></button>"
 		button.html_safe
-	end  
+	end
+
+	def image_for(resource)
+		placeholder = "http://placehold.it/100x100"
+		if resource.class == Program
+			resource.program_img.url.nil? ? placeholder : resource.program_img.url
+		elsif resource.class == Activity
+			resource.activity_img.url.nil? ? placeholder : resource.activity_img.url
+		end
+	end
+
+	def image_for_speaker(resource)
+		placeholder = "http://placehold.it/150x150"
+		if resource.class == Program
+			resource.speaker_img.url.nil? ? placeholder : resource.speaker_img.url
+		elsif resource.class == Activity
+			resource.speaker_img.url.nil? ? placeholder : resource.speaker_img.url
+		end
+	end
 end

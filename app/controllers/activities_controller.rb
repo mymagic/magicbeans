@@ -22,22 +22,6 @@ class ActivitiesController < ApplicationController
   def edit
   end
 
-  # POST /activities
-  # POST /activities.json
-  # def create
-  #   @activity = Activity.new(activity_params)
-  #
-  #   respond_to do |format|
-  #     if @activity.save
-  #       format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
-  #       format.json { render :show, status: :created, location: @activity }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @activity.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
   # PATCH/PUT /activities/1
   # PATCH/PUT /activities/1.json
   def update
@@ -67,16 +51,18 @@ class ActivitiesController < ApplicationController
   end
 
   def create_event
-    @event = Organizer::Event.new(
-      name: @activity.name,
-      description: @activity.description,
-      start: @activity.start_date.to_time,
-      end: @activity.end_date.to_time,
-      online_event: @activity.online,
-      currency: "MYR",
-      listed: @activity.listed)
+    if (Magicbeans.eventbrite_api.empty?)
+      redirect_to activity_path(@activity), alert: "Please set the Eventbrite API Key in the settings page and try again"
+    elsif (@activity.event_id.nil?)
+      @event = Organizer::Event.new(
+        name: @activity.name,
+        description: @activity.description,
+        start: @activity.start_date.to_time,
+        end: @activity.end_date.to_time,
+        online_event: @activity.online,
+        currency: "MYR",
+        listed: @activity.listed)
 
-    if (!@activity.event_id)
       @event_response = Organizer.events(event: @event).post
       if (@event_response.status == 200)
         @activity.event_id = @event_response.body['id']

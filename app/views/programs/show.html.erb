@@ -1,7 +1,7 @@
 <div class="show-main" style="background-image: linear-gradient(
       rgba(0, 0, 0, 0.7), 
       rgba(0, 0, 0, 0.7)
-    ), url(<%= @program.program_img.url %>)">
+    ), url(<%= @program.program_img.url.nil? ? "http://placehold.it/1600x400" : @program.program_img.url %>)">
   <h1><%= @program.name %></h1>
 </div>
 
@@ -51,6 +51,3 @@
     </div>
   </div>
 </section>
-
-<div class="form-group">
-</div>

@@ -1,6 +1,8 @@
-<div class="header-container">
-<h1 class="header">Editing program: <%= @program.name %></h1>
-<%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
-<%= link_to 'Show', @program, class: "btn btn-info" %>
-</div>
+<div class="header-container row">
+    <div class="col-lg-8 col-lg-offset-2">
+		<h1 class="header">Editing program: <%= @program.name %></h1>
+		<%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+		<%= link_to 'Show', @program, class: "btn btn-info" %>
+	</div>
+</div>	
 <%= render 'form' %>
