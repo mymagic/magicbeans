@@ -4,17 +4,16 @@ module UsersHelper
         gravatar_url = "https://www.gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
     end
 
-    def profile_picture
-        if @user.provider == nil
-            gravatar_for(@user.email, 125)
+    def profile_picture(user)
+        if user.image.blank?
+            gravatar_for(user.email, 150)
         else
-            @user.photo
+            user.image.url
         end
     end
 
-
     def is_admin?
-        if user_signed_in? && current_user.has_role?('Admin')
+        if user_signed_in? && current_user.has_role?('admin')
         	true
         else
         	false

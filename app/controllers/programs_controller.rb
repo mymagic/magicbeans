@@ -17,7 +17,7 @@ class ProgramsController < ApplicationController
 
   def new
     @program = Program.new
-    1.times {@program.activities.build}
+    # 1.times {@program.activities.build}
     respond_with(@program)
   end
 
@@ -26,10 +26,28 @@ class ProgramsController < ApplicationController
 
   def create
     @program = Program.new(program_params)
+
+    @program.activities.each do |a|
+      if a.description.empty?
+        a.description = @program.description
+      end
+
+      if a.keytakeaway.empty?
+        a.keytakeaway = @program.keytakeways
+      end
+
+      if a.speaker.empty?
+        a.speaker = @program.speaker
+      end
+
+      if a.speakerbio.empty?
+        a.speakerbio = @program.speakerbio
+      end
+    end
+    
     if @program.save
         @log = Log.new(title: 'Created a new program', log_type: 'programs', type_id: @program.id)
         @log.save
-
         redirect_to programs_path, success: 'Successfully created a program!'
     else
         render action: "new"
@@ -66,7 +84,7 @@ class ProgramsController < ApplicationController
     end
 
     def program_params
-      params.require(:program).permit(:name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources, activities_attributes: [:id, :name, :date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources, :_destroy])
+      params.require(:program).permit(:name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources, :speaker_img, :program_img, activities_attributes: [:id, :name, :start_date, :end_date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources, :_destroy])
     end
 
 
@@ -92,3 +110,6 @@ class ProgramsController < ApplicationController
       @program.save
     end
 end
+
+
+  

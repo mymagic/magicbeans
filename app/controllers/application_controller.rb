@@ -8,21 +8,15 @@ class ApplicationController < ActionController::Base
 
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(resource_or_scope)
-    root_path
+    new_user_session_path
   end
 
   def after_sign_in_path_for(resource)
-    user_path(resource)
+    root_path
   end
   
   rescue_from CanCan::AccessDenied do |exception|
-    if current_user
-      redirect_to :users, :alert => exception.message
-    else
-      redirect_to :root, :alert => exception.message
-    end
+    redirect_to :root, :alert => exception.message
   end
-  
-
   
 end

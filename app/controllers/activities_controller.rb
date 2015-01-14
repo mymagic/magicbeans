@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal]
   load_and_authorize_resource
   # GET /activities
   # GET /activities.json
@@ -21,22 +21,6 @@ class ActivitiesController < ApplicationController
   # GET /activities/1/edit
   def edit
   end
-
-  # POST /activities
-  # POST /activities.json
-  # def create
-  #   @activity = Activity.new(activity_params)
-  #
-  #   respond_to do |format|
-  #     if @activity.save
-  #       format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
-  #       format.json { render :show, status: :created, location: @activity }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @activity.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   # PATCH/PUT /activities/1
   # PATCH/PUT /activities/1.json
@@ -67,16 +51,18 @@ class ActivitiesController < ApplicationController
   end
 
   def create_event
-    @event = Organizer::Event.new(
-      name: @activity.name,
-      description: @activity.description,
-      start: @activity.start.to_time,
-      end: @activity.end.to_time,
-      online_event: @activity.online,
-      currency: "MYR",
-      listed: @activity.listed)
+    if (Magicbeans.eventbrite_api.empty?)
+      redirect_to activity_path(@activity), alert: "Please set the Eventbrite API Key in the settings page and try again"
+    elsif (@activity.event_id.nil?)
+      @event = Organizer::Event.new(
+        name: @activity.name,
+        description: @activity.description,
+        start: @activity.start_date.to_time,
+        end: @activity.end_date.to_time,
+        online_event: @activity.online,
+        currency: "MYR",
+        listed: @activity.listed)
 
-    if (!@activity.event_id)
       @event_response = Organizer.events(event: @event).post
       if (@event_response.status == 200)
         @activity.event_id = @event_response.body['id']
@@ -90,6 +76,67 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def tweet
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = Magicbeans.twitter_consumer_key
+      config.consumer_secret     = Magicbeans.twitter_consumer_secret
+      config.access_token        = Magicbeans.twitter_access_token
+      config.access_token_secret = Magicbeans.twitter_access_token_secret
+    end
+
+    begin
+      message = params[:tweet][:message]
+      if !message.blank?
+        @send_tweet = client.update(message)
+        redirect_to activity_path(@activity), success: 'Successfully tweeted!'
+      else      
+        redirect_to activity_path(@activity), alert: 'Message cannot be blank. Try again!'
+      end
+    rescue Twitter::Error => e
+      redirect_to activity_path(@activity), alert: "#{e}"
+    end
+  end
+
+  def create_gcal
+    @event = {
+        'summary' => @activity.name,
+        'description' => @activity.description,
+        'location' =>  @activity.venue,
+        'start' => {'dateTime' => DateTime.parse(@activity.start_date.to_s).rfc3339
+                    },
+        'end' => {'dateTime' => DateTime.parse(@activity.end_date.to_s).rfc3339
+                  }}
+
+    # Initialize the client
+    client = Google::APIClient.new(application_name: 'MagicBeans', application_version: '0.0.1')
+    # load and decrypt private key
+    key = Google::APIClient::KeyUtils.load_from_pkcs12( File.join(Rails.root, '..', '..', 'keyfile.p12').to_s , 'notasecret')
+    # generate request body for authorization
+    client.authorization = Signet::OAuth2::Client.new(
+                             :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                             :audience             => 'https://accounts.google.com/o/oauth2/token',
+                             :scope                => 'https://www.googleapis.com/auth/calendar',
+                             :issuer               =>  Magicbeans.google_service_account_email,
+                             :signing_key          =>  key
+                             )
+
+    # fetch access token
+    client.authorization.fetch_access_token!
+    # load API definition
+    service = client.discovered_api('calendar', 'v3')
+    # access API by using client
+    @set_event = client.execute(:api_method => service.events.insert,
+                                :parameters => {'calendarId' => Magicbeans.google_calendar_id },
+                                :body => JSON.dump(@event),
+                                :headers => {'Content-Type' => 'application/json'})
+
+    if @set_event
+      redirect_to activity_path(@activity), success: 'Successfully posted activity to Google Calendar!'
+    else
+      redirect_to activity_path(@activity), alert: "There was an error posting the event to Google Calendar"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
@@ -98,6 +145,6 @@ class ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:id, :name, :date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources)
+      params.require(:activity).permit(:id, :name, :start_date, :end_date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources)
     end
 end
