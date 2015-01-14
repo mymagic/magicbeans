@@ -1,12 +1,14 @@
-<div class="header-container">
-    <h1 class="header">User Profile of <%= @user.name %></h1>
-    <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
-    <% if can? :edit, @user %>
-        <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary" %>
-    <% end %>
+<div class="header-container row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <h1 class="header">User Profile of <%= @user.name %></h1>
+        <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+        <% if can? :edit, @user %>
+            <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary" %>
+        <% end %>
+    </div>
 </div>
 <section class="row">
-    <div class="col-md-12">
+    <div class="col-lg-6 col-lg-offset-3">
         <div class="well">
             <img src="<%= profile_picture(@user) %>" class="img-circle center-block" style="min-width: 150px; max-height:150px;" alt="">
             
