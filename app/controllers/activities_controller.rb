@@ -100,6 +100,7 @@ class ActivitiesController < ApplicationController
 
     begin
       message = params[:tweet][:message]
+      share_event = Organizer.events(id: @activity.event_id).get
       if !message.blank?
         @send_tweet = client.update(message)
         redirect_to activity_path(@activity), success: 'Successfully tweeted!'
