@@ -10,7 +10,7 @@
 <ul class="index">
   <% @programs.each do |program| %>
     <li>
-      <img src="<%= program.program_img.url %>" alt="">
+      <img src="<%= image_for(program) %>" alt="">
       <dl>
         <dt>Name: </dt>
         <dd><%= program.name %></dd>

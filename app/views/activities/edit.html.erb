@@ -1,12 +1,7 @@
-<h1>Editing activity</h1>
+<div class="header-container">
+<h1 class="header">Editing activity: <%= @activity.name %></h1>
+  <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+  <%= link_to 'Show', @activity, class: "btn btn-info" %>
+</div>
 
 <%= render 'form' %>
-
-<section class="row">
-  <div class="col-lg-12">
-    <div class="form-group">
-      <%= link_to 'Show', @activity, class: "btn btn-sm btn-info" %>
-      <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
-    </div>
-  </div>
-</section>

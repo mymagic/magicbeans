@@ -1,87 +1,94 @@
-
-<h1><%= @activity.name %></h1>
-<p class="text-muted"><%= @activity.start_date %> &mdash; <%= @activity.end_date %> @ <%= @activity.venue %></p>
+<div class="show-main" style="background-image: linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ), url(<%= @activity.activity_img.url.nil? ? "http://placehold.it/1600x400" : @activity.activity_img.url %>)">
+  <h1><%= @activity.name %></h1>
+</div>
 
 <section class="row">
-    <div class="col-lg-3">
-        <div class="well">
-          <img class="center-block img-responsive" src="holder.js/300x80/#c0c0c0:#535353">
-          <dl>
-            <dt><h4>Program: </h4></dt>
-            <dd class="text-center"><%= @activity.program.name %></dd>
-            <dt><h4>Speaker: </h4></dt>
-            <img class="center-block img-responsive" src="holder.js/300x300/#c0c0c0:#535353">
-            <dd class="text-center"><%= @activity.speaker %></dd>
-          </dl>
-        </div>
+  <div class="col-lg-10 col-lg-offset-1">
+    <div class="form-group">
+      <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+      <% if current_user.has_role?('admin') %>
+      <button class="btn btn-info">View Registered Attendees</button>
+      <% end %>
+      <% if can? :edit, @activity %>
+          <%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-info" %>
+      <% end %>
     </div>
-    <div class="col-lg-6">
-        <div class="well">
-            <h4>
-              <dl class="dl-horizontal">
-                <dt>Event Name:</dt>
-                <dd><%= @activity.name %></dd>
-
-                <dt>Description:</dt>
-                <dd><%= @activity.description %></dd>
-
-                <dt>Speaker:</dt>
-                <dd><%= @activity.speaker %></dd>
-
-                <dt>Speaker Bio:</dt>
-                <dd><%= @activity.speakerbio %></dd>
-
-                <dt>Key Takeaways:</dt>
-                <dd><%= @activity.keytakeaway %></dd>
-
-                <dt>Pre Requisite:</dt>
-                <dd><%= @activity.prerequisite %></dd>
-
-                <dt>Max-Attendees:</dt>
-                <dd><%= @activity.maxattendee %></dd>
-
-                <dt>Resource:</dt>
-                <dd>
-                  <ul class="list-unstyled">
-                    <% @activity.resources.split("\r\n").each do |r| %>
-                        <li><a href="//<%= r %>" target="_blank"><%= r %></a></li>
-                    <% end %>
-                  </ul>
-                </dd>
-
-                <dt>Tags:</dt>
-                <dd><%= @activity.tags %></dd>
-              </dl>
-            </h4>
-        </div>
+  </div>
+  <div class="col-lg-3 col-lg-offset-1">
+    <div class="well">
+      <dl>
+        <dt>Program: </dt>
+        <img class="center-block img-circle" style="min-width: 150px; max-width: 150px;" src="<%= image_for(@activity.program) %>">
+        <dd class="text-center"><%= @activity.program.name %></dd>
+        <dt>Speaker: </dt>
+        <img class="center-block img-circle" style="min-width: 150px; max-width: 150px;" src="<%= image_for_speaker(@activity) %>">
+        <dd class="text-center"><%= @activity.speaker %></dd>
+      </dl>
     </div>
-    <div class="col-lg-3">
-        <div class="well">
-          <div class="form-group">
-            <% if current_user.has_role?('admin') %>
-            <%= link_to 'Create Event', create_event_path, class:"btn btn-block btn-success" %>
-            <%= link_to 'Publish Event in Calendar', {:controller => :activities, :action => :create_gcal, :method => :post}, class:"btn btn-block btn-success" %>
-            <% end %>
-            <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#facebookButton">Post on Facebook</button>
-            <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#twitterButton">Post on Twitter</button>
-            <button class="btn btn-block btn-success">Post on Instagram</button>
-          </div>
-          <% if current_user.has_role?('admin') %>
-          <div class="form-group">
-            <select class="form-control">
-              <option>Select mailing list</option>
-            </select>
-            <button class="btn btn-block btn-success">Blast Mailchimp</button>
-          </div>
-          <div class="form-group">
-            <select class="form-control">
-              <option>Select survey</option>
-            </select>
-            <button class="btn btn-block btn-success">Blast Surveymonkey</button>
-          </div>
-          <% end %>
-        </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="well">
+        <dl class="dl-horizontal">
+          <dt>Event Name:</dt>
+          <dd><%= @activity.name %></dd>
+
+          <dt>Description:</dt>
+          <dd><%= @activity.description %></dd>
+
+          <dt>Speaker:</dt>
+          <dd><%= @activity.speaker %></dd>
+
+          <dt>Speaker Bio:</dt>
+          <dd><%= @activity.speakerbio %></dd>
+
+          <dt>Key Takeaways:</dt>
+          <dd><%= @activity.keytakeaway %></dd>
+
+          <dt>Pre Requisite:</dt>
+          <dd><%= @activity.prerequisite %></dd>
+
+          <dt>Max-Attendees:</dt>
+          <dd><%= @activity.maxattendee %></dd>
+
+          <dt>Resource:</dt>
+          <dd>
+            <ul class="list-unstyled">
+              <% @activity.resources.split("\r\n").each do |r| %>
+                  <li><a href="//<%= r %>" target="_blank"><%= r %></a></li>
+              <% end %>
+            </ul>
+          </dd>
+
+          <dt>Tags:</dt>
+          <dd><%= @activity.tags %></dd>
+        </dl>
     </div>
+  </div>
+  <div class="col-lg-2">
+    <div class="well">
+      <div class="form-group">
+        <%= link_to 'Create Eventbrite Event', create_event_path, class:"btn btn-block btn-primary" %>
+        <%= link_to 'Block Date In Calendar', {:controller => :activities, :action => :create_gcal, :method => :post}, class:"btn btn-block btn-primary" %>
+        <button type="button" class="btn btn-block btn-primary data-toggle="modal" data-target="#twitterButton"">Post to Facebook</button>
+        <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#twitterButton">Post to Twitter</button>
+      </div>
+      <div class="form-group">
+        <select class="form-control">
+          <option>Select mailing list</option>
+        </select>
+        <button class="btn btn-block btn-primary">Blast Mailchimp</button>
+      </div>
+      <div class="form-group">
+        <select class="form-control">
+          <option>Select survey</option>
+        </select>
+        <button class="btn btn-block btn-primary">Blast Surveymonkey</button>
+      </div>
+    </div>
+  </div>
 </section>
 
 <div class="modal fade" id="twitterButton" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -123,13 +130,4 @@
     </div>
   </div>
 </div>
-
-<div class="form-group">
-  <% if can? :edit, @activity %>
-    <%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-sm btn-warning" %>
-  <% end %>
-  <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
-  <% if current_user.has_role?('admin') %>
-  <button class="btn btn-sm btn-primary">View Registered Attendees</button>
-  <% end %>
 </div>
