@@ -5,14 +5,15 @@
   <h1><%= @program.name %></h1>
 </div>
 
-<div class="header-container">
-  <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
-  <% if can? :edit, @program %>
-      <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-sm btn-warning" %>
-  <% end %>
-</div>
-
 <section class="row">
+  <div class="col-lg-10 col-lg-offset-1">
+    <div class="form-group">
+      <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+      <% if can? :edit, @program %>
+          <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-info" %>
+      <% end %>
+    </div>
+  </div>
   <div class="col-lg-3 col-lg-offset-1">
     <div class="well">
       <dl>
