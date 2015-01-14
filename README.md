@@ -1,4 +1,4 @@
-**Facebook Set Up**
+#Facebook Set Up
 
 1. https://developers.facebook.com/
 2. Log in to your account.
@@ -27,12 +27,13 @@
 
 **You are good to go for posting to Facebook!**
 
-> .S. One more thing, you gotta create event on eventbrite first, get to eventbrite to make the event live then only posting to facebook will work.
+> P.S. One more thing, you gotta create event on eventbrite first, get to eventbrite to make the event live then only posting to facebook will work.
 
-**Google Calendar Set Up**
+#Google Calendar Set Up
 
 **Create the service account and its credentials**
-The service account will do the communication between the application and Google Calendar (through the v3 API). This account will at a later stage be used to impersonate the calendar user (in the same domain), so that all calendar updates appear to come from the calendar user, instead of the service account.
+
+The service account will do the communication between the application and Google Calendar (through the v3 API).
 
 1. Sign in to the account of which you want to share the Google Calendar.
 2. Visit the Google Developers Console
@@ -41,14 +42,16 @@ The service account will do the communication between the application and Google
 5. Click on 'credentials'.
 6. Click on "Create new client ID". Specify that your application type is service account, and proceed with the setup of the service account.
 
->You should now have:
->Client ID (xxx.apps.googleusercontent.com)
->email address (xxx@developer.gserviceaccount.com)
->A private key file
+> You should now have:
+> Client ID (xxx.apps.googleusercontent.com)
+> email address (xxx@developer.gserviceaccount.com)
+> A private key file
 
 **Share your calendar with the service account**
+
 Your service account will need to have access to the Google Calendar of the calendar user, to do this:
 Sign in to the account of which you want to share the Google Calendar.
+
 1. Visit Google Calendar
 2. Click on settings/calendars and 'edit settings' of the calendar you want to share
 3. In the field 'Share with specific people' add the developer email address: xxxxxx@developer.gserviceaccount.com
@@ -57,6 +60,7 @@ Sign in to the account of which you want to share the Google Calendar.
 **Configure your env vars**
 
 calendarID is usually your email address if you are using your own calendar.However, the ID might change if you created another calendar using the same email.
+
 1. Go to Google Calendar
 2. On your left there are a few calendar listed if you have few of them.
 3. Click on the small down arrow beside the calendar.
@@ -79,7 +83,7 @@ end
 
 This should be sufficient enough to make Google Calendar work.
 
-**Twitter Set Up**
+#Twitter Set Up
 
 1. Go to apps.twitter.com
 2. Sign in
