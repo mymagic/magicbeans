@@ -12,6 +12,37 @@
     text-align: center;
 }
 
+.fix-margin {
+  margin-top: -20px;
+  border-radius: 0px !important;
+}
+
+.brand {
+  font-weight: lighter;
+}
+
+.show-main {
+  @extend .jumbotron;
+  @extend .fix-margin;
+  min-width: 100%;
+  height: 400px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: #fff;
+
+  h1 {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    margin: 20px;
+    left: 0;
+    font-weight: lighter;
+  }
+}
+
 .author-meta
 {
     width: 300px;
@@ -76,6 +107,7 @@ body {
   font-size: 1.25em;
   line-height: $size;
   margin: 20px;
+  color: $gray-dark;
 }
 
 #notification {
@@ -306,7 +338,6 @@ a#menu-dropdown:hover, a#menu-dropdown:focus {
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: $color-primary-4;
     color: #fff;
-    border-right: 1px solid $color-primary-1;
   }
 
   /* Remove the bottom border on the jumbotron for visual effect */
