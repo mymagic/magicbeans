@@ -34,11 +34,13 @@
   color: #fff;
 
   h1 {
+    margin: 0;
+    @include make-sm-column-offset(1);
     display: block;
     position: absolute;
     bottom: 0;
-    margin: 20px;
     left: 0;
+    padding: 20px;
     font-weight: lighter;
   }
 }
