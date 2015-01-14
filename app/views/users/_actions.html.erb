@@ -1,0 +1,5 @@
+<% if @user.new_record? %>
+    <%= f.submit 'Create User', class: "btn btn-block btn-primary" %>
+<% else %> <!-- else show an update button -->
+    <%= f.submit 'Update User', class: "btn btn-block btn-primary" %>
+<% end %>

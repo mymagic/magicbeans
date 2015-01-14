@@ -1,29 +1,22 @@
+<div class="header-container">
+    <h1 class="header">User Profile of <%= @user.name %></h1>
+    <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+    <% if can? :edit, @user %>
+        <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary" %>
+    <% end %>
+</div>
 <section class="row">
     <div class="col-md-12">
-        <div class="page-header">
-            <h1>User Profile of <%= @user.name %> </h1>
-        </div>
         <div class="well">
             <%= image_tag @user.image_url(:thumb).to_s, class: "img-circle center-block" %> 
             
-            <h1 class="text-center"><strong><%= @user.name %></strong></h1>
+            <h1 class="text-center text-capitalize"><strong><%= @user.name %></strong></h1>
 
             <ul class="list-inline text-center">
                 <li><h4 class="text-muted"><span class="glyphicon glyphicon-phone"></span> <%= @user.phone %></h4></li>
                 <li><h4 class="text-muted"><span class="glyphicon glyphicon-user"></span> <%= @user.ic %></h4></li>
                 <li><a href="mailto:<%= @user.email %>"><h4 class="text-muted"><span class="glyphicon glyphicon-envelope"></span> <%= @user.email %></h4></a></li>
             </ul>
-        </div>
-    </div>
-</section>
-
-<section class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-          <% if can? :edit, @user %>
-            <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-sm btn-warning" %>
-          <% end %>
-            <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
         </div>
     </div>
 </section>

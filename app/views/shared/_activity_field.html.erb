@@ -1,69 +1,71 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Activity Name") %>
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <%= f.text_area(:description, class:"form-control", placeholder: "Description") %>
-    </div>
-    <div class="form-group">
-      <label for="venue">Venue</label>
-      <%= f.text_area(:venue, class:"form-control", placeholder: "Venue") %>
-    </div>
-    <div class="form-group">
-      <label for="date">Starting Date</label>
-      <%= f.datetime_local_field(:start_date, class:"form-control", placeholder: "Start Date And Time") %>
-    </div>
-    <div class="form-group">
-      <label for="date">Ending Date</label>
-      <%= f.datetime_local_field(:end_date, class:"form-control", placeholder: "End Date And Time") %>
-    </div>
-      <!-- <label for="date">Starting Date</label>
-      <%#= f.date_field(:start, class:"form-control", placeholder: "Date") %>
-    </div>
-    <div class="form-group">
-      <label for="date">Ending Date</label>
-      <%#= f.date_field(:end, class:"form-control", placeholder: "Date") %>
-    </div> -->
-    <div class="form-group">
-      <label for="speaker">Speaker</label>
-      <%= f.text_field(:speaker, class:"form-control", placeholder: "Speaker") %>
-    </div>
-    <div class="form-group">
-      <label for="speakerbio">Biography</label>
-      <%= f.text_area(:speakerbio, class:"form-control", placeholder: "Speaker Biography") %>
-    </div>
-    <div class="form-group">
-      <label for="biolink">Link to Biography</label>
-      <%= f.text_field(:biolink, class:"form-control", placeholder: "Biography Link") %>
-    </div>
-    <div class="form-group">
-      <label for="keytakeaway">Key Takeaways</label>
-      <%= f.text_field(:keytakeaway, class:"form-control", placeholder: "Key Benefits") %>
-    </div>
-    <div class="form-group">
-      <label for="prerequisite">Pre-requisites</label>
-      <%= f.text_area(:prerequisite, class:"form-control", placeholder: "Prerequisite") %>
-    </div>
-    <div class="form-group">
-      <label for="maxattendee">Max Attendees</label>
-      <%= f.text_field(:maxattendee, class:"form-control", placeholder: "Maximum Attendees") %>
-    </div>
-    <div class="form-group">
-      <label for="tags">Tags</label>
-      <%= f.text_field(:tags, class:"form-control", placeholder: "Relevant Tags") %>
-    </div>
-    <div class="form-group">
-      <label for="resources">Resources</label>
-      <%= f.text_area(:resources, class:"form-control", placeholder: "Relevant Resources") %>
-    </div>
-     <div class="form-group">
+    <div class="col-lg-12">
+      <div class="form-group">
       <label for="image">Activity Picture</label>
       <%= f.file_field:image %>
       <h6><i>*Size of image uploaded should not be larger than 160 x 160 px*</i></h6>
+      </div>
     </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Activity Name") %>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <%= f.text_area(:description, class:"form-control", placeholder: "Description") %>
+      </div>
+      <div class="form-group">
+        <label for="venue">Venue</label>
+        <%= f.text_area(:venue, class:"form-control", placeholder: "Venue") %>
+      </div>
+      <div class="form-group">
+        <label for="date">Starting Date</label>
+        <%= f.datetime_local_field(:start_date, class:"form-control", placeholder: "Start Date And Time") %>
+      </div>
+      <div class="form-group">
+        <label for="date">Ending Date</label>
+        <%= f.datetime_local_field(:end_date, class:"form-control", placeholder: "End Date And Time") %>
+      </div>
+      <div class="form-group">
+        <label for="maxattendee">Max Attendees</label>
+        <%= f.text_field(:maxattendee, class:"form-control", placeholder: "Maximum Attendees") %>
+      </div>
+      <div class="form-group">
+        <label for="tags">Tags</label>
+        <%= f.text_field(:tags, class:"form-control", placeholder: "Relevant Tags") %>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+      <label for="speaker">Speaker</label>
+      <%= f.text_field(:speaker, class:"form-control", placeholder: "Speaker") %>
+      </div>
+      <div class="form-group">
+        <label for="speakerbio">Biography</label>
+        <%= f.text_area(:speakerbio, class:"form-control", placeholder: "Speaker Biography") %>
+      </div>
+      <div class="form-group">
+        <label for="biolink">Link to Biography</label>
+        <%= f.text_field(:biolink, class:"form-control", placeholder: "Biography Link") %>
+      </div>
+      <div class="form-group">
+        <label for="keytakeaway">Key Takeaways</label>
+        <%= f.text_field(:keytakeaway, class:"form-control", placeholder: "Key Benefits") %>
+      </div>
+      <div class="form-group">
+        <label for="prerequisite">Pre-requisites</label>
+        <%= f.text_area(:prerequisite, class:"form-control", placeholder: "Prerequisite") %>
+      </div>
+      <div class="form-group">
+        <label for="resources">Resources</label>
+        <%= f.text_area(:resources, class:"form-control", placeholder: "Relevant Resources", style:"height:108px") %>
+      </div>
+    </div>
+    <div class="col-lg-12">
     <% if defined? update %>
         <%= f.submit 'Update', class: "btn btn-primary btn-block" %>
     <% else %>
@@ -71,5 +73,6 @@
             <%= f.check_box :_destroy %><i class="glyphicon glyphicon-remove"></i>
         </span>
     <% end %>
+    </div>
   </div>
 </div>

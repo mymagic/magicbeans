@@ -13,7 +13,7 @@ module UsersHelper
     end
 
     def is_admin?
-        if user_signed_in? && current_user.has_role?('Admin')
+        if user_signed_in? && current_user.has_role?('admin')
         	true
         else
         	false

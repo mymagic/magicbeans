@@ -19,9 +19,9 @@
 
     <div class="main">
       <%= render 'layouts/navigation' %>
+      <%= render 'layouts/notification' %>
 
       <div class="content">
-        <%= render 'layouts/notification' %>
         <%= render partial: "shared/flash_messages", flash: flash %>
         <%= yield %>
       </div>
