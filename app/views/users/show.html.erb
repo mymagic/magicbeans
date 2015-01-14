@@ -8,7 +8,7 @@
 <section class="row">
     <div class="col-md-12">
         <div class="well">
-            <%= image_tag @user.image_url(:thumb).to_s, class: "img-circle center-block" %> 
+            <img src="<%= profile_picture(@user) %>" class="img-circle center-block" style="min-width: 150px; max-height:150px;" alt="">
             
             <h1 class="text-center text-capitalize"><strong><%= @user.name %></strong></h1>
 

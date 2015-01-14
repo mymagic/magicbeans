@@ -8,7 +8,7 @@ module UsersHelper
         if user.image.blank?
             gravatar_for(user.email, 150)
         else
-            user.image_url.to_s
+            user.image.url
         end
     end
 
