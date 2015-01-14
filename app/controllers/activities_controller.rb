@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share]
   load_and_authorize_resource
   # GET /activities
   # GET /activities.json
@@ -112,7 +112,7 @@ class ActivitiesController < ApplicationController
   end
 
   def create_gcal
-    @event = {
+    @gcal_event = {
         'summary' => @activity.name,
         'description' => @activity.description,
         'location' =>  @activity.venue,
@@ -141,13 +141,31 @@ class ActivitiesController < ApplicationController
     # access API by using client
     @set_event = client.execute(:api_method => service.events.insert,
                                 :parameters => {'calendarId' => Magicbeans.google_calendar_id },
-                                :body => JSON.dump(@event),
+                                :body => JSON.dump(@gcal_event),
                                 :headers => {'Content-Type' => 'application/json'})
 
     if @set_event
       redirect_to activity_path(@activity), success: 'Successfully posted activity to Google Calendar!'
     else
       redirect_to activity_path(@activity), alert: "There was an error posting the event to Google Calendar"
+    end
+  end
+
+  def share
+      page = Koala::Facebook::API.new(Magicbeans.fb_page_access_token)
+      message = params[:share][:message]
+      share_event = Organizer.events(id: @activity.event_id).get
+      post_status = page.put_wall_post(message, {
+                          "name" => @activity.name,
+                          "link" => share_event.body["url"],
+                          "caption" => @activity.name,
+                          "description" => @activity.description,
+                          "picture" => share_event.body["logo"]
+                          })
+    if post_status
+      redirect_to activity_path(@activity), success: "Shared to Facebook successfully!"
+    else
+      redirect_to activity_path(@activity), notice: "There is a problem posting to Facebook!"
     end
   end
 

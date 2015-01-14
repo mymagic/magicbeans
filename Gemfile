@@ -12,6 +12,9 @@ gem 'omniauth-facebook'
 #Tweet to Twitter
 gem 'twitter'
 
+#Share to Facebook
+gem 'koala', "~> 1.11.0rc"
+
 #Google Calender API
 gem 'google-api-client', :require => 'google/api_client'
 gem 'omniauth-google-oauth2'

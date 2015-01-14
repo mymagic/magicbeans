@@ -16,10 +16,13 @@ Rails.application.routes.draw do
   resources :logs
 
   post 'activities/:id/tweet', to:'activities#tweet', as: 'tweet'
-
+  post 'activities/:id/share', to:'activities#share', as: 'share'
   get 'activities/:id/create_event', to: 'activities#create_event', as: 'create_event'
   get 'activities/:id/create_gcal', to: 'activities#create_gcal', as: 'create_gcal'
   match 'settings' => 'magicbeans#settings', via: [:get, :post], :as => :settings
+  get 'settings/generate' => 'magicbeans#generate_page_token', :as => 'generate'
+
+  get 'fbsignin', to:'activities#signinfacebook'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
