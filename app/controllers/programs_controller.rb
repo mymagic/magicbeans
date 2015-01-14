@@ -17,9 +17,8 @@ class ProgramsController < ApplicationController
 
   def new
     @program = Program.new
-    1.times {@program.activities.build}
+    # 1.times {@program.activities.build}
     respond_with(@program)
-    
   end
 
   def edit

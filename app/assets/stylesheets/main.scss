@@ -17,6 +17,10 @@
     width: 300px;
 }
 
+.no-margin-top {
+  margin-top: 0;
+}
+
 @media (min-width: 625px)
 {
     .author-meta
@@ -52,6 +56,7 @@ body {
 .main {
   @extend .container-fluid;
   padding: 0;
+  height: 100vh;
 }
 
 #notification-container {
@@ -65,12 +70,12 @@ body {
   width: $size;
   height: $size;
   text-align: center;
-  background: #fff;
-  border: 1px solid #ccc;
+  background: $well-bg;
+  border: 1px solid $well-border;
   border-radius: 100%;
   font-size: 1.25em;
   line-height: $size;
-  margin: 20px 15px;
+  margin: 20px;
 }
 
 #notification {
@@ -269,8 +274,12 @@ a#menu-dropdown:hover, a#menu-dropdown:focus {
   margin-top: 0;
 }
 
-.index-actions {
+.header-container {
   @extend .form-group;
+
+  .header {
+    @extend .text-capitalize;
+  }
 
   .search {
     display: inline-block;

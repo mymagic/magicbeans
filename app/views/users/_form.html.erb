@@ -12,50 +12,19 @@
 <% end %>
 
 <%= form_for @user, html: { role: "form" ,:multipart => true } do |f| %>
-<div class="row">
-  <div class="col-md-6 col-lg-7"> 
-    <h3>User credentials</h3>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Full Name") %>
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <%= f.email_field(:email, class:"form-control", placeholder: "Email Address") %>
-    </div>
-    <div class="form-group">
-      <label for="ic">National ID</label>
-      <%= f.text_field(:ic, class:"form-control", placeholder: "Dash Separated") %>
-    </div>
-    <div class="form-group">
-      <label for="phone">Phone Number</label>
-      <%= f.text_field(:phone, class:"form-control", placeholder: "Phone Number") %>
-    </div>
+  <div class="row">
+    <% if current_user.has_role?('admin') %>
+      <div class="col-lg-2 col-lg-offset-3">
+        <div class="well">
+          <div class="form-group">
+            <label for="image">Profile Picture</label>
+            <%= f.file_field:image %>
+            <small class="text-info">*Size of image uploaded should not be larger than 160 x 160 px</small>
+          </div>
+        </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <%= f.password_field:password, class:"form-control", placeholder: "Password" %>
-    </div>
-    <div class="form-group">
-      <label for="password_confirmation">Password Confirmation</label>
-      <%= f.password_field:password_confirmation, class:"form-control", placeholder: "Password confirmation" %>
-    </div>
-       
-    <div class="form-group">
-      <label for="image">Profile Picture</label>
-      <%= f.file_field:image %>
-      <h6><i>*Size of image uploaded should not be larger than 160 x 160 px*</i></h6>
-    </div>
-    
-    <div class="form-group">
-      <%= f.hidden_field :image_cache %>
-    </div>
-  </div>
-
-  <% if current_user.has_role?('admin') %>
-      <div class="col-md-6 col-lg-5">
-        <h3>Roles</h3>
-        <div class="well" id="nested-well">
+        <% if is_admin? %>
+        <div class="well">
           <%  Role.all.each do |t|  %>
               <%= f.label t.name  %>
               <% checkbox = false %>
@@ -64,22 +33,48 @@
               <% end %>
               <%= check_box_tag "roles[]", t.name, checkbox %>
           <% end %>
+        </div>       
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="col-lg-4">
+      <div class="well">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Full Name") %>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <%= f.email_field(:email, class:"form-control", placeholder: "Email Address") %>
+        </div>
+        <div class="form-group">
+          <label for="ic">National ID</label>
+          <%= f.text_field(:ic, class:"form-control", placeholder: "Dash Separated") %>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <%= f.text_field(:phone, class:"form-control", placeholder: "Phone Number") %>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <%= f.password_field:password, class:"form-control", placeholder: "Password" %>
+        </div>
+        <div class="form-group">
+          <label for="password_confirmation">Password Confirmation</label>
+          <%= f.password_field:password_confirmation, class:"form-control", placeholder: "Password confirmation" %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.hidden_field :image_cache %>
         </div>
       </div>
-  <% end %>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <div class="form-group">
-        <% if @user.new_record? %>
-            <%= f.submit 'Create', class: "btn btn-sm btn-primary" %>
-        <% else %> <!-- else show an update button -->
-            <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
-            <%= link_to 'Show', @user, class: "btn btn-sm btn-info" %>
-        <% end %>
-        <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
     </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+      <%= render partial: "actions", locals: {f: f} %>
+    </div>
+  </div>
 <% end %>
