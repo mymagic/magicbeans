@@ -43,6 +43,7 @@ The service account will do the communication between the application and Google
 6. Click on "Create new client ID". Specify that your application type is service account, and proceed with the setup of the service account.
 
 > You should now have:
+>
 > Client ID (xxx.apps.googleusercontent.com)
 > email address (xxx@developer.gserviceaccount.com)
 > A private key file
@@ -57,7 +58,7 @@ Sign in to the account of which you want to share the Google Calendar.
 3. In the field 'Share with specific people' add the developer email address: xxxxxx@developer.gserviceaccount.com
 4. select proper permissions and click on save.
 
-**Configure your env vars**
+**Configure Setting**
 
 calendarID is usually your email address if you are using your own calendar.However, the ID might change if you created another calendar using the same email.
 
@@ -66,11 +67,8 @@ calendarID is usually your email address if you are using your own calendar.Howe
 3. Click on the small down arrow beside the calendar.
 4. Select calendar settings.
 5. Scroll down and you will see the calendarID option.
+6. Copy the email address (xxx@developer.gserviceaccount.com) and calendarID into setting page and save.
 
-````
-export GOOGLE_SERVICE_ACCOUNT_EMAIL=yourserviceaccountemailhere
-export GOOGLE_CALENDAR ID=googlecalendaridthatyouwanttoshare
-````
 In the following code, place your secret keyfile at ~/keyfile.p12 and change the name of the keyfile.p12 file to yours.
 
 ````
@@ -94,9 +92,8 @@ This should be sufficient enough to make Google Calendar work.
  * Provide suitable permission for the app. (Read and Write for this instance)
  * Generate your Apps Key, Secret and Access Token and Access Token Secret from the Keys and Access Tokens tab. (Need this for later config.)
  * You will have to regenerate App Key and Secret if you change permissions.
-4. Copy all these env vars to your ~/.myenvvars.sh
- * export TWITTER_KEY=???
- * export TWITTER_SECRET=???
- * export TWITTER_ACCESS_TOKEN=???
- * export TWITTER_ACCESS_TOKEN_SECRET=???
-5. Source the env file.
+4. Copy all these env vars to the settings page
+ * Twitter Consumer Key
+ * Twtter Consumer Key Secret
+ * Twitter Access Token
+ * Twitter Acces Token Secret
