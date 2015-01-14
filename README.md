@@ -30,6 +30,7 @@
 > P.S. One more thing, you gotta create event on eventbrite first, get to eventbrite to make the event live then only posting to facebook will work.
 
 **What will Magicbeans post to Facebook?**
+
 1. Your status update. (Pre-populated message can be customized)
 2. Link to Eventbrite event .
 3. Name of Activity as the name for link.
@@ -107,6 +108,7 @@ This should be sufficient enough to make Google Calendar work.
  * Twitter Acces Token Secret
 
 **What will Magicbeans tweet?**
+
 1. Your tweet. (Pre-populated message can be customized)
 2. Link to Eventbrite event within the tweet. 
 3. Picture of Activity as the image.
