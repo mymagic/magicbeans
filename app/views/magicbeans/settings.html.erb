@@ -82,6 +82,10 @@
                     <label for="google_calendar_id">Calendar ID</label>
                     <%= text_field_tag(:google_calendar_id, Magicbeans.google_calendar_id, class:"form-control") %>
                 </div>
+                <div class="form-group">
+                    <label for="rsa_key">RSA Key</label>
+                    <%= text_area(:rsa_key, Magicbeans.rsa_key, class:"form-control") %>
+                </div>
             </div>
 
         </div>
