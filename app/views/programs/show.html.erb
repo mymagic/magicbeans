@@ -10,7 +10,7 @@
     <div class="form-group">
       <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
       <% if can? :edit, @program %>
-          <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>

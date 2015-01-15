@@ -10,10 +10,10 @@
     <div class="form-group">
       <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
       <% if current_user.has_role?('admin') %>
-      <button class="btn btn-info">View Registered Attendees</button>
+      <button class="btn btn-primary">View Registered Attendees</button>
       <% end %>
       <% if can? :edit, @activity %>
-          <%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-info" %>
+          <%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>
@@ -29,7 +29,7 @@
       </dl>
     </div>
   </div>
-  <div class="col-lg-5">
+  <div class="col-lg-7">
     <div class="well">
         <dl class="dl-horizontal">
           <dt>Event Name:</dt>
@@ -67,17 +67,14 @@
         </dl>
     </div>
   </div>
-  <div class="col-lg-2">
+  <div class="col-lg-7">
     <div class="well">
       <div class="form-group">
-        <% if current_user.has_role?('admin') %>
         <%= link_to 'Create Eventbrite Event', create_event_path, class:"btn btn-block btn-primary" %>
         <%= link_to 'Block Date In Calendar', {:controller => :activities, :action => :create_gcal, :method => :post}, class:"btn btn-block btn-primary" %>
-        <% end %>
         <button class="btn btn-block btn-primary">Post to Facebook</button>
         <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#twitterButton">Post to Twitter</button>
       </div>
-      <% if current_user.has_role?('admin') %>
       <div class="form-group">
         <select class="form-control">
           <option>Select mailing list</option>
@@ -90,7 +87,6 @@
         </select>
         <button class="btn btn-block btn-primary">Blast Surveymonkey</button>
       </div>
-      <% end %>
     </div>
   </div>
 </section>
@@ -108,7 +104,7 @@
             <%= f.label(:message, class:"control-label") %>
             <%= f.text_area(:message, value: Magicbeans.twitter_message, :class => "form-control") %>
           </div>
-        <%= f.submit 'Tweet', class: "btn btn-primary btn-block" %>
+        <%= f.submit 'Tweet', class: "btn btn-primary" %>
       <% end %>
       </div>
     </div>
