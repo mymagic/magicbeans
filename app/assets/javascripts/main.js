@@ -27,3 +27,6 @@ function show_logs() {
         });
 }
 
+window.setTimeout(function() {
+    $(".custom-alert").alert('close')
+}, 2000);

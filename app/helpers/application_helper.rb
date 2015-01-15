@@ -24,7 +24,7 @@ module ApplicationHelper
 	end
 
 	def image_for(resource)
-		placeholder = "http://placehold.it/100x100"
+		placeholder = "http://placehold.it/150x150"
 		if resource.class == Program
 			resource.program_img.url.nil? ? placeholder : resource.program_img.url
 		elsif resource.class == Activity
