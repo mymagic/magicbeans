@@ -1,5 +1,5 @@
 function show_logs() {
-    var spinner = $('<img class="center-block img-responsive" width="40" height="40" src="/assets/three-dots.svg">');
+    var spinner = $('<img class="center-block img-responsive" width="40" height="40" src="/three-dots.svg">');
     var notification = $('#notification')
     notification.empty();
     spinner.prependTo(notification);
