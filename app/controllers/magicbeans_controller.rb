@@ -15,10 +15,10 @@ class MagicbeansController < ApplicationController
   end
 
   def generate_page_token
-    oauth = Koala::Facebook::OAuth.new(Magicbeans.fb_app_id, Magicbeans.fb_app_secret)
-    access_token = Magicbeans.fb_user_access_token
 
     if access_token.present? && Magicbeans.fb_app_id.present? && Magicbeans.fb_app_secret.present?
+      oauth = Koala::Facebook::OAuth.new(Magicbeans.fb_app_id, Magicbeans.fb_app_secret)
+      access_token = Magicbeans.fb_user_access_token
       new_access_info = oauth.exchange_access_token_info(access_token)
       new_access_token = new_access_info["access_token"]
       @user_graph = Koala::Facebook::API.new(new_access_token)
