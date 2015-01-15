@@ -88,7 +88,7 @@ class ActivitiesController < ApplicationController
       message = params[:tweet][:message]
       share_event = Organizer.events(id: @activity.event_id).get
       if !message.blank?
-        @send_tweet = client.update_with_media(message + "\n" + share_event.body["url"], File.new(open("http://9791b61a81187466cf77-03e2fb40b56101ddc8886446c68cb0c1.r77.cf2.rackcdn.com/Ruby_logo.png").path))
+        @send_tweet = client.update_with_media(message + "\n" + share_event.body["url"], File.new(open(share_event.body["logo"]).path))
         redirect_to activity_path(@activity), success: 'Successfully tweeted!'
       else      
         redirect_to activity_path(@activity), alert: 'Message cannot be blank. Try again!'
@@ -139,20 +139,24 @@ class ActivitiesController < ApplicationController
   end
 
   def share
+    begin
       page = Koala::Facebook::API.new(Magicbeans.fb_page_access_token)
       message = params[:share][:message]
       share_event = Organizer.events(id: @activity.event_id).get
-      post_status = page.put_wall_post(message, {
+      if !message.blank?
+        post_status = page.put_wall_post(message, {
                           "name" => @activity.name,
                           "link" => share_event.body["url"],
                           "caption" => @activity.name,
                           "description" => @activity.description,
                           "picture" => share_event.body["logo"]
                           })
-    if post_status
-      redirect_to activity_path(@activity), success: "Shared to Facebook successfully!"
-    else
-      redirect_to activity_path(@activity), notice: "There is a problem posting to Facebook!"
+        redirect_to activity_path(@activity), success: "Shared to Facebook successfully!"
+      else      
+        redirect_to activity_path(@activity), alert: 'Message cannot be blank. Try again!'
+      end
+    rescue Koala::Facebook::APIError => error
+      redirect_to activity_path(@activity), notice: "#{error}"
     end
   end
 
