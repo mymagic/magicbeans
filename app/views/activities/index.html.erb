@@ -9,7 +9,7 @@
 <ul class="index">
   <% @activities.each do |activity| %>
   <li>
-    <img src="<%= image_for(activity) %>" alt="">
+    <img src="<%= image_for(activity.activity_img) %>" alt="">
     <dl>
       <dt>Name: </dt>
       <dd><%= activity.name %></dd>

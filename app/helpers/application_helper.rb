@@ -23,21 +23,8 @@ module ApplicationHelper
 		button.html_safe
 	end
 
-	def image_for(resource)
+	def image_for(img)
 		placeholder = "http://placehold.it/150x150"
-		if resource.class == Program
-			resource.program_img.url.nil? ? placeholder : resource.program_img.url
-		elsif resource.class == Activity
-			resource.activity_img.url.nil? ? placeholder : resource.activity_img.url
-		end
-	end
-
-	def image_for_speaker(resource)
-		placeholder = "http://placehold.it/150x150"
-		if resource.class == Program
-			resource.speaker_img.url.nil? ? placeholder : resource.speaker_img.url
-		elsif resource.class == Activity
-			resource.speaker_img.url.nil? ? placeholder : resource.speaker_img.url
-		end
+		img.url.nil? ? placeholder : img.url
 	end
 end

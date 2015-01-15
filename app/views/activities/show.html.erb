@@ -21,10 +21,10 @@
     <div class="well">
       <dl>
         <dt>Program: </dt>
-        <img class="center-block img-circle wh-150" src="<%= image_for(@activity.program) %>">
+        <img class="center-block img-circle wh-150" src="<%= image_for(@activity.program.program_img) %>">
         <dd class="text-center"><%= @activity.program.name %></dd>
         <dt>Speaker: </dt>
-        <img class="center-block img-circle wh-150" src="<%= image_for_speaker(@activity) %>">
+        <img class="center-block img-circle wh-150" src="<%= image_for(@activity.speaker_img) %>">
         <dd class="text-center"><%= @activity.speaker %></dd>
       </dl>
     </div>
