@@ -88,7 +88,7 @@ class ActivitiesController < ApplicationController
       message = params[:tweet][:message]
       share_event = Organizer.events(id: @activity.event_id).get
       if !message.blank?
-        @send_tweet = client.update(message + "\n" + share_event.body["url"], File.new(@activity.activity_img.url))
+        @send_tweet = client.update_with_media(message + "\n" + share_event.body["url"], File.new(open("http://9791b61a81187466cf77-03e2fb40b56101ddc8886446c68cb0c1.r77.cf2.rackcdn.com/Ruby_logo.png").path))
         redirect_to activity_path(@activity), success: 'Successfully tweeted!'
       else      
         redirect_to activity_path(@activity), alert: 'Message cannot be blank. Try again!'
