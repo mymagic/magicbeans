@@ -51,20 +51,20 @@
                 </div>
                 <div class="form-group">
                     <label for="fb_message">Page ID</label>
-                    <%= text_field_tag(: fb_page_id, Magicbeans.fb_page_id, class:"form-control") %>
+                    <%= text_field_tag(:fb_page_id, Magicbeans.fb_page_id, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="fb_message">User Access Token</label>
-                    <%= text_field_tag(: fb_user_access_token, Magicbeans.fb_user_access_token, class:"form-control") %>
+                    <%= text_field_tag(:fb_user_access_token, Magicbeans.fb_user_access_token, class:"form-control") %>
                 </div> 
                 <div class="form-group">
                     <label for="fb_message">Page Access Token</label>
-                    <%= text_field_tag(: fb_page_access_token, Magicbeans.fb_page_access_token, class:"form-control") %>
+                    <%= text_field_tag(:fb_page_access_token, Magicbeans.fb_page_access_token, class:"form-control") %>
                     <%= link_to 'Generate', {:controller => :magicbeans, :action => :generate_page_token, :method => :post}, class:"btn btn-block btn-success" %>
                 </div>
                 <div class="form-group">
                     <label for="fb_message">Custom Message</label>
-                    <%= text_field_tag(: fb_message, Magicbeans.fb_message, class:"form-control") %>
+                    <%= text_field_tag(:fb_message, Magicbeans.fb_message, class:"form-control") %>
                 </div>
             </div>
             
