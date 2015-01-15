@@ -51,9 +51,7 @@ class ActivitiesController < ApplicationController
   end
 
   def create_event
-    if (Magicbeans.eventbrite_api.empty?)
-      redirect_to activity_path(@activity), alert: "Please set the Eventbrite API Key in the settings page and try again"
-    elsif (@activity.event_id.nil?)
+    if (@activity.event_id.nil?)
       @event = Organizer::Event.new(
         name: @activity.name,
         description: @activity.description,
@@ -69,7 +67,7 @@ class ActivitiesController < ApplicationController
         @activity.save
         redirect_to activity_path(@activity), success: 'Successfully created a event!'
       else
-        redirect_to activity_path(@activity), alert: "[#{@event_response.status}] There was an error creating the event"
+        redirect_to activity_path(@activity), alert: "[#{@event_response.status}] #{@event_response.body["error_description"]}"
       end
     else
         redirect_to activity_path(@activity), alert: 'Event has already been created'
