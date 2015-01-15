@@ -244,6 +244,18 @@ a#menu-dropdown:hover, a#menu-dropdown:focus {
   }
 }
 
+.wh-100 {
+    $size: 100px;
+    max-width: $size;
+    min-height: $size;
+  }
+
+.wh-150 {
+  $size: 150px;
+  max-width: $size;
+  min-height: $size;
+}
+
 .index {
   @extend .list-inline;
   margin-left: 0px;
@@ -259,8 +271,7 @@ a#menu-dropdown:hover, a#menu-dropdown:focus {
 
   img {
     @extend .img-circle;
-    max-height: 100px;
-    min-width: 100px;
+    @extend .wh-100;
   }
 
   dl {
