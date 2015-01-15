@@ -77,14 +77,15 @@ calendarID is usually your email address if you are using your own calendar.Howe
 4. Select calendar settings.
 5. Scroll down and you will see the calendarID option.
 6. Copy the email address (xxx@developer.gserviceaccount.com) and calendarID into setting page and save.
+7. Convert the private keyfile (.p12 file) to RSA key.
+8. Save to RSA Key in Settings Page.
 
-In the following code, place your secret keyfile at ~/keyfile.p12 and change the name of the keyfile.p12 file to yours.
-
+**Get RSA Key using Rails Console**
 ````
-def create_gcal
-.
-key = Google::APIClient::KeyUtils.load_from_pkcs12( File.join(Rails.root, '..', '..', 'keyfile.p12').to_s , 'notasecret')
-.
+begin
+	require 'google/api_client'
+	key = Google::APIClient::KeyUtils.load_from_pkcs12(File.join(Rails.root,'..','..','MagicBeans-931630ca9e3e.p12').to_s, 'notasecret')
+	puts key
 end
 ````
 
