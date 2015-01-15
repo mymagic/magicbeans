@@ -16,17 +16,18 @@ class MagicbeansController < ApplicationController
 
   def generate_page_token
     oauth = Koala::Facebook::OAuth.new(Magicbeans.fb_app_id, Magicbeans.fb_app_secret)
-
     access_token = Magicbeans.fb_user_access_token
-    new_access_info = oauth.exchange_access_token_info(access_token)
-    new_access_token = new_access_info["access_token"]
 
-    @user_graph = Koala::Facebook::API.new(new_access_token)
-    page_token = @user_graph.get_page_access_token(Magicbeans.fb_page_id)
-
-    Magicbeans.fb_page_access_token = page_token
-    
-    redirect_to settings_path(:anchor => "fb_page_access_token"), notice: "Page token generated"
+    if access_token.present?
+      new_access_info = oauth.exchange_access_token_info(access_token)
+      new_access_token = new_access_info["access_token"]
+      @user_graph = Koala::Facebook::API.new(new_access_token)
+      page_token = @user_graph.get_page_access_token(Magicbeans.fb_page_id)
+      Magicbeans.fb_page_access_token = page_token
+      redirect_to settings_path(:anchor => "fb_page_access_token"), notice: "Page token generated"
+    else
+      redirect_to settings_path, notice: "Please insert Facebook User Access Token before generating Page Access Token"
+    end
   end
 
   def magicbeans_params
