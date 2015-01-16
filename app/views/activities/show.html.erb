@@ -82,10 +82,7 @@
         <button class="btn btn-block btn-primary">Blast Mailchimp</button>
       </div>
       <div class="form-group">
-        <select class="form-control">
-          <option>Select survey</option>
-        </select>
-        <button class="btn btn-block btn-primary">Blast Surveymonkey</button>
+        <%= link_to 'Send Surveys to Attendees', "http://www.eventbrite.sg/myevent/#{@activity.event_id}/attendees-survey/", class:"btn btn-block btn-primary", target: "_blank" %>
       </div>
     </div>
   </div>
