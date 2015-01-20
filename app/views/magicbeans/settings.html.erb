@@ -71,6 +71,19 @@
                     <%= text_field_tag(:fb_message, Magicbeans.fb_message, class:"form-control") %>
                 </div>
             </div>
+
+            <h3 class="no-margin-top">Mailchimp</h3>
+            <div class="well">
+                <div class="form-group">
+                    <label for="mailchimp_apikey">API Key</label>
+                    <%= text_field_tag(:mailchimp_apikey, Magicbeans.mailchimp_apikey, class:"form-control") %>
+                </div>
+                <div class="form-group">
+                    <label for="mailchimp_message">Custom Invitation Message</label>
+                    <%= text_area_tag(:mailchimp_message, Magicbeans.mailchimp_message, class:"form-control") %>
+                </div>
+            </div>
+
             
             <h3 class="no-margin-top">Google</h3>
             <div class="well">
