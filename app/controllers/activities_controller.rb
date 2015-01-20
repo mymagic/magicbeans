@@ -115,34 +115,32 @@ class ActivitiesController < ApplicationController
                     },
         'end' => {'dateTime' => DateTime.parse(@activity.end_date.to_s).rfc3339
                   }}
+    if Magicbeans.rsa_key.present? && Magicbeans.google_service_account_email.present? && Magicbeans.google_calendar_id.present?
+      # Initialize the client
+      client = Google::APIClient.new(application_name: 'MagicBeans', application_version: '0.0.1')
+      # load and decrypt private key
+      key = OpenSSL::PKey::RSA.new Magicbeans.rsa_key, 'notasecret'
+      # generate request body for authorization
+      client.authorization = Signet::OAuth2::Client.new(
+                               :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                               :audience             => 'https://accounts.google.com/o/oauth2/token',
+                               :scope                => 'https://www.googleapis.com/auth/calendar',
+                               :issuer               =>  Magicbeans.google_service_account_email,
+                               :signing_key          =>  key
+                               )
 
-    # Initialize the client
-    client = Google::APIClient.new(application_name: 'MagicBeans', application_version: '0.0.1')
-    # load and decrypt private key
-    key = OpenSSL::PKey::RSA.new Magicbeans.rsa_key, 'notasecret'
-    # generate request body for authorization
-    client.authorization = Signet::OAuth2::Client.new(
-                             :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-                             :audience             => 'https://accounts.google.com/o/oauth2/token',
-                             :scope                => 'https://www.googleapis.com/auth/calendar',
-                             :issuer               =>  Magicbeans.google_service_account_email,
-                             :signing_key          =>  key
-                             )
-
-    # fetch access token
-    client.authorization.fetch_access_token!
-    # load API definition
-    service = client.discovered_api('calendar', 'v3')
-    # access API by using client
-    @set_event = client.execute(:api_method => service.events.insert,
-                                :parameters => {'calendarId' => Magicbeans.google_calendar_id },
-                                :body => JSON.dump(@gcal_event),
-                                :headers => {'Content-Type' => 'application/json'})
-
-    if @set_event
+      # fetch access token
+      client.authorization.fetch_access_token!
+      # load API definition
+      service = client.discovered_api('calendar', 'v3')
+      # access API by using client
+      @set_event = client.execute(:api_method => service.events.insert,
+                                  :parameters => {'calendarId' => Magicbeans.google_calendar_id },
+                                  :body => JSON.dump(@gcal_event),
+                                  :headers => {'Content-Type' => 'application/json'})
       redirect_to activity_path(@activity), success: 'Successfully posted activity to Google Calendar!'
     else
-      redirect_to activity_path(@activity), alert: "There was an error posting the event to Google Calendar"
+      redirect_to activity_path(@activity), notice: "Google Calendar Settings are missing."
     end
   end
 
