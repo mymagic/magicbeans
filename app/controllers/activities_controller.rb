@@ -173,13 +173,12 @@ class ActivitiesController < ApplicationController
     
     <p><strong>Description : </strong>#{@activity.description}</p>
     
-    <p><strong>Speaker : </strong>#{@activity.speaker}</p>
-    
-    <p><strong>Speaker Bio : </strong>#{@activity.speakerbio}</p>
-    
-    <p><strong>Key Takeaways : </strong>#{@activity.keytakeaway}</p>
-    
     <p><strong>Date  : </strong>#{@activity.start_date} - #{@activity.end_date}</p>
+
+    Here is the link to RSVP for the event:
+    #{Organizer.events(id: @activity.event_id).get.body["url"]}
+
+    See you there!
     }
 
     begin
