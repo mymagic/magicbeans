@@ -168,6 +168,8 @@ class ActivitiesController < ApplicationController
     <p><strong>Program Name : </strong>#{@activity.program.name} </div></strong>
     
     <p><strong>Event Name : </strong>#{@activity.name}</p>
+
+    <p><strong>Event Venue : </strong>#{@activity.venue}</p>
     
     <p><strong>Description : </strong>#{@activity.description}</p>
     
