@@ -161,7 +161,7 @@ class ActivitiesController < ApplicationController
   def send_mails
     @the_content = %Q{
 
-      #{Magicbeans.mailchimp_message}
+    <p>#{Magicbeans.mailchimp_message}</p>
 
     <p>Below are details of the event:</p> 
 
@@ -175,10 +175,11 @@ class ActivitiesController < ApplicationController
     
     <p><strong>Date  : </strong>#{@activity.start_date} - #{@activity.end_date}</p>
 
-    Here is the link to RSVP for the event:
-    #{Organizer.events(id: @activity.event_id).get.body["url"]}
+    <p>Here is the link to RSVP for the event:</p>
 
-    See you there!
+    <p>#{Organizer.events(id: @activity.event_id).get.body["url"]}</p>
+
+    <p>See you there!</p>
     }
 
     begin
