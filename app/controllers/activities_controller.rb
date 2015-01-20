@@ -159,28 +159,28 @@ class ActivitiesController < ApplicationController
   end
 
   def send_mails
-    @the_content = %Q{
+      @the_content = %Q{
 
-    <p>#{Magicbeans.mailchimp_message}</p>
+      <p>#{Magicbeans.mailchimp_message}</p>
 
-    <p>Below are details of the event:</p> 
+      <p>Below are details of the event:</p> 
 
-    <p><strong>Program Name : </strong>#{@activity.program.name} </div></strong>
-    
-    <p><strong>Event Name : </strong>#{@activity.name}</p>
+      <p><strong>Program Name : </strong>#{@activity.program.name} </div></strong>
+      
+      <p><strong>Event Name : </strong>#{@activity.name}</p>
 
-    <p><strong>Event Venue : </strong>#{@activity.venue}</p>
-    
-    <p><strong>Description : </strong>#{@activity.description}</p>
-    
-    <p><strong>Date  : </strong>#{@activity.start_date} - #{@activity.end_date}</p>
+      <p><strong>Event Venue : </strong>#{@activity.venue}</p>
+      
+      <p><strong>Description : </strong>#{@activity.description}</p>
+      
+      <p><strong>Date  : </strong>#{@activity.start_date} - #{@activity.end_date}</p>
 
-    <p>Here is the link to RSVP for the event:</p>
+      <p>Here is the link to RSVP for the event:</p>
 
-    <p>#{Organizer.events(id: @activity.event_id).get.body["url"]}</p>
+      <p>#{Organizer.events(id: @activity.event_id).get.body["url"]}</p>
 
-    <p>See you there!</p>
-    }
+      <p>See you there!</p>
+      }
 
     begin
       apikey = Magicbeans.mailchimp_apikey
