@@ -2,6 +2,7 @@ class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share, :send_mails]
   load_and_authorize_resource
+  before_filter :set_twitter_client, only: [:tweet]
   # GET /activities
   # GET /activities.json
   def index
@@ -73,21 +74,30 @@ class ActivitiesController < ApplicationController
         redirect_to activity_path(@activity), alert: 'Event has already been created'
     end
   end
+  def set_twitter_client
+  if Magicbeans.twitter_consumer_key.present? && Magicbeans.twitter_consumer_secret.present? && Magicbeans.twitter_access_token.present? && Magicbeans.twitter_access_token_secret.present?
+      @client = Twitter::REST::Client.new do |config|
+        config.consumer_key        = Magicbeans.twitter_consumer_key
+        config.consumer_secret     = Magicbeans.twitter_consumer_secret
+        config.access_token        = Magicbeans.twitter_access_token
+        config.access_token_secret = Magicbeans.twitter_access_token_secret
+      end
+    else
+      redirect_to activity_path(@activity), notice: "Please configure all Twitter settings before tweeting."
+    end
+  end
 
   def tweet
-    client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = Magicbeans.twitter_consumer_key
-      config.consumer_secret     = Magicbeans.twitter_consumer_secret
-      config.access_token        = Magicbeans.twitter_access_token
-      config.access_token_secret = Magicbeans.twitter_access_token_secret
-    end
-
     begin
       message = params[:tweet][:message]
       share_event = Organizer.events(id: @activity.event_id).get
       if !message.blank?
-        @send_tweet = client.update_with_media(message + "\n" + share_event.body["url"], File.new(open(share_event.body["logo"]).path))
-        redirect_to activity_path(@activity), success: 'Successfully tweeted!'
+        if share_event.body["logo"].present? && share_event.body["url"].present?
+          @send_tweet = @client.update_with_media(message + "\n" + share_event.body["url"], File.new(open(share_event.body["logo"]["url"]).path))
+          redirect_to activity_path(@activity), success: 'Successfully tweeted!'
+        else
+          redirect_to activity_path(@activity), notice: 'Please make sure Eventbrite event is created and event logo is uploaded. Try again.'
+        end
       else      
         redirect_to activity_path(@activity), alert: 'Message cannot be blank. Try again!'
       end
@@ -105,34 +115,32 @@ class ActivitiesController < ApplicationController
                     },
         'end' => {'dateTime' => DateTime.parse(@activity.end_date.to_s).rfc3339
                   }}
+    if Magicbeans.rsa_key.present? && Magicbeans.google_service_account_email.present? && Magicbeans.google_calendar_id.present?
+      # Initialize the client
+      client = Google::APIClient.new(application_name: 'MagicBeans', application_version: '0.0.1')
+      # load and decrypt private key
+      key = OpenSSL::PKey::RSA.new Magicbeans.rsa_key, 'notasecret'
+      # generate request body for authorization
+      client.authorization = Signet::OAuth2::Client.new(
+                               :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                               :audience             => 'https://accounts.google.com/o/oauth2/token',
+                               :scope                => 'https://www.googleapis.com/auth/calendar',
+                               :issuer               =>  Magicbeans.google_service_account_email,
+                               :signing_key          =>  key
+                               )
 
-    # Initialize the client
-    client = Google::APIClient.new(application_name: 'MagicBeans', application_version: '0.0.1')
-    # load and decrypt private key
-    key = OpenSSL::PKey::RSA.new Magicbeans.rsa_key, 'notasecret'
-    # generate request body for authorization
-    client.authorization = Signet::OAuth2::Client.new(
-                             :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-                             :audience             => 'https://accounts.google.com/o/oauth2/token',
-                             :scope                => 'https://www.googleapis.com/auth/calendar',
-                             :issuer               =>  Magicbeans.google_service_account_email,
-                             :signing_key          =>  key
-                             )
-
-    # fetch access token
-    client.authorization.fetch_access_token!
-    # load API definition
-    service = client.discovered_api('calendar', 'v3')
-    # access API by using client
-    @set_event = client.execute(:api_method => service.events.insert,
-                                :parameters => {'calendarId' => Magicbeans.google_calendar_id },
-                                :body => JSON.dump(@gcal_event),
-                                :headers => {'Content-Type' => 'application/json'})
-
-    if @set_event
+      # fetch access token
+      client.authorization.fetch_access_token!
+      # load API definition
+      service = client.discovered_api('calendar', 'v3')
+      # access API by using client
+      @set_event = client.execute(:api_method => service.events.insert,
+                                  :parameters => {'calendarId' => Magicbeans.google_calendar_id },
+                                  :body => JSON.dump(@gcal_event),
+                                  :headers => {'Content-Type' => 'application/json'})
       redirect_to activity_path(@activity), success: 'Successfully posted activity to Google Calendar!'
     else
-      redirect_to activity_path(@activity), alert: "There was an error posting the event to Google Calendar"
+      redirect_to activity_path(@activity), notice: "Google Calendar Settings are missing."
     end
   end
 
