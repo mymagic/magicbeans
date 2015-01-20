@@ -160,8 +160,12 @@ class ActivitiesController < ApplicationController
 
   def send_mails
     @the_content = %Q{
-    <h1><strong>
-    <div align = "center">#{@activity.program.name} </div></strong></h1>
+
+      #{Magicbeans.mailchimp_message}
+
+    <p>Below are details of the event:</p> 
+
+    <p><strong>Program Name : </strong>#{@activity.program.name} </div></strong>
     
     <p><strong>Event Name : </strong>#{@activity.name}</p>
     
