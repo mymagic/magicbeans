@@ -3,12 +3,9 @@ source "https://rubygems.org"
 gem "devise"
 gem "rails", "4.1.6"
 gem "organizer"
-gem "omniauth"
-gem "omniauth-facebook"
 gem 'twitter'
 gem 'koala', "~> 1.11.0rc"
 gem "google-api-client", :require => "google/api_client"
-gem "omniauth-google-oauth2"
 gem "cancancan", "~> 1.9"
 gem "bootstrap-sass"
 gem "sass-rails", "~> 4.0.3"
@@ -24,8 +21,8 @@ gem "sdoc", "~> 0.4.0",		group: :doc
 gem "spring",        		group: :development
 gem "aws-sdk"
 gem "fog", require: "fog/aws/storage"
-gem "gibbon"
 gem "json"
+gem 'hominid'
 
 
 group :development, :test do

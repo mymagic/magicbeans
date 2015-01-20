@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share, :send_mails]
   load_and_authorize_resource
   # GET /activities
   # GET /activities.json
@@ -156,6 +156,40 @@ class ActivitiesController < ApplicationController
     rescue Koala::Facebook::APIError => error
       redirect_to activity_path(@activity), notice: "#{error}"
     end
+  end
+
+  def send_mails
+    @the_content = %Q{
+    <h1><strong>
+    <div align = "center">#{@activity.program.name} </div></strong></h1>
+    
+    <p><strong>Event Name : </strong>#{@activity.name}</p>
+    
+    <p><strong>Description : </strong>#{@activity.description}</p>
+    
+    <p><strong>Speaker : </strong>#{@activity.speaker}</p>
+    
+    <p><strong>Speaker Bio : </strong>#{@activity.speakerbio}</p>
+    
+    <p><strong>Key Takeaways : </strong>#{@activity.keytakeaway}</p>
+    
+    <p><strong>Date  : </strong>#{@activity.keytakeaway}</p>
+    }
+
+    apikey = Magicbeans.mailchimp_apikey
+    @h = Hominid::API.new(apikey)
+    list_id = params[:send_mails][:mailchimp_list_id]
+    campaign_id = @h.campaign_create('regular', 
+                                    {:list_id => list_id, 
+                                      :subject => 'Invitation to ' + @activity.program.name, 
+                                      :from_email => @h.find_list_by_id(list_id)['default_from_email'],
+                                      :from_name => @h.find_list_by_id(list_id)['default_from_name']},
+                                    {:html => @the_content}
+                                    )
+                                    
+    @h.campaign_send_now(campaign_id)
+    redirect_to activity_path(@activity), success: 'Successfully sent mails!'
+    
   end
 
   private
