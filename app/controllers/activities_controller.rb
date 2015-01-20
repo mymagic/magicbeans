@@ -176,20 +176,26 @@ class ActivitiesController < ApplicationController
     <p><strong>Date  : </strong>#{@activity.keytakeaway}</p>
     }
 
-    apikey = Magicbeans.mailchimp_apikey
-    @h = Hominid::API.new(apikey)
-    list_id = params[:send_mails][:mailchimp_list_id]
-    campaign_id = @h.campaign_create('regular', 
-                                    {:list_id => list_id, 
-                                      :subject => 'Invitation to ' + @activity.program.name, 
-                                      :from_email => @h.find_list_by_id(list_id)['default_from_email'],
-                                      :from_name => @h.find_list_by_id(list_id)['default_from_name']},
-                                    {:html => @the_content}
-                                    )
-                                    
-    @h.campaign_send_now(campaign_id)
-    redirect_to activity_path(@activity), success: 'Successfully sent mails!'
-    
+    begin
+      apikey = Magicbeans.mailchimp_apikey
+      @h = Hominid::API.new(apikey)
+      list_id = params[:send_mails][:mailchimp_list_id]
+        if list_id.present?
+          campaign_id = @h.campaign_create('regular', 
+                                     {:list_id => list_id, 
+                                        :subject => 'Invitation to ' + @activity.program.name, 
+                                        :from_email => @h.find_list_by_id(list_id)['default_from_email'],
+                                        :from_name => @h.find_list_by_id(list_id)['default_from_name']},
+                                      {:html => @the_content}
+                                      )
+          @h.campaign_send_now(campaign_id)
+          redirect_to activity_path(@activity), success: 'Successfully sent mails!'
+        else
+          redirect_to activity_path(@activity), notice: 'Please select a list.' 
+        end     
+    rescue Hominid::APIError => error
+      redirect_to activity_path(@activity), notice: "#{error}"
+    end                          
   end
 
   private
