@@ -177,7 +177,7 @@ class ActivitiesController < ApplicationController
     
     <p><strong>Key Takeaways : </strong>#{@activity.keytakeaway}</p>
     
-    <p><strong>Date  : </strong>#{@activity.keytakeaway}</p>
+    <p><strong>Date  : </strong>#{@activity.start_date} - #{@activity.end_date}</p>
     }
 
     begin

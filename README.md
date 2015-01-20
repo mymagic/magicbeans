@@ -113,3 +113,33 @@ This should be sufficient enough to make Google Calendar work.
 1. Your tweet. (Pre-populated message can be customized)
 2. Link to Eventbrite event within the tweet. 
 3. Picture of Activity as the image.
+
+#Mailchimp Set Up
+
+1. Log in to your Mailchimp Account.
+2. Click on your account name on the top right of the interphase.
+3. Select Account.
+4. Go to Extra, click on API Keys.
+5. Create a key if you do not currently have one.
+6. Copy the API Key into the Settings page.
+7. Configure the custom invitation message that will appear at the top of your email.
+
+Example:
+
+> "Custom Message Goes Here!"
+
+> Below are details of the event:
+>
+>Program Name : MaGIC Techinical Bootcamps
+>
+>Event Name : Web Development Bootcamp
+>
+>Description : Whether you are a recent graduate, a non-technical founder or a career-switcher, you can become a highly-skilled web developer. Our 9 week long full time web development class takes you from zero to hero. When you complete it, you'll have all the skills needed to rapidly deploy your visions. The next intake in November is already full. Apply NOW for the next intake. Slots are limited and they are going fast. When you graduate, you may go directly to work as a web developer or continue with one of our other excellent training programs.
+>
+>Speaker : Various Instructors
+>
+>Speaker Bio : Web/Rails Developer
+>
+>Key Takeaways : Learn Web Dev
+>
+>Date : 2015-05-15 - 2015-05-19
