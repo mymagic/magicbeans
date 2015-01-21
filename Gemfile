@@ -10,7 +10,6 @@ gem "cancancan", "~> 1.9"
 gem "bootstrap-sass"
 gem "sass-rails", "~> 4.0.3"
 gem "uglifier", ">= 1.3.0"
-gem "coffee-rails", "~> 4.0.0"
 gem "carrierwave"
 gem "rails-settings-cached", "0.4.1"
 gem "mini_magick"
@@ -23,7 +22,7 @@ gem "aws-sdk"
 gem "fog", require: "fog/aws/storage"
 gem "json"
 gem 'hominid'
-
+gem 'acts-as-taggable-on', '~> 3.4'
 
 group :development, :test do
   gem "sqlite3"

@@ -63,7 +63,7 @@
           </dd>
 
           <dt>Tags:</dt>
-          <dd><%= @activity.tags %></dd>
+          <dd><%= @activity.tag_list.each { |t| t }  %></dd>
         </dl>
     </div>
   </div>

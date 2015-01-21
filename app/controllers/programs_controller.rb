@@ -84,10 +84,9 @@ class ProgramsController < ApplicationController
     end
 
     def program_params
-      params.require(:program).permit(:name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources, :speaker_img, :program_img, activities_attributes: [:id, :name, :start_date, :end_date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources, :_destroy, :speaker_img, :activity_img])
+      params.require(:program).permit(:tag_list, :name, :description, :speaker, :speakerbio, :biourl, :keytakeways, :tags, :resources, :speaker_img, :program_img, activities_attributes: [:id, :name, :start_date, :end_date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources, :_destroy, :speaker_img, :activity_img])
     end
-
-
+    
     def set_default_for_assoc
       @program.activities.each do |a|
         if a.description.empty?
