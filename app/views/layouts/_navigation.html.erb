@@ -5,12 +5,19 @@
 
 		<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="menu-dropdown">	
 			<li><%= link_to '<i class="fa fa-sign-out fa-fw"></i>'.html_safe + ' Logout', destroy_user_session_path, {method: :delete} %></li>
+			<% if current_user.has_role?("admin") %>
 			<li <%= current_page?(settings_path)? "class=active" : "" %> ><%= link_to '<i class="fa fa-cog fa-fw"></i>'.html_safe + ' Settings', settings_path %></li>
+			<% else %>
+			<% end %>
 		</ul>
 	</div>
 	<ul class="nav">
 		<li <%= current_page?(root_path)? "class=active" : "" %> ><a href="<%= root_path %>">Home</a></li>
+		<% if current_user.has_role?("admin") %>
 		<li <%= current_page?(users_path)? "class=active" : "" %> ><a href="<%= users_path %>">Users</a></li>
+		<% else %>
+		<li <%= current_page?(user_path(current_user))? "class=active" : "" %> ><a href="<%= user_path(current_user) %>">Profile</a></li>
+		<%end%>
 		<li <%= current_page?(programs_path)? "class=active" : "" %> ><a href="<%= programs_path %>">Programs</a></li>
 		<li <%= current_page?(activities_path)? "class=active" : "" %> ><a href="<%= activities_path %>">Activities</a></li>
 	</ul>
