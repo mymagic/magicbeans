@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share, :send_mails]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share, :send_mails, :show_attendees]
   before_filter :set_twitter_client, only: [:tweet]
   load_and_authorize_resource
 
@@ -24,6 +24,12 @@ class ActivitiesController < ApplicationController
   end
 
   def edit
+  end
+
+  def show_attendees
+    request = Organizer.events(id: @activity.event_id).attendees.get
+    @attendees = request.body["attendees"]
+    render "attendees"
   end
 
   def update
@@ -64,6 +70,7 @@ class ActivitiesController < ApplicationController
       @event_response = Organizer.events(event: @event).post
       if (@event_response.status == 200)
         @activity.event_id = @event_response.body['id']
+        @activity.status = @event_response.body['status']
         @activity.save
         redirect_to activity_path(@activity), success: 'Successfully created a event!'
       else
@@ -73,6 +80,7 @@ class ActivitiesController < ApplicationController
         redirect_to activity_path(@activity), alert: 'Event has already been created'
     end
   end
+
   def set_twitter_client
   if Magicbean.twitter_consumer_key.present? && Magicbean.twitter_consumer_secret.present? && Magicbean.twitter_access_token.present? && Magicbean.twitter_access_token_secret.present?
       @client = Twitter::REST::Client.new do |config|

@@ -9,8 +9,8 @@
   <div class="col-lg-10 col-lg-offset-1">
     <div class="form-group">
       <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
-      <% if current_user.has_role?('admin') %>
-      <button class="btn btn-primary">View Registered Attendees</button>
+      <% if @activity.status == "draft" %>
+        <%= link_to "View Attendees", attendees_for_path(@activity), class: "btn btn-primary" %>
       <% end %>
       <% if can? :edit, @activity %>
           <%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-primary" %>
@@ -70,7 +70,11 @@
   <div class="col-lg-7">
     <div class="well">
       <div class="form-group">
-        <%= link_to 'Create Eventbrite Event', create_event_path, class:"btn btn-block btn-primary" %>
+        <% if @activity.status == "draft" %>
+        <%= link_to 'Publish Eventbrite Event', "https://www.eventbrite.com/edit?eid=#{@activity.event_id}", class:"btn btn-block btn-success", target: "_blank" %>
+        <% else %>
+        <%= link_to 'Draft Eventbrite Event', create_event_path, class:"btn btn-block btn-primary" %>
+        <% end %>
         <%= link_to 'Block Date In Calendar', {:controller => :activities, :action => :create_gcal, :method => :post}, class:"btn btn-block btn-primary" %>
         <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#facebookButton">Post to Facebook</button>
         <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#twitterButton">Post to Twitter</button>
@@ -87,7 +91,7 @@
       <% end %>
       </div>
       <div class="form-group">
-        <%= link_to 'Send Surveys to Attendees', "http://www.eventbrite.sg/myevent/#{@activity.event_id}/attendees-survey/", class:"btn btn-block btn-primary", target: "_blank" %>
+        <%= link_to 'Send Surveys to Attendees', "http://www.eventbrite.com/myevent/#{@activity.event_id}/attendees-survey/", class:"btn btn-block btn-primary", target: "_blank" %>
       </div>
     </div>
   </div>
