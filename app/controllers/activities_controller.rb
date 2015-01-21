@@ -3,7 +3,7 @@ class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share, :send_mails, :show_attendees]
   before_filter :set_twitter_client, only: [:tweet]
   load_and_authorize_resource
-  skip_authorize_resource :only => :search_query
+  skip_authorize_resource :only => [:search_query, :set_twitter_client, :show_attendees, :create_event, :set_twitter_client, :tweet, :create_gcal, :share, :send_mails]
 
   respond_to :html
 
