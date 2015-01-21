@@ -46,7 +46,7 @@
           </dd>
 
           <dt>Tags:</dt>
-          <dd><%= @program.tags %></dd>
+          <dd><%= @program.tag_list.each { |t| t } %></dd>
         </dl>
     </div>
   </div>

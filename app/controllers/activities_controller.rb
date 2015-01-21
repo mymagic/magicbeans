@@ -1,30 +1,31 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share, :send_mails]
-  load_and_authorize_resource
   before_filter :set_twitter_client, only: [:tweet]
-  # GET /activities
-  # GET /activities.json
-  def index
-    @activities = Activity.all
+  load_and_authorize_resource
+
+  respond_to :html
+
+  def search_query
+    all_tags = Activity.tag_counts_on(:tags).where("name LIKE ?", "%#{params[:q]}%").limit(10).pluck(:name).map { |obj| {name: obj} }
+    render json: all_tags
   end
 
-  # GET /activities/1
-  # GET /activities/1.json
+  def index
+    if params[:search]
+      @activities = Activity.search(params[:search]).order("created_at DESC")
+    else
+      @activities = Activity.all
+    end
+    respond_with(@activities)
+  end
+
   def show
   end
 
-  # GET /activities/new
-  # def new
-  #   @activity = Activity.new
-  # end
-
-  # GET /activities/1/edit
   def edit
   end
 
-  # PATCH/PUT /activities/1
-  # PATCH/PUT /activities/1.json
   def update
     respond_to do |format|
       if @activity.update(activity_params)
@@ -39,8 +40,6 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  # DELETE /activities/1
-  # DELETE /activities/1.json
   def destroy
     @activity.destroy
     @log = Log.new(title: 'An activity has been destroyed', log_type: 'activities', type_id: @activity.id)
@@ -220,6 +219,6 @@ class ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:id, :name, :start_date, :end_date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources, :speaker_img, :activity_img)
+      params.require(:activity).permit(:tag_list, :id, :name, :start_date, :end_date, :venue, :description, :speaker, :speakerbio, :biolink, :keytakeaway, :prerequisite, :maxattendee, :tags, :resources, :speaker_img, :activity_img)
     end
 end

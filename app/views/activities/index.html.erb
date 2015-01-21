@@ -2,7 +2,10 @@
   <h1 class="header">Activity Index</h1>
   <div class="search">
     <span class="glyphicon glyphicon-search"></span>
-    <input type="search" class="form-control" placeholder="Search" />
+    <%= form_tag(activities_path, :method => "get", id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search by tags", id: "activity-typeahead", class: "form-control" %>
+      <%= submit_tag "", :name => nil, :style => "display: none;" %>
+    <% end %>
   </div>
 </div>
 
