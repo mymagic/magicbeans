@@ -10,6 +10,8 @@ class Ability
       can :assign_roles, User
     else
       can [:read], :all
+      can [:create], :all
+      can [:edit,:update], [Activity, Program]
       can [:update], User do |u|
         u.id == user.id
       end
