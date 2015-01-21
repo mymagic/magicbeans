@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120040109) do
+ActiveRecord::Schema.define(version: 20150121113257) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20150120040109) do
     t.string   "keytakeaway"
     t.text     "prerequisite"
     t.integer  "maxattendee"
-    t.string   "tags"
     t.string   "resources"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -54,7 +53,6 @@ ActiveRecord::Schema.define(version: 20150120040109) do
     t.string   "speakerbio"
     t.string   "biourl"
     t.string   "keytakeways"
-    t.string   "tags"
     t.string   "resources"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -72,4 +72,26 @@ $(document).on('ready page:load', function () {
     // is compatible with the typeahead jQuery plugin
     source: activity_tags.ttAdapter()
   });
+
+
+
+  var users = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    limit: 10,
+    remote: 'users?q=%QUERY'
+  });
+   
+  // kicks off the loading/processing of `local` and `prefetch`
+  users.initialize();
+   
+  // passing in `null` for the `options` arguments will result in the default
+  // options being used
+  $('#user-typeahead').typeahead(null, {
+    name: 'users',
+    displayKey: 'name',
+    // `ttAdapter` wraps the suggestion engine in an adapter that
+    // is compatible with the typeahead jQuery plugin
+    source: users.ttAdapter()
+  });
 });

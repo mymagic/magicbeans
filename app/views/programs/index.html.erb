@@ -2,7 +2,10 @@
   <h1 class="header">Program Index</h1>            
   <div class="search">
     <span class="glyphicon glyphicon-search"></span>
-    <input id="program-typeahead" type="text" class="form-control" placeholder="Search" />
+    <%= form_tag(programs_path, :method => "get", id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search by tags", id: "program-typeahead", class: "form-control" %>
+      <%= submit_tag "", :name => nil, :style => "display: none;" %>
+    <% end %>
   </div>
   <%= link_to 'Add New', new_program_path, class: "btn btn-default" %>
 </div>

@@ -2,12 +2,21 @@ class ProgramsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_program, only: [:show, :edit, :update, :destroy]
   after_action :set_default_for_assoc, only: [:update, :create]
-  respond_to :html
-
   load_and_authorize_resource
 
+  respond_to :html
+
+  def search_query
+    all_tags = Program.tag_counts_on(:tags).where("name LIKE ?", "%#{params[:q]}%").limit(10).pluck(:name).map { |obj| {name: obj} }
+    render json: all_tags
+  end
+
   def index
-    @programs = Program.all
+    if params[:search]
+      @programs = Program.search(params[:search]).order("created_at DESC")
+    else
+      @programs = Program.all
+    end
     respond_with(@programs)
   end
 
@@ -74,11 +83,6 @@ class ProgramsController < ApplicationController
     else
       render action: 'index'
     end
-  end
-
-  def get_all_tags
-    all_tags = Program.tag_counts_on(:tags).where("name LIKE ?", "%#{params[:q]}%").limit(10).pluck(:name).map { |obj| {name: obj} }
-    render json: all_tags
   end
 
   private

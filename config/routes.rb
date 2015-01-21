@@ -17,8 +17,9 @@ Rails.application.routes.draw do
   match 'settings' => 'magicbeans#settings', via: [:get, :post], :as => :settings
   get 'settings/generate' => 'magicbeans#generate_page_token', :as => 'generate'
 
-  scope '/api' do
-    get '/programs/tags' => 'programs#get_all_tags'
-    get '/activities/tags' => 'activities#get_all_tags'
+  scope 'api' do
+    get 'programs/tags' => 'programs#search_query'
+    get 'activities/tags' => 'activities#search_query'
+    get 'users' => 'users#search_query'
   end
 end

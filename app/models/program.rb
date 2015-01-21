@@ -6,4 +6,8 @@ class Program < ActiveRecord::Base
     acts_as_taggable
     accepts_nested_attributes_for :activities, allow_destroy: true
     # , reject_if: lambda {|attributes| attributes['name'].blank?}
+
+	def self.search(tag)
+	   tagged_with(tag) 
+	end
 end

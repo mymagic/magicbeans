@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
 
+  def self.search(name)
+    where("NAME LIKE ?", "%#{name}%") 
+  end
+
   def confirmed?
     confirmed_at.present?
   end
