@@ -51,6 +51,11 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def get_all_tags
+    all_tags = Activity.tag_counts_on(:tags).where("name LIKE ?", "%#{params[:q]}%").limit(10).pluck(:name).map { |obj| {name: obj} }
+    render json: all_tags
+  end
+
   def create_event
     if (@activity.event_id.nil?)
       @event = Organizer::Event.new(

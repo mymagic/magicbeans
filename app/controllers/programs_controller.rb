@@ -76,6 +76,11 @@ class ProgramsController < ApplicationController
     end
   end
 
+  def get_all_tags
+    all_tags = Program.tag_counts_on(:tags).where("name LIKE ?", "%#{params[:q]}%").limit(10).pluck(:name).map { |obj| {name: obj} }
+    render json: all_tags
+  end
+
   private
     def set_program
       @program = Program.find(params[:id])
