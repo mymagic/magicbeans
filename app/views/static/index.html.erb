@@ -10,8 +10,8 @@
 
 <% if current_user.has_role?('admin')%>
 <div class="body">
-    <h1 align="center">Getting Started</h1>
-    <p align="center">Follow the instructions below to configure the settings page. You will only need to do this once.</p>
+   <div> <h1 align="center">Getting Started</h1>
+    <p align="center">Follow the instructions below to configure the settings page. You will only need to do this once.</p></div>
 
   <div class="col-lg-6">
     <h4>Facebook</h4>
@@ -44,31 +44,38 @@
   
     <h4>Twitter</h4>
       <p><ol>
-        <li>Go to apps.twitter.com.
-        <li>Sign in.
-        <li>Create a new application:
-        <li>https://apps.twitter.com/
-        <li>Create new app.
-        <li>Fill in all necesarry informations.
-        <li>Provide suitable permission for the app. (Read and Write for this instance)
-        <li>Generate your Apps Key, Secret and Access Token and Access Token Secret from the Keys and Access Tokens tab. (Need this for later config.)
-        <li>You will have to regenerate App Key and Secret if you change permissions.
-        <li>Copy all these API keys to the settings page.
+        <li>Go to <a href="https://apps.twitter.com"></a>Twitter Developers Page</li>
+        <li>Sign in.</li>
+        <li>Create a new application.</li>
+        <li>Fill in all necesarry informations.</li>
+        <li>Provide suitable permission for the app. (Read and Write for this instance)</li>
+        <li>Generate your Apps Key, Secret and Access Token and Access Token Secret from the Keys and Access Tokens tab. (Need this for later config.)</li>
+        <li>You will have to regenerate App Key and Secret if you change permissions.</li>
+        <li>Copy all these API keys to the settings page.</li>
           <ul><li>Twitter Consumer Key</li>
           <li>Twtter Consumer Key Secret</li>
           <li>Twitter Access Token</li>
           <li>Twitter Acces Token Secret</li></ul>
         </li></ol></p>
+
+        <h4>Eventbrite</h4>
+      <p><ol>
+        <li>Log into your Eventbrite account.</li>
+        <li>Click on your username on the top right of the interphase.</li>
+        <li>Click on show Client Secret and Oauth Token.</li>
+        <li>Copy your personal Oauth Token to the Settings Page and Save.</li>
+        <li>Eventbrite is configured!</li>
+        </ol></p>
   </div>
 
   <div class="col-lg-6">
     <h4>Google Calendar</h4>
     <p><ol>
-        <li>Sign in to the account of which you want to share the Google Calendar.
-        <li>Visit the <a href="https://console.developers.google.com">Google Developers Console</a>.
+        <li>Sign in to the account of which you want to share the Google Calendar.</li>
+        <li>Visit the <a href="https://console.developers.google.com">Google Developers Console</a>.</li>
         <li>Set up your project if you haven't already done so and enable the 'Google Calendar API'.</li>
         <li>Select your project and go to "APIs & auth", make sure "Google Calender API" is enabled.</li>
-        <li>Click on 'credentials'.</li>
+        <li>Click on 'Credentials'.</li>
         <li>Click on "Create new client ID". Specify that your application type is service account, and proceed with the setup of the service account.</li><br>     
 
         <p>You should now have:
