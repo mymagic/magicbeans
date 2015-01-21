@@ -76,8 +76,8 @@
         <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#twitterButton">Post to Twitter</button>
       </div>
       <div class="form-group">
-      <% if Magicbeans.mailchimp_apikey.present? %>
-        <% list_array = Hominid::API.new(Magicbeans.mailchimp_apikey).lists['data'].map {|h| [h['name'], h['id']]} %>
+      <% if Magicbean.mailchimp_apikey.present? %>
+        <% list_array = Hominid::API.new(Magicbean.mailchimp_apikey).lists['data'].map {|h| [h['name'], h['id']]} %>
               <%= form_for :send_mails, url: send_mails_path, method: :post do |f| %>
               <%= f.select(:mailchimp_list_id, options_for_select(list_array), { :prompt => "Select Mailing List" } , { :class => "form-control" }) %>
               <%= f.submit 'Blast Mailchimp', class: "btn btn-primary btn-block" %>
@@ -104,7 +104,7 @@
           <div class="form-group">
             <%= form_for :tweet, url: tweet_path, method: :post do |f| %>
             <%= f.label(:message, class:"control-label") %>
-            <%= f.text_area(:message, value: Magicbeans.twitter_message, :class => "form-control") %>
+            <%= f.text_area(:message, value: Magicbean.twitter_message, :class => "form-control") %>
           </div>
         <%= f.submit 'Tweet', class: "btn btn-primary btn-block" %>
       <% end %>
@@ -124,7 +124,7 @@
           <div class="form-group">
             <%= form_for :share, url: share_path, method: :post do |f| %>
             <%= f.label(:message, class:"control-label") %>
-            <%= f.text_area(:message, value: Magicbeans.fb_message, :class => "form-control") %>
+            <%= f.text_area(:message, value: Magicbean.fb_message, :class => "form-control") %>
           </div>
         <%= f.submit 'Share', class: "btn btn-primary btn-block" %>
       <% end %>

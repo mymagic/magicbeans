@@ -11,7 +11,7 @@
             <div class="well">
                 <div class="form-group">
                     <label for="eventbrite_api">Personal Oauth Token</label>
-                    <%= text_field_tag(:eventbrite_api, Magicbeans.eventbrite_api, class:"form-control") %>
+                    <%= text_field_tag(:eventbrite_api, Magicbean.eventbrite_api, class:"form-control") %>
                 </div>
             </div>
 
@@ -19,23 +19,23 @@
             <div class="well">
                 <div class="form-group">
                     <label for="twitter_consumer_key">Consumer Key</label>
-                    <%= text_field_tag(:twitter_consumer_key, Magicbeans.twitter_consumer_key, class:"form-control") %>
+                    <%= text_field_tag(:twitter_consumer_key, Magicbean.twitter_consumer_key, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="twitter_consumer_secret">Consumer Secret</label>
-                    <%= text_field_tag(:twitter_consumer_secret, Magicbeans.twitter_consumer_secret, class:"form-control") %>
+                    <%= text_field_tag(:twitter_consumer_secret, Magicbean.twitter_consumer_secret, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="twitter_access_token">Access Token</label>
-                    <%= text_field_tag(:twitter_access_token, Magicbeans.twitter_access_token, class:"form-control") %>
+                    <%= text_field_tag(:twitter_access_token, Magicbean.twitter_access_token, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="twitter_access_token_secret">Access Token Secret</label>
-                    <%= text_field_tag(:twitter_access_token_secret, Magicbeans.twitter_access_token_secret, class:"form-control") %>
+                    <%= text_field_tag(:twitter_access_token_secret, Magicbean.twitter_access_token_secret, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="twitter_message">Custom Message</label>
-                    <%= text_field_tag(:twitter_message, Magicbeans.twitter_message, class:"form-control") %>
+                    <%= text_field_tag(:twitter_message, Magicbean.twitter_message, class:"form-control") %>
                 </div>
             </div>
 
@@ -43,24 +43,24 @@
             <div class="well">
                 <div class="form-group">
                     <label for="fb_app_id">Application ID</label>
-                    <%= text_field_tag(:fb_app_id, Magicbeans.fb_app_id, class:"form-control") %>
+                    <%= text_field_tag(:fb_app_id, Magicbean.fb_app_id, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="fb_message">Application Secret</label>
-                    <%= text_field_tag(:fb_app_secret, Magicbeans.fb_app_secret, class:"form-control") %>
+                    <%= text_field_tag(:fb_app_secret, Magicbean.fb_app_secret, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="fb_message">Page ID</label>
-                    <%= text_field_tag(:fb_page_id, Magicbeans.fb_page_id, class:"form-control") %>
+                    <%= text_field_tag(:fb_page_id, Magicbean.fb_page_id, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="fb_message">User Access Token</label>
-                    <%= text_field_tag(:fb_user_access_token, Magicbeans.fb_user_access_token, class:"form-control") %>
+                    <%= text_field_tag(:fb_user_access_token, Magicbean.fb_user_access_token, class:"form-control") %>
                 </div> 
                 <div class="form-group">
                     <label for="fb_message">Page Access Token</label>
                     <div class="input-group">
-                        <%= text_field_tag(:fb_page_access_token, Magicbeans.fb_page_access_token, class:"form-control") %>
+                        <%= text_field_tag(:fb_page_access_token, Magicbean.fb_page_access_token, class:"form-control") %>
                         <div class="input-group-btn">
                             <%= link_to 'Generate', {:controller => :magicbeans, :action => :generate_page_token, :method => :post}, class:"btn btn-success" %>
                         </div>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-group">
                     <label for="fb_message">Custom Message</label>
-                    <%= text_field_tag(:fb_message, Magicbeans.fb_message, class:"form-control") %>
+                    <%= text_field_tag(:fb_message, Magicbean.fb_message, class:"form-control") %>
                 </div>
             </div>
 
@@ -76,11 +76,11 @@
             <div class="well">
                 <div class="form-group">
                     <label for="mailchimp_apikey">API Key</label>
-                    <%= text_field_tag(:mailchimp_apikey, Magicbeans.mailchimp_apikey, class:"form-control") %>
+                    <%= text_field_tag(:mailchimp_apikey, Magicbean.mailchimp_apikey, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="mailchimp_message">Custom Invitation Message</label>
-                    <%= text_area_tag(:mailchimp_message, Magicbeans.mailchimp_message, class:"form-control") %>
+                    <%= text_area_tag(:mailchimp_message, Magicbean.mailchimp_message, class:"form-control") %>
                 </div>
             </div>
 
@@ -89,15 +89,15 @@
             <div class="well">
                 <div class="form-group">
                     <label for="google_service_account_email">Google Service Account Email</label>
-                    <%= text_field_tag(:google_service_account_email, Magicbeans.google_service_account_email, class:"form-control") %>
+                    <%= text_field_tag(:google_service_account_email, Magicbean.google_service_account_email, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="google_calendar_id">Calendar ID</label>
-                    <%= text_field_tag(:google_calendar_id, Magicbeans.google_calendar_id, class:"form-control") %>
+                    <%= text_field_tag(:google_calendar_id, Magicbean.google_calendar_id, class:"form-control") %>
                 </div>
                 <div class="form-group">
                     <label for="rsa_key">RSA Key</label>
-                    <%= text_area_tag(:rsa_key, Magicbeans.rsa_key, class:"form-control") %>
+                    <%= text_area_tag(:rsa_key, Magicbean.rsa_key, class:"form-control") %>
                 </div>
             </div>
 
