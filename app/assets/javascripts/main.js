@@ -79,7 +79,7 @@ $(document).on('ready page:load', function () {
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     limit: 10,
-    remote: 'users?q=%QUERY'
+    remote: 'api/users?q=%QUERY'
   });
    
   // kicks off the loading/processing of `local` and `prefetch`
