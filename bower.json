@@ -1,0 +1,23 @@
+{
+  "name": "magicbeans",
+  "version": "0.1.2",
+  "homepage": "https://github.com/Fadhil/magicbeans",
+  "authors": [
+    "Imran Ismail <imran.codely@gmail.com>"
+  ],
+  "description": "Event management for magic simplified",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "typeahead.js": "~0.10.5",
+    "timeago": "~1.4.1"
+  }
+}
