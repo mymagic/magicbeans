@@ -9,8 +9,7 @@ class Ability
       can :manage, :all
       can :assign_roles, User
     else
-      can [:read], :all
-      can [:create], :all
+      can [:read, :create], :all
       can [:edit,:update], [Activity, Program]
       can [:update], User do |u|
         u.id == user.id
