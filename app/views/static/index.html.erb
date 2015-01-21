@@ -1,9 +1,14 @@
 <div class="jumbotron fix-margin">
   <h1>Magicbeans!</h1>
-  <p class="lead">A process management tool for folks in magic to create, manage and share.</p>
-  <p><a class="btn btn-lg btn-success" href=<%= new_program_path%>>Get Started! <span class="glyphicon glyphicon-chevron-down"></span></a></p>
+  <p class="lead">A process management tool for folks in MaGIC to create, manage and share.</p>
+  <% if current_user.has_role?('admin')%>
+  <p><a class="btn btn-lg btn-success" href=<%= settings_path%>>Go To Settings! <span class="glyphicon glyphicon-chevron-down"></span></a></p>
+  <% else %>
+  <p><a class="btn btn-lg btn-success" href=<%= new_program_path%>>Create New Program! <span class="glyphicon glyphicon-chevron-down"></span></a></p>
+  <% end %>
 </div>
 
+<% if current_user.has_role?('admin')%>
 <div class="body">
   <div class="col-lg-6">
     <h1>Getting Started</h1>
@@ -34,3 +39,5 @@
     <p>Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.</p>
   </div>
 </div>
+<% else %>
+<% end %>
