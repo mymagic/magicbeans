@@ -100,7 +100,7 @@ class ActivitiesController < ApplicationController
     begin
       message = params[:tweet][:message]
       share_event = Organizer.events(id: @activity.event_id).get
-      file = File.new(open(@activity.activity_img.url)).path
+      file = File.new(open(@activity.activity_img.url).path)
       if !message.blank?
         if share_event.body["logo"].present? && share_event.body["url"].present?
           @send_tweet = @client.update_with_media(message + "\n" + share_event.body["url"], file)
