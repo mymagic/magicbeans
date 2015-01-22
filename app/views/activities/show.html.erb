@@ -9,8 +9,8 @@
   <div class="col-lg-10 col-lg-offset-1">
     <div class="form-group">
       <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
-      <% if current_user.has_role?('admin') %>
-      <button class="btn btn-primary">View Registered Attendees</button>
+      <% if @activity.status == "draft" %>
+        <%= link_to "View Attendees", attendees_for_path(@activity), class: "btn btn-primary" %>
       <% end %>
       <% if can? :edit, @activity %>
           <%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-primary" %>
@@ -70,14 +70,18 @@
   <div class="col-lg-7">
     <div class="well">
       <div class="form-group">
-        <%= link_to 'Create Eventbrite Event', create_event_path, class:"btn btn-block btn-primary" %>
+        <% if @activity.status == "draft" %>
+        <%= link_to 'Publish Eventbrite Event', "https://www.eventbrite.com/myevent?eid=#{@activity.event_id}", class:"btn btn-block btn-success", target: "_blank" %>
+        <% else %>
+        <%= link_to 'Draft Eventbrite Event', create_event_path, class:"btn btn-block btn-primary" %>
+        <% end %>
         <%= link_to 'Block Date In Calendar', {:controller => :activities, :action => :create_gcal, :method => :post}, class:"btn btn-block btn-primary" %>
         <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#facebookButton">Post to Facebook</button>
         <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#twitterButton">Post to Twitter</button>
       </div>
       <div class="form-group">
-      <% if Magicbeans.mailchimp_apikey.present? %>
-        <% list_array = Hominid::API.new(Magicbeans.mailchimp_apikey).lists['data'].map {|h| [h['name'], h['id']]} %>
+      <% if Magicbean.mailchimp_apikey.present? %>
+        <% list_array = Hominid::API.new(Magicbean.mailchimp_apikey).lists['data'].map {|h| [h['name'], h['id']]} %>
               <%= form_for :send_mails, url: send_mails_path, method: :post do |f| %>
               <%= f.select(:mailchimp_list_id, options_for_select(list_array), { :prompt => "Select Mailing List" } , { :class => "form-control" }) %>
               <%= f.submit 'Blast Mailchimp', class: "btn btn-primary btn-block" %>
@@ -87,7 +91,7 @@
       <% end %>
       </div>
       <div class="form-group">
-        <%= link_to 'Send Surveys to Attendees', "http://www.eventbrite.sg/myevent/#{@activity.event_id}/attendees-survey/", class:"btn btn-block btn-primary", target: "_blank" %>
+        <%= link_to 'Send Surveys to Attendees', "http://www.eventbrite.com/myevent/#{@activity.event_id}/attendees-survey/", class:"btn btn-block btn-primary", target: "_blank" %>
       </div>
     </div>
   </div>
@@ -104,7 +108,7 @@
           <div class="form-group">
             <%= form_for :tweet, url: tweet_path, method: :post do |f| %>
             <%= f.label(:message, class:"control-label") %>
-            <%= f.text_area(:message, value: Magicbeans.twitter_message, :class => "form-control") %>
+            <%= f.text_area(:message, value: Magicbean.twitter_message, :class => "form-control") %>
           </div>
         <%= f.submit 'Tweet', class: "btn btn-primary btn-block" %>
       <% end %>
@@ -124,7 +128,7 @@
           <div class="form-group">
             <%= form_for :share, url: share_path, method: :post do |f| %>
             <%= f.label(:message, class:"control-label") %>
-            <%= f.text_area(:message, value: Magicbeans.fb_message, :class => "form-control") %>
+            <%= f.text_area(:message, value: Magicbean.fb_message, :class => "form-control") %>
           </div>
         <%= f.submit 'Share', class: "btn btn-primary btn-block" %>
       <% end %>

@@ -3,6 +3,7 @@ class ProgramsController < ApplicationController
   before_action :set_program, only: [:show, :edit, :update, :destroy]
   after_action :set_default_for_assoc, only: [:update, :create]
   load_and_authorize_resource
+  skip_authorize_resource :only => :search_query
 
   respond_to :html
 

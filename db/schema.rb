@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121113257) do
+ActiveRecord::Schema.define(version: 20150122034120) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -31,9 +31,10 @@ ActiveRecord::Schema.define(version: 20150121113257) do
     t.datetime "end_date"
     t.boolean  "listed",       default: true
     t.boolean  "online",       default: true
-    t.integer  "event_id"
+    t.string   "event_id"
     t.string   "activity_img"
     t.string   "speaker_img"
+    t.string   "status"
   end
 
   add_index "activities", ["program_id"], name: "index_activities_on_program_id"

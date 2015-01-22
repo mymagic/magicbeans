@@ -1,36 +1,128 @@
 <div class="jumbotron fix-margin">
   <h1>Magicbeans!</h1>
-  <p class="lead">A process management tool for folks in magic to create, manage and share.</p>
-  <p><a class="btn btn-lg btn-success" href="#">Get Started! <span class="glyphicon glyphicon-chevron-down"></span></a></p>
+  <p class="lead">A process management tool for folks in MaGIC to create, manage and share.</p>
+  <% if current_user.has_role?('admin')%>
+  <p><a class="btn btn-lg btn-success" href=<%= settings_path%>>Go To Settings! <span class="glyphicon glyphicon-chevron-down"></span></a></p>
+  <% else %>
+  <p><a class="btn btn-lg btn-success" href=<%= new_program_path%>>Create New Program! <span class="glyphicon glyphicon-chevron-down"></span></a></p>
+  <% end %>
 </div>
 
+<% if current_user.has_role?('admin')%>
 <div class="body">
+   <div> <h1 align="center">Getting Started</h1>
+    <p align="center">Follow the instructions below to configure the settings page. You will only need to do this once.</p></div>
+
   <div class="col-lg-6">
-    <h1>Getting Started</h1>
-    <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
+    <h4>Facebook</h4>
+    <p><ol>
+          <li>Visit the <a href="https://developers.facebook.com/">Facebook Developers Page</a></li> 
+          <li>Log in to your account.</li>
+          <li>Under the My Apps tab, click 'create new app'.</li>
+          <li>Select website.</li>
+          <li>Choose a name for your application.</li>
+          <li>Create Application.</li>
+          <li>Select a suitable category.</li>
+          <li>Create App ID.</li>
+          <li>Scroll down and enter your site url, then click next.</li>
+          <li>Click on the Facebook Developers Logo to refresh the page.</li>
+          <li>Go to your app under the My Apps tab.</li>
+          <li>Go to Settings and enter your contact email, then save changes.</li>
+          <li>Go to Status & Reviews.</li>
+          <li>Do you want to make this app and all its live features available to the general public?</li>
+          <li>Select YES to make features available and confirm.</li>
+          <li>Head back to Dashboard to copy your App Id and App Secret to the settings page on Magicbeans,then save them.</li>
+          <li>Head over to https://developers.facebook.com/tools/explorer/.</li>
+          <li>Select your app, Click on Get Access Token, Extended Permissions, then tick "Publish_action" and "Manage_pages", Get Access Token.</li>
+          <li>Accept all consent on Pop Up.</li>
+          <li>Copy the Access Token to settings page.</li>
+          <li>Change the GET url to "me/accounts" and submit.</li>
+          <li>Find the facebook page and copy the page id to setting page.</li>
+          <li>Click on Save button first.</li>
+          <li>Then click on Generate button on Page Access Token field.</li>
+          <li>You are good to go for posting to Facebook!</li></ol></p>
+  
+    <h4>Twitter</h4>
+      <p><ol>
+        <li>Go to <a href="https://apps.twitter.com"></a>Twitter Developers Page</li>
+        <li>Sign in.</li>
+        <li>Create a new application.</li>
+        <li>Fill in all necesarry informations.</li>
+        <li>Provide suitable permission for the app. (Read and Write for this instance)</li>
+        <li>Generate your Apps Key, Secret and Access Token and Access Token Secret from the Keys and Access Tokens tab. (Need this for later config.)</li>
+        <li>You will have to regenerate App Key and Secret if you change permissions.</li>
+        <li>Copy all these API keys to the settings page.</li>
+          <ul><li>Twitter Consumer Key</li>
+          <li>Twtter Consumer Key Secret</li>
+          <li>Twitter Access Token</li>
+          <li>Twitter Acces Token Secret</li></ul>
+        </li></ol></p>
 
-    <h4>Sass</h4>
-    <p>Sass is a mature, stable, and powerful professional grade CSS extension language.</p>
-
-
-    <h4>Bootstrap</h4>
-    <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
-
-    <h4>Modernizr</h4>
-    <p>Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.</p>
+        <h4>Eventbrite</h4>
+      <p><ol>
+        <li>Log into your Eventbrite account.</li>
+        <li>Click on your username on the top right of the interphase.</li>
+        <li>Click on show Client Secret and Oauth Token.</li>
+        <li>Copy your personal Oauth Token to the Settings Page and Save.</li>
+        <li>Eventbrite is configured!</li>
+        </ol></p>
   </div>
+
   <div class="col-lg-6">
-    <h1>Settings</h1>
-    <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
+    <h4>Google Calendar</h4>
+    <p><ol>
+        <li>Sign in to the account of which you want to share the Google Calendar.</li>
+        <li>Visit the <a href="https://console.developers.google.com">Google Developers Console</a>.</li>
+        <li>Set up your project if you haven't already done so and enable the 'Google Calendar API'.</li>
+        <li>Select your project and go to "APIs & auth", make sure "Google Calender API" is enabled.</li>
+        <li>Click on 'Credentials'.</li>
+        <li>Click on "Create new client ID". Specify that your application type is service account, and proceed with the setup of the service account.</li><br>     
 
-    <h4>Sass</h4>
-    <p>Sass is a mature, stable, and powerful professional grade CSS extension language.</p>
+        <p>You should now have:
+        <ul><li>Client ID (xxx.apps.googleusercontent.com)</li>
+        <li>email address (xxx@developer.gserviceaccount.com)</li>
+        <li>A private key file</li>
+        Share your calendar with the service account</ul></p>
+  
+        <p>Your service account will need to have access to the Google Calendar of the calendar user, to do this:</p>
 
+        <li>Sign in to the account of which you want to share the Google Calendar.</li>
+        <li>Visit Google Calendar.</li>
+        <li>Click on settings/calendars and 'edit settings' of the calendar you want to share.</li>
+        <li>In the field 'Share with specific people' add the developer email address: xxxxxx@developer.gserviceaccount.com.</li>
+        <li>Select proper permissions and click on save.</li>
+        <li>Configure in Settings Page.</li><br>
 
-    <h4>Bootstrap</h4>
-    <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
+        <p>CalendarID is usually your email address if you are using your own calendar.However, the ID might change if you created another calendar using the same email.</p>
 
-    <h4>Modernizr</h4>
-    <p>Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.</p>
+        <li>Go to Google Calendar.</li>
+        <li>On your left there are a few calendar listed if you have few of them.</li>
+        <li>Click on the small down arrow beside the calendar.</li>
+        <li>Select calendar settings.</li>
+        <li>Scroll down and you will see the calendarID option.</li>
+        <li>Copy the email address (xxx@developer.gserviceaccount.com) and calendarID into setting page and save.</li>
+        <li>Convert the private keyfile (.p12 file) to RSA key.</li>
+        <li>Save to RSA Key in Settings Page.</li>
+        <li>This should be sufficient enough to make Google Calendar work.</li>
+        </ol></p>
+
+    <h4>Mailchimp</h4>
+    <p><ol>
+    <li>Log in to your Mailchimp Account.</li>
+    <li>Click on your account name on the top right of the interphase.</li>
+    <li>Select Account.</li>
+    <li>Go to Extra, click on API Keys.</li>
+    <li>Create a key if you do not currently have one.</li>
+    <li>Copy the API Key into the Settings page.</li>
+    <li>Configure the custom invitation message that will appear at the top of your email.</li>
+    </ol></p>
   </div>
 </div>
+<% else %>
+<div class="body">
+  <div> 
+    <h1 align="center">Welcome to Magicbeans!</h1>
+    <p align="center">You can manage all your events including creating Eventbrite event page, sharing the event to Facebook, tweeting the event to Twitter, blocking Google Calendar, blasting email invitations through Mailchimp and sending surveys to attendees all in this one application.</p>
+  </div>
+</div>
+<% end %>

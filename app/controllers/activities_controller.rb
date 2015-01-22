@@ -1,8 +1,9 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share, :send_mails]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :create_event, :tweet, :create_gcal, :share, :send_mails, :show_attendees]
   before_filter :set_twitter_client, only: [:tweet]
   load_and_authorize_resource
+  skip_authorize_resource :only => [:search_query, :set_twitter_client, :show_attendees, :create_event, :set_twitter_client, :tweet, :create_gcal, :share, :send_mails]
 
   respond_to :html
 
@@ -24,6 +25,12 @@ class ActivitiesController < ApplicationController
   end
 
   def edit
+  end
+
+  def show_attendees
+    request = Organizer.events(id: @activity.event_id).attendees.get
+    @attendees = request.body["attendees"]
+    render "attendees"
   end
 
   def update
@@ -64,6 +71,7 @@ class ActivitiesController < ApplicationController
       @event_response = Organizer.events(event: @event).post
       if (@event_response.status == 200)
         @activity.event_id = @event_response.body['id']
+        @activity.status = @event_response.body['status']
         @activity.save
         redirect_to activity_path(@activity), success: 'Successfully created a event!'
       else
@@ -73,13 +81,14 @@ class ActivitiesController < ApplicationController
         redirect_to activity_path(@activity), alert: 'Event has already been created'
     end
   end
+
   def set_twitter_client
-  if Magicbeans.twitter_consumer_key.present? && Magicbeans.twitter_consumer_secret.present? && Magicbeans.twitter_access_token.present? && Magicbeans.twitter_access_token_secret.present?
+  if Magicbean.twitter_consumer_key.present? && Magicbean.twitter_consumer_secret.present? && Magicbean.twitter_access_token.present? && Magicbean.twitter_access_token_secret.present?
       @client = Twitter::REST::Client.new do |config|
-        config.consumer_key        = Magicbeans.twitter_consumer_key
-        config.consumer_secret     = Magicbeans.twitter_consumer_secret
-        config.access_token        = Magicbeans.twitter_access_token
-        config.access_token_secret = Magicbeans.twitter_access_token_secret
+        config.consumer_key        = Magicbean.twitter_consumer_key
+        config.consumer_secret     = Magicbean.twitter_consumer_secret
+        config.access_token        = Magicbean.twitter_access_token
+        config.access_token_secret = Magicbean.twitter_access_token_secret
       end
     else
       redirect_to activity_path(@activity), notice: "Please configure all Twitter settings before tweeting."
@@ -87,12 +96,14 @@ class ActivitiesController < ApplicationController
   end
 
   def tweet
+    require 'open-uri'
     begin
       message = params[:tweet][:message]
       share_event = Organizer.events(id: @activity.event_id).get
+      file = File.new(open(@activity.activity_img.url).path)
       if !message.blank?
         if share_event.body["logo"].present? && share_event.body["url"].present?
-          @send_tweet = @client.update_with_media(message + "\n" + share_event.body["url"], File.new(open(share_event.body["logo"]["url"]).path))
+          @send_tweet = @client.update_with_media(message + "\n" + share_event.body["url"], file)
           redirect_to activity_path(@activity), success: 'Successfully tweeted!'
         else
           redirect_to activity_path(@activity), notice: 'Please make sure Eventbrite event is created and event logo is uploaded. Try again.'
@@ -114,17 +125,17 @@ class ActivitiesController < ApplicationController
                     },
         'end' => {'dateTime' => DateTime.parse(@activity.end_date.to_s).rfc3339
                   }}
-    if Magicbeans.rsa_key.present? && Magicbeans.google_service_account_email.present? && Magicbeans.google_calendar_id.present?
+    if Magicbean.rsa_key.present? && Magicbean.google_service_account_email.present? && Magicbean.google_calendar_id.present?
       # Initialize the client
-      client = Google::APIClient.new(application_name: 'MagicBeans', application_version: '0.0.1')
+      client = Google::APIClient.new(application_name: 'Magicbean', application_version: '0.0.1')
       # load and decrypt private key
-      key = OpenSSL::PKey::RSA.new Magicbeans.rsa_key, 'notasecret'
+      key = OpenSSL::PKey::RSA.new Magicbean.rsa_key, 'notasecret'
       # generate request body for authorization
       client.authorization = Signet::OAuth2::Client.new(
                                :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
                                :audience             => 'https://accounts.google.com/o/oauth2/token',
                                :scope                => 'https://www.googleapis.com/auth/calendar',
-                               :issuer               =>  Magicbeans.google_service_account_email,
+                               :issuer               =>  Magicbean.google_service_account_email,
                                :signing_key          =>  key
                                )
 
@@ -134,7 +145,7 @@ class ActivitiesController < ApplicationController
       service = client.discovered_api('calendar', 'v3')
       # access API by using client
       @set_event = client.execute(:api_method => service.events.insert,
-                                  :parameters => {'calendarId' => Magicbeans.google_calendar_id },
+                                  :parameters => {'calendarId' => Magicbean.google_calendar_id },
                                   :body => JSON.dump(@gcal_event),
                                   :headers => {'Content-Type' => 'application/json'})
       redirect_to activity_path(@activity), success: 'Successfully posted activity to Google Calendar!'
@@ -145,7 +156,7 @@ class ActivitiesController < ApplicationController
 
   def share
     begin
-      page = Koala::Facebook::API.new(Magicbeans.fb_page_access_token)
+      page = Koala::Facebook::API.new(Magicbean.fb_page_access_token)
       message = params[:share][:message]
       share_event = Organizer.events(id: @activity.event_id).get
       if !message.blank?
@@ -168,7 +179,7 @@ class ActivitiesController < ApplicationController
   def send_mails
       @the_content = %Q{
 
-      <p>#{Magicbeans.mailchimp_message}</p>
+      <p>#{Magicbean.mailchimp_message}</p>
 
       <p>Below are details of the event:</p> 
 
@@ -190,7 +201,7 @@ class ActivitiesController < ApplicationController
       }
 
     begin
-      apikey = Magicbeans.mailchimp_apikey
+      apikey = Magicbean.mailchimp_apikey
       @h = Hominid::API.new(apikey)
       list_id = params[:send_mails][:mailchimp_list_id]
         if list_id.present?
