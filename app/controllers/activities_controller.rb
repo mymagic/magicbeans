@@ -96,12 +96,14 @@ class ActivitiesController < ApplicationController
   end
 
   def tweet
+    require 'open-uri'
     begin
       message = params[:tweet][:message]
       share_event = Organizer.events(id: @activity.event_id).get
+      file = File.new(open(share_event.body["logo"]["url"]))
       if !message.blank?
         if share_event.body["logo"].present? && share_event.body["url"].present?
-          @send_tweet = @client.update_with_media(message + "\n" + share_event.body["url"], File.new(open(share_event.body["logo"]["url"])))
+          @send_tweet = @client.update_with_media(message + "\n" + share_event.body["url"], file)
           redirect_to activity_path(@activity), success: 'Successfully tweeted!'
         else
           redirect_to activity_path(@activity), notice: 'Please make sure Eventbrite event is created and event logo is uploaded. Try again.'
