@@ -21,5 +21,10 @@ module ApplicationHelper
 		end 
 		button = "<button type='button' class='btn btn-primary' onclick='add_field(this, \"#{association}\", \"#{escape_javascript(fields)}\")' formnovalidate data-loading-text='Loading...'><span class='glyphicon glyphicon-plus'></span></button>"
 		button.html_safe
-	end  
+	end
+
+	def image_for(img)
+		placeholder = "http://placehold.it/150x150"
+		img.url.nil? ? placeholder : img.url
+	end
 end

@@ -1,7 +1,7 @@
 <% if @program.errors.any? %>
   <div class="alert alert-danger alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <strong><%= pluralize(@user.errors.count, "error") %> prohibited this program from being saved:</strong>
+    <strong><%= pluralize(@program.errors.count, "error") %> prohibited this program from being saved:</strong>
 
     <ul>
       <% @program.errors.full_messages.each do |msg| %>
@@ -13,44 +13,63 @@
 
 <%= form_for @program, html: { role: "form" } do |f| %>
 <div class="row">
-  <div class="col-md-6 col-lg-7">
-    <h3>Program Details</h3>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Program Name") %>
+  <div class="col-lg-3 col-lg-offset-2">
+    <h3 class="no-margin-top">Speaker</h3>
+    <div class="well"> 
+      <div class="form-group">
+        <label for="image">Speaker Picture</label>
+        <%= f.file_field:speaker_img %>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <%= f.text_area(:description, class:"form-control", autofocus: true, placeholder: "Brief Program Description") %>
-    </div>
-    <div class="form-group">
+    <div class="well">
+      <div class="form-group">
       <label for="speaker">Speaker</label>
-      <%= f.text_field(:speaker, class:"form-control", autofocus: true, placeholder: "Speaker\'s Full Name") %>
-    </div>
-    <div class="form-group">
-      <label for="speakerbio">Biography</label>
-      <%= f.text_area(:speakerbio, class:"form-control", autofocus: true, placeholder: "Speaker\'s Biography") %>
-    </div>
-    <div class="form-group">
-      <label for="biourl">Link to Biography</label>
-      <%= f.text_field(:biourl, class:"form-control", autofocus: true, placeholder: "Biography URL") %>
-    </div>
-    <div class="form-group">
-      <label for="keytakeways">Key Takeaways</label>
-      <%= f.text_area(:keytakeways, class:"form-control", autofocus: true, placeholder: "Key Benefits") %>
-    </div>
-    <div class="form-group">
-      <label for="resources">Resources</label>
-      <%= f.text_area(:resources, class:"form-control", autofocus: true, placeholder: "Relevant Resources") %>
-    </div>
-    <div class="form-group">
-      <label for="tags">Tags</label>
-      <%= f.text_field(:tags, class:"form-control", autofocus: true, placeholder: "Relevant Tags") %>
+      <%= f.text_field(:speaker, class:"form-control", placeholder: "Speaker\'s Full Name") %>
+      </div>
+      <div class="form-group">
+        <label for="speakerbio">Biography</label>
+        <%= f.text_area(:speakerbio, class:"form-control", placeholder: "Speaker\'s Biography") %>
+      </div>
+      <div class="form-group">
+        <label for="biourl">Link to Biography</label>
+        <%= f.text_field(:biourl, class:"form-control", placeholder: "Biography URL") %>
+      </div>
     </div>
   </div>
 
-  <div class="col-md-6 col-lg-5">
-    <h3>Activities</h3>
+
+  <div class="col-lg-5">
+    <h3 class="no-margin-top">Program</h3>
+    <div class="well">
+      <div class="form-group">
+        <label for="image">Program Banner</label>
+        <%= f.file_field:program_img %>
+      </div>
+      <div class="form-group">
+        <label for="name">Program Name</label>
+        <%= f.text_field(:name, class:"form-control", autofocus: true, placeholder: "Program Name") %>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <%= f.text_area(:description, class:"form-control", placeholder: "Brief Program Description") %>
+      </div>
+      <div class="form-group">
+        <label for="keytakeways">Key Takeaways</label>
+        <%= f.text_area(:keytakeways, class:"form-control", placeholder: "Key Benefits") %>
+      </div>
+      <div class="form-group">
+        <label for="resources">Resources</label>
+        <%= f.text_area(:resources, class:"form-control", placeholder: "Relevant Resources") %>
+      </div>
+      <div class="form-group">
+        <label for="tags">Tags</label>
+        <%= f.text_field(:tag_list, class:"form-control", autofocus: true, placeholder: "Relevant Tags") %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8 col-lg-offset-2">
+    <h3 class="no-margin-top">Activities</h3>
     <div class="well" id="nested-well">
       <%= f.fields_for :activities do |af| %>
         <%= render partial: 'shared/activity_field', locals: {f: af} %>
@@ -61,15 +80,8 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12">
-    <div class="form-group">
-        <% if @program.new_record? %>
-            <%= f.submit 'Create', class: "btn btn-sm btn-primary" %>
-        <% else %>
-            <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
-            <%= link_to 'Show', @program, class: "btn btn-sm btn-info" %>
-        <% end %>
-        <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
-    </div>
+  <div class="col-lg-8 col-lg-offset-2">
+    <%= render partial: "actions", locals: {f: f} %>
+  </div>
 </div>
 <% end %>

@@ -1,26 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Magicbeans</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true, :debug => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true, :debug => true %>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.4.1/holder.js"></script>
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <%= csrf_meta_tags %>
-</head>
-<body>
-    <div id="wrapper">
-        <%= render 'layouts/navigation' %>
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Magicbeans</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true, :debug => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true, :debug => true %>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <%= csrf_meta_tags %>
+  </head>
+  <body data-no-turbolink="true">
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-        <!-- Page Content -->
-        <div id="page-wrapper">
-            <div class="container-fluid">
-              <%= render partial: "shared/flash_messages", flash: flash %>
-              <!-- yield the content -->
-              <%= yield %>
-            </div>
-        <!-- /.container-fluid -->
-        </div>
+
+    <div class="main">
+      <%= render 'layouts/navigation' %>
+      <%= render 'layouts/notification' %>
+
+      <div class="content">
+        <%= render partial: "shared/flash_messages", flash: flash %>
+        <%= yield %>
+      </div>
+    </div>
+    <div class="footer">
+      <p class="text-center">Made with <span class="glyphicon glyphicon-heart"></span> by PFS</p>
     </div>
 </body>
 </html>

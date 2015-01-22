@@ -21,7 +21,7 @@ $(document).on('ready page:load', function () {
   $("form").on('click', 'span[data-toggle="nestedfield"]', function() {
     var checkbox = $(this).children().eq(1);
     checkbox.prop('checked', true);
-    $(this).parents().eq(1).hide(250, function(){
+    $(this).parents().eq(2).hide(250, function(){
         $(this).hide();
       })
   });

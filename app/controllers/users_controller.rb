@@ -3,22 +3,34 @@ class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     load_and_authorize_resource
 
+    respond_to :html
+
     def new
         @user = User.new
         @roles = Role.all
 
-        respond_to do |format|
-          format.html # new.html.erb
-          format.json { render json: @user }
-        end
+        respond_with(@user)
+    end
+
+    def search_query
+        @users = User.all.where("name LIKE ?", "%#{params[:q]}%").limit(10).pluck(:name).map { |obj| {name: obj} }
+        render json: @users
     end
     
     def index
-        @users = User.all
+        if params[:search]
+            @users = User.search(params[:search]).order("created_at DESC")
+        else
+            @users = User.all
+        end
+
+        respond_with(@users)
     end
     
     def show
         @user = User.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+        redirect_to(root_url, alert: 'User not found')
     end
     
     def edit
@@ -32,7 +44,7 @@ class UsersController < ApplicationController
             assign_roles(params[:roles])
         end
         if @user.save
-            @log = Log.new(title: 'Created a new user', log_type: 'users', type_id: user.id)
+            @log = Log.new(title: 'Created a new user', log_type: 'users', type_id: @user.id)
             @log.save
             redirect_to users_path, success: 'User was successfully created.'
         else
@@ -59,20 +71,21 @@ class UsersController < ApplicationController
     
     def destroy
         if @user.destroy
+          redirect_to users_path, success: 'User was successfully deleted!'
         @log = Log.new(title: 'A user has been deleted', log_type: 'users', type_id: @user.id)
         @log.save
-          redirect_to users_path, success: 'User was successfully deleted!'
         else
           render action: 'index'
         end
     end
+
     
-    private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
         @user = User.find(params[:id])  
         rescue ActiveRecord::RecordNotFound
-        redirect_to(root_url, alert: 'User not found')
+        redirect_to(root_url, alert: 'User not found') 
     end
 
     def assign_roles(roles)
@@ -86,6 +99,7 @@ class UsersController < ApplicationController
             end
         end
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params

@@ -1,18 +1,30 @@
-<h1><%= @program.name %></h1>
+<div class="show-main" style="background-image: linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ), url(<%= @program.program_img.url.nil? ? "http://placehold.it/1600x400" : @program.program_img.url %>)">
+  <h1><%= @program.name %></h1>
+</div>
 
 <section class="row">
-  <div class="col-lg-3">
+  <div class="col-lg-10 col-lg-offset-1">
+    <div class="form-group">
+      <%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+      <% if can? :edit, @program %>
+          <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-lg-offset-1">
     <div class="well">
       <dl>
-        <dt><h4>Speaker: </h4></dt>
-        <img class="center-block img-responsive" src="holder.js/300x300/#c0c0c0:#535353">
+        <dt>Speaker: </dt>
+        <img class="center-block img-circle wh-150" src="<%= image_for(@program.speaker_img) %>">
         <dd class="text-center"><%= @program.speaker %></dd>
       </dl>
     </div>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-7">
     <div class="well">
-      <h4>
         <dl class="dl-horizontal">
           <dt>Description:</dt>
           <dd><%= @program.description %></dd>
@@ -34,25 +46,8 @@
           </dd>
 
           <dt>Tags:</dt>
-          <dd><%= @program.tags %></dd>
+          <dd><%= @program.tag_list.each { |t| t } %></dd>
         </dl>
-      </h4>
-    </div>
-  </div>
-  <div class="col-lg-3">
-    <div class="well">
-      <div class="form-group">
-        <button class="btn btn-block btn-success">Post on Facebook</button>
-        <button class="btn btn-block btn-success">Post on Twitter</button>
-        <button class="btn btn-block btn-success">Post on Instagram</button>
-      </div>
     </div>
   </div>
 </section>
-
-<div class="form-group">
-  <% if can? :edit, @program %>
-      <%= link_to 'Edit', edit_program_path(@program), class: "btn btn-sm btn-warning" %>
-  <% end %>
-  <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-default" %>
-</div>

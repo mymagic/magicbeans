@@ -1,5 +1,8 @@
-<div class="page-header">
-    <h1>Edit user: <%= @user.name %></h1>
+<div class="header-container row">
+    <div class="col-lg-6 col-lg-offset-3">
+		<h1 class="header">Editing user: <%= @user.name %></h1>
+		<%= link_to 'Back', url_for(:back), class: "btn btn-default" %>
+		<%= link_to 'Show', @user, class: "btn btn-primary" %>
+	</div>
 </div>
-
 <%= render 'form' %>

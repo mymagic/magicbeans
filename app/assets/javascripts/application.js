@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require timeago/jquery.timeago
+//= require typeahead.js/dist/typeahead.bundle.min
 //= require_tree .

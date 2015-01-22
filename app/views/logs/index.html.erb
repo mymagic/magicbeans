@@ -1,25 +1,34 @@
-<div class="page-header">
-    <h1>Audit Trail</h1>
+<div class="header-container">
+  <h1 class="header">Audit Trail</h1>
 </div>
 
-<div class="table-responsive">
-  <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Time</th>
-            </tr>
-        </thead>
+<div class="well">   
+    <div class="table-responsive">
+      <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
 
-        <tbody>
-        <% @logs.each do |log| %>
-            <tr>
-                <td><a href="<%= send(log.log_type.singularize + "_path", log.type_id) %>"><%= log.title %></a></td>
-                <td><%= log.log_type %></td>
-                <td><%="#{time_ago_in_words(log.created_at)} ago"%></td>
-            </tr>
-        <% end %>
-        </tbody>
-  </table>
+            <tbody>
+            <% @logs.each do |log| %>
+                <tr>
+                    <td><a href="<%= send(log.log_type.singularize + "_path", log.type_id) %>"><%= log.title %></a></td>
+                    <td><%= log.log_type %></td>
+                    <td><%="#{time_ago_in_words(log.created_at)} ago"%></td>
+                </tr>
+            <% end %>
+            </tbody>
+      </table>
+    </div>
 </div>
+
+<nav>
+  <ul class="pager">
+    <li><a href="#">Previous</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+</nav>

@@ -1,0 +1,40 @@
+<div class="header-container">
+  <h1 class="header">Attendees for <%= @activity.name %></h1>
+</div>
+
+<div class="well">   
+    <div class="table-responsive">
+      <table class="table table-condensed">
+            <thead>
+                <tr>
+                	<th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <% @attendees.each do |a| %>
+                <tr>
+                	<td><%= a["id"] %></td>
+                    <td><%= a["profile"]["name"] %></td>
+                    <td><%= a["profile"]["email"] %></td>
+                    <td><%= a["profile"]["address"] %></td>
+                    <td><%= a["status"] %></td>
+                    <td><%= a["costs"]["payment_fee"]["display"] %></td>
+                </tr>
+            <% end %>
+            </tbody>
+      </table>
+    </div>
+</div>
+
+<nav>
+  <ul class="pager">
+    <li><a href="#">Previous</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+</nav>
