@@ -100,13 +100,13 @@ class ActivitiesController < ApplicationController
     begin
       message = params[:tweet][:message]
       share_event = Organizer.events(id: @activity.event_id).get
-      file = File.new(open(@activity.activity_img.url).path)
       if !message.blank?
-        if share_event.body["logo"].present? && share_event.body["url"].present?
+        if share_event.body["logo"].present? && @activity.activity_img.url.present?
+          file = File.new(open(@activity.activity_img.url).path)
           @send_tweet = @client.update_with_media(message + "\n" + share_event.body["url"], file)
           redirect_to activity_path(@activity), success: 'Successfully tweeted!'
         else
-          redirect_to activity_path(@activity), notice: 'Please make sure Eventbrite event is created and event logo is uploaded. Try again.'
+          redirect_to activity_path(@activity), notice: 'Please make sure Eventbrite event is created and activity image is uploaded. Try again.'
         end
       else      
         redirect_to activity_path(@activity), alert: 'Message cannot be blank. Try again!'
