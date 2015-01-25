@@ -99,9 +99,9 @@ class ActivitiesController < ApplicationController
     require 'open-uri'
     begin
       message = params[:tweet][:message]
+      share_event = Organizer.events(id: @activity.event_id).get
       if !message.blank?
         if share_event.body["logo"].present? && @activity.activity_img.url.present?
-          share_event = Organizer.events(id: @activity.event_id).get
           file = File.new(open(@activity.activity_img.url).path)
           @send_tweet = @client.update_with_media(message + "\n" + share_event.body["url"], file)
           redirect_to activity_path(@activity), success: 'Successfully tweeted!'
